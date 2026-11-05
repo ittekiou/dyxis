@@ -35,6 +35,13 @@
   .node.missing circle { stroke: var(--dim); stroke-dasharray: 4 3; }
   .node.fresh1 circle { fill: #1f4f86; }   /* 仕入れの前24時間以内に新着 */
   .node.fresh7 circle { fill: #15263b; }   /* 7日以内に新着 */
+  /* 24時間以内に新着のある巣は、ゆっくり呼吸する */
+  .node.fresh1 circle { animation: breathe 4s ease-in-out infinite; }
+  @keyframes breathe {
+    0%, 100% { fill: #1f4f86; stroke: var(--fg); }
+    50%      { fill: #3a78c2; stroke: var(--blue); }
+  }
+  @media (prefers-reduced-motion: reduce) { .node.fresh1 circle { animation: none; } }
   .node text { fill: var(--fg); font-size: 13px; text-anchor: middle; pointer-events: none; }
   .node.missing text { fill: var(--dim); }
   .edge { stroke: var(--sub); stroke-width: 1.2; fill: none; }
