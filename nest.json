@@ -9,5 +9,7 @@
   "links": [
     { "title": "camp-us.net", "url": "https://camp-us.net/" }
   ],
-  "nests": []
+  "nests": [
+    { "name": "EAT-IF", "url": "https://ittekiou.github.io/EAT-IF/" }
+  ]
 }
