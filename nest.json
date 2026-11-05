@@ -14,6 +14,10 @@
   ],
   "nests": [
     {
+      "name": "LOCUS｜一狄 啓",
+      "url": "https://camp-us.net/locus/"
+    },
+    {
       "name": "EAT-IF",
       "url": "https://ittekiou.github.io/EAT-IF/"
     },
