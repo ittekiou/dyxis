@@ -25,10 +25,16 @@
   main { max-width: 960px; margin: 0 auto; padding: 16px; }
   h2 { font-size: 15px; font-weight: 600; color: var(--sub); letter-spacing: 0.08em; margin: 32px 0 8px; }
   #status { color: var(--sub); font-size: 14px; text-align: center; min-height: 1.6em; }
+  #from { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 4px 0 8px; }
+  #from input { flex: 1 1 260px; max-width: 420px; background: var(--card); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font: inherit; font-size: 14px; }
+  #from button { background: none; color: var(--blue); border: 1px solid var(--blue); border-radius: 8px; padding: 8px 14px; font: inherit; font-size: 14px; cursor: pointer; }
+  #from a { color: var(--sub); font-size: 13px; align-self: center; }
   #map { width: 100%; height: auto; display: block; }
   .node circle { fill: var(--card); stroke: var(--fg); stroke-width: 1.5; cursor: pointer; }
   .node.start circle { stroke: var(--blue); stroke-width: 2.5; }
   .node.missing circle { stroke: var(--dim); stroke-dasharray: 4 3; }
+  .node.fresh1 circle { fill: #1f4f86; }   /* 仕入れの前24時間以内に新着 */
+  .node.fresh7 circle { fill: #15263b; }   /* 7日以内に新着 */
   .node text { fill: var(--fg); font-size: 13px; text-anchor: middle; pointer-events: none; }
   .node.missing text { fill: var(--dim); }
   .edge { stroke: var(--sub); stroke-width: 1.2; fill: none; }
@@ -37,6 +43,11 @@
   .legend span::before { content: ""; display: inline-block; width: 22px; height: 0; vertical-align: middle; margin-right: 6px; border-top: 2px solid var(--sub); }
   .legend .m::before { border-top-color: var(--blue); }
   .legend .x::before { border-top: 2px dashed var(--dim); width: 12px; height: 12px; border-radius: 50%; border: 2px dashed var(--dim); }
+  .legend .f1::before, .legend .f7::before { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--fg); }
+  .legend .f1::before { background: #1f4f86; }
+  .legend .f7::before { background: #15263b; }
+  .legend .fresh { display: none; }
+  .legend.has-feeds .fresh { display: inline; }
   .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
   .card a.name { color: var(--fg); font-weight: 600; text-decoration: none; }
@@ -68,6 +79,11 @@
 </header>
 
 <main>
+  <form id="from">
+    <input id="startUrl" type="url" placeholder="あなたの巣の住所（例：https://example.github.io/nest/）" aria-label="出発点にする巣の住所">
+    <button type="submit">この巣から見る</button>
+    <a id="backHome" href="./commons.html" hidden>DyXisから見る</a>
+  </form>
   <div id="status">巣をたどっています…</div>
   <svg id="map" viewBox="0 0 800 560" role="img" aria-label="Nestのつながり">
     <defs>
@@ -85,6 +101,8 @@
     <span>一方の参照</span>
     <span class="m">相互参照</span>
     <span class="x">取得できなかった巣</span>
+    <span class="fresh f1">24時間以内に新着</span>
+    <span class="fresh f7">7日以内に新着</span>
   </div>
 
   <h2>NESTS</h2>
@@ -95,7 +113,8 @@
 <footer>
   JSONから確認できるのは相互参照まで。相互認知や交流は推定しない。<br>
   updated は自己申告の日付。表示の差は「記載された更新日から取得時点までの経過」。<br>
-  新着は、別荘が一日一回、各巣の feeds から仕入れたもの。「公開」は記事の側の時刻、「仕入れ」は別荘が取りに行った時刻。<br>
+  新着は、別荘が一日二回、各巣の feeds から仕入れたもの。「公開」は記事の側の時刻、「仕入れ」は別荘が取りに行った時刻。<br>
+  円の色は、仕入れた時点でいちばん新しい記事の公開がどれだけ前だったか。巣が動いたかどうかの目安で、誰かが読んだかどうかではない。<br>
   <a href="./">基本構想</a> ・ <a href="NEST-SPEC.html">nest.json 仕様</a>
 </footer>
 
@@ -178,7 +197,7 @@
     let nh = "";
     for (const n of nodes.values()) {
       const p = pos.get(n.url); if (!p) continue;
-      const cls = ["node", n.url === START ? "start" : "", n.ok ? "" : "missing"].join(" ");
+      const cls = ["node", n.url === START ? "start" : "", n.ok ? "" : "missing", freshness(n.url)].join(" ");
       const label = String(n.name).split("｜")[0].slice(0, 10);
       nh += `<g class="${cls}" data-url="${esc(n.url)}"><title>${esc(n.name)}\n${esc(n.url)}</title>
         <circle cx="${p.x}" cy="${p.y}" r="${r}"/><text x="${p.x}" y="${p.y + 4}">${esc(label)}</text></g>`;
@@ -223,14 +242,35 @@
       <span class="lag">公開 ${esc(fmt(it.published))} ／ 仕入れ ${esc(fmt(it.fetched))}${it.published ? `（${lagText(it.published, it.fetched)}後）` : ""}</span></li>`).join("");
     return `<ul class="news">${li}</ul>`;
   }
+  // 円の色：仕入れた時点から見て、いちばん新しい記事がどれだけ前に公開されたか
+  function freshness(url) {
+    const f = FEEDS && FEEDS.nests && FEEDS.nests[url];
+    if (!f || !FEEDS.collected_at) return "";
+    const ts = (f.items || []).map(it => Date.parse(it.published)).filter(t => !isNaN(t));
+    if (!ts.length) return "";
+    const h = (Date.parse(FEEDS.collected_at) - Math.max(...ts)) / 3600000;
+    return h <= 24 ? "fresh1" : h <= 24 * 7 ? "fresh7" : "";
+  }
   async function loadFeeds() {
-    if (START !== norm(here)) return;  // 起点を変えたときは、この別荘の仕入れは出さない
     try { const r = await fetch("feeds.json", { cache: "no-store" }); if (r.ok) FEEDS = await r.json(); } catch {}
   }
 
+  // 出発点の切り替え
+  const input = document.getElementById("startUrl");
+  if (START !== norm(here)) { input.value = START; document.getElementById("backHome").hidden = false; }
+  document.getElementById("from").addEventListener("submit", e => {
+    e.preventDefault();
+    const v = input.value.trim(); if (!v) return;
+    const u = new URL(location.href); u.search = ""; u.searchParams.set("start", norm(v));
+    location.href = u.href;
+  });
+
   Promise.all([crawl(), loadFeeds()]).then(() => {
     draw(); cards();
-    if (FEEDS && FEEDS.collected_at) document.getElementById("collected").textContent = `新着の仕入れ：${fmt(FEEDS.collected_at)}（一日一回）`;
+    if (FEEDS && FEEDS.collected_at) {
+      document.getElementById("collected").textContent = `新着の仕入れ：${fmt(FEEDS.collected_at)}（一日二回）`;
+      document.querySelector(".legend").classList.add("has-feeds");
+    }
     const ok = [...nodes.values()].filter(n => n.ok).length;
     document.getElementById("status").textContent = `${ok} の巣をたどった（起点：${START}）`;
   });
