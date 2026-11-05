@@ -7,9 +7,31 @@
   "updated": "2026-11-05",
   "feeds": [],
   "links": [
-    { "title": "camp-us.net", "url": "https://camp-us.net/" }
+    {
+      "title": "camp-us.net",
+      "url": "https://camp-us.net/"
+    }
   ],
   "nests": [
-    { "name": "EAT-IF", "url": "https://ittekiou.github.io/EAT-IF/" }
+    {
+      "name": "EAT-IF",
+      "url": "https://ittekiou.github.io/EAT-IF/"
+    },
+    {
+      "name": "響詠｜Kyoei",
+      "url": "https://ittekiou.github.io/EAT-IF/kyoei/"
+    },
+    {
+      "name": "綴音｜Tsuzune",
+      "url": "https://ittekiou.github.io/EAT-IF/tsuzune/"
+    },
+    {
+      "name": "謡理｜Youri",
+      "url": "https://ittekiou.github.io/EAT-IF/youri/"
+    },
+    {
+      "name": "CESE PEC｜排泄猛者倶楽部",
+      "url": "https://ittekiou.github.io/CESE-PEC/"
+    }
   ]
 }
