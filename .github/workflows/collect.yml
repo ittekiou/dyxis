@@ -3,6 +3,7 @@ name: Collect feeds
 on:
   schedule:
     - cron: "17 21 * * *"   # 毎日 06:17（日本時間）
+    - cron: "47 3 * * *"    # 毎日 12:47（日本時間）
   workflow_dispatch:         # Actions の画面から手で動かすこともできる
 
 permissions:
