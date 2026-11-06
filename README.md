@@ -6,7 +6,7 @@
 
 *SNS Next ≠ SNS.*
 
-[DyXis の入口](https://ittekiou.github.io/dyxis/)
+👉 [DyXis の入口](https://ittekiou.github.io/dyxis/)
 
 ---
 
