@@ -1,0 +1,31 @@
+name: 巣を載せてください
+description: 別荘 DyXis の地図に、あなたの巣（Nest）を載せてほしいとき
+title: "巣を載せてください"
+labels: ["載せる"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        別荘 DyXis の名札（nest.json）に、あなたの巣を書き足します。書き足されると、地図の矢印が両向きになります。
+
+        - 巣の住所の下に `nest.json` が置いてあるか、先に確かめてください（`https://…/nest.json` を開いて中身が見えれば OK）。
+        - ここに書いたことは、だれでも読める場所に公開されます。巣の名前と住所のほかに、個人的なことは書かないでください。
+  - type: input
+    id: nest_name
+    attributes:
+      label: 巣の名前
+      placeholder: 例：CESE PEC｜排泄猛者倶楽部
+    validations:
+      required: true
+  - type: input
+    id: nest_url
+    attributes:
+      label: 巣の住所
+      description: 最後は / で終わります。
+      placeholder: https://example.github.io/nest/
+    validations:
+      required: true
+  - type: textarea
+    id: note
+    attributes:
+      label: ひとこと（なくてもOK）
