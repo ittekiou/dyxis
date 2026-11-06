@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DyXis｜巣をつくる</title>
+<style>
+  :root {
+    --bg: #000; --fg: #f2f2f2; --sub: #a8a8a8; --dim: #5c5c5c;
+    --blue: #6aa8f0; --line: #3a3a3a; --card: #0e0e0e; --warn: #e8b04a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", sans-serif;
+    line-height: 1.7;
+  }
+  header { text-align: center; padding: 32px 16px 4px; }
+  .brand { font-size: 40px; font-weight: 700; margin: 0; line-height: 1.1; }
+  .brand .x { color: var(--blue); }
+  header p { color: var(--sub); margin: 8px 0 0; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 16px; margin: 0 0 16px; }
+  h2 { font-size: 17px; margin: 0 0 4px; }
+  h2 .step { color: var(--blue); margin-right: 6px; }
+  .hint { color: var(--sub); font-size: 13px; margin: 0 0 12px; }
+  label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 4px; }
+  label .opt { color: var(--dim); font-weight: 400; margin-left: 6px; }
+  label .req { color: var(--blue); font-weight: 400; margin-left: 6px; }
+  .note { color: var(--dim); font-size: 12px; margin: 4px 0 0; }
+  .note.warn { color: var(--warn); }
+  input, textarea {
+    width: 100%; background: #000; color: var(--fg); border: 1px solid var(--line);
+    border-radius: 8px; padding: 9px 10px; font: inherit; font-size: 15px;
+  }
+  input:focus, textarea:focus { outline: none; border-color: var(--blue); }
+  textarea { min-height: 72px; resize: vertical; }
+  .row { display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 8px; margin: 8px 0; align-items: center; }
+  .row input { font-size: 14px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr auto; } .row input:nth-child(2) { grid-column: 1 / 2; } }
+  button {
+    background: none; color: var(--blue); border: 1px solid var(--blue); border-radius: 8px;
+    padding: 8px 14px; font: inherit; font-size: 14px; cursor: pointer;
+  }
+  button:hover { background: rgba(106,168,240,.12); }
+  button.main { background: var(--blue); color: #000; font-weight: 600; }
+  button.main:hover { background: #8cbdf4; }
+  button.del { color: var(--sub); border-color: var(--line); padding: 6px 10px; }
+  .buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .load { display: flex; gap: 8px; flex-wrap: wrap; }
+  .load input { flex: 1 1 260px; }
+  pre {
+    background: #000; border: 1px solid var(--line); border-radius: 8px; padding: 12px;
+    font-size: 13px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; margin: 10px 0 0;
+  }
+  #msg { min-height: 1.4em; font-size: 13px; color: var(--sub); margin-top: 8px; }
+  ol.place { margin: 8px 0 0; padding-left: 1.3em; color: var(--sub); font-size: 14px; overflow-wrap: anywhere; }
+  ol.place code, .hint code { color: var(--fg); }
+  a { color: var(--blue); }
+  footer { text-align: center; color: var(--dim); font-size: 12px; padding: 24px 16px 48px; }
+  footer a { color: var(--sub); }
+</style>
+</head>
+<body>
+<header>
+  <h1 class="brand">Dy<span class="x">X</span>is</h1>
+  <p>巣をつくる ── nest.json を書かずに、nest.json をつくる</p>
+</header>
+
+<main>
+  <section>
+    <h2><span class="step">0</span>すでに巣がある人は（なければ飛ばしてOK）</h2>
+    <p class="hint">巣の住所を入れて「読み込む」を押すと、今の中身が下の欄に入ります。そこから直せます。</p>
+    <div class="load">
+      <input id="loadUrl" type="url" placeholder="https://example.github.io/nest/" aria-label="読み込む巣の住所">
+      <button id="loadBtn" type="button">読み込む</button>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step">1</span>巣のこと</h2>
+    <p class="hint">この三つだけは必ず書きます。</p>
+
+    <label for="name">name：巣の名前<span class="req">必須</span></label>
+    <input id="name" placeholder="例：CESE PEC｜排泄猛者倶楽部">
+
+    <label for="url">url：巣の住所<span class="req">必須</span></label>
+    <input id="url" type="url" placeholder="例：https://example.github.io/nest/">
+    <p class="note" id="urlNote">ブラウザでその巣を開いたときの住所です。最後は必ず <code>/</code> で終わります（つけ忘れても、こちらで足します）。</p>
+
+    <label for="about">about：かんたんな自己紹介<span class="req">必須</span></label>
+    <textarea id="about" placeholder="例：どっかでつながっとく。以上。"></textarea>
+    <p class="note" id="aboutNote">80字くらいまでがおすすめ。地図のカードにそのまま出ます。</p>
+  </section>
+
+  <section>
+    <h2><span class="step">2</span>自分のフィード<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">なくてもOK</span></h2>
+    <p class="hint">ブログやnoteなどのRSSの住所です。書いておくと、別荘があなたの新着を仕入れて、地図の円が光ります。</p>
+    <div id="feeds"></div>
+    <div class="buttons">
+      <button type="button" id="addFeed">＋ 自分のフィードを足す</button>
+      <button type="button" id="addCommits" hidden>＋ GitHubの書き込みをフィードにする</button>
+    </div>
+    <p class="note">noteなら <code>https://note.com/（あなたのID）/rss</code> です。</p>
+  </section>
+
+  <section>
+    <h2><span class="step">3</span>知っている巣<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">なくてもOK</span></h2>
+    <p class="hint">つながりたい巣の名前と住所です。ここに書くと、地図に矢印が一本伸びます。相手が書き返してくれたら、矢印は両向きになります。</p>
+    <div id="nests"></div>
+    <div class="buttons">
+      <button type="button" id="addNest">＋ 知っている巣を足す</button>
+      <button type="button" id="addDyXis">＋ DyXis を足す</button>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step">4</span>できあがり</h2>
+    <p class="hint">下の中身が、あなたの nest.json です。ダウンロードするか、コピーして使ってください。</p>
+    <div class="buttons">
+      <button type="button" class="main" id="download">nest.json をダウンロード</button>
+      <button type="button" id="copy">コピー</button>
+    </div>
+    <div id="msg"></div>
+    <pre id="out"></pre>
+    <ol class="place">
+      <li>できた <code>nest.json</code> を、巣のいちばん上の階層（index.html や README.md と同じ場所）に置きます。</li>
+      <li>ブラウザで <code id="checkUrl">（住所）nest.json</code> を開いて、中身が見えれば完成です。</li>
+      <li>DyXis の地図に載せてほしいときは、声をかけてください。</li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <a href="./">基本構想</a> ・ <a href="commons.html">Commons（地図）</a> ・ <a href="NEST-SPEC.html">nest.json 仕様</a>
+</footer>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const DYXIS = { name: "DyXis", url: "https://ittekiou.github.io/dyxis/" };
+  let extra = {};   // 読み込んだ巣にあった、この画面で扱わない項目（links など）はそのまま残す
+
+  const slash = u => { u = (u || "").trim(); if (!u) return ""; u = u.split("#")[0].split("?")[0]; return u.endsWith("/") ? u : u + "/"; };
+  const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+
+  function addRow(box, a, b, phA, phB, values = ["", ""]) {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `<input placeholder="${phA}" aria-label="${phA}"><input type="url" placeholder="${phB}" aria-label="${phB}"><button type="button" class="del" aria-label="この行を消す">消す</button>`;
+    const [i1, i2, del] = row.children;
+    i1.value = values[0] || ""; i2.value = values[1] || "";
+    i1.dataset.key = a; i2.dataset.key = b;
+    row.addEventListener("input", render);
+    del.addEventListener("click", () => { row.remove(); render(); });
+    $(box).appendChild(row);
+    render();
+    return row;
+  }
+  const addFeed = v => addRow("feeds", "title", "url", "フィードの名前（例：わたしのnote）", "RSSの住所（https://…）", v);
+  const addNest = v => addRow("nests", "name", "url", "巣の名前（例：DyXis）", "巣の住所（https://…/）", v);
+
+  function rows(box) {
+    return [...$(box).querySelectorAll(".row")].map(r => {
+      const [i1, i2] = r.querySelectorAll("input");
+      return { [i1.dataset.key]: i1.value.trim(), [i2.dataset.key]: i2.value.trim() };
+    }).filter(o => Object.values(o).some(Boolean));
+  }
+
+  // github.io の巣なら、そのリポジトリの書き込み（コミット）をフィードにできる
+  function commitsFeed() {
+    const m = slash($("url").value).match(/^https:\/\/([^.\/]+)\.github\.io\/([^\/]+)\//i);
+    return m ? `https://github.com/${m[1]}/${m[2]}/commits/main.atom` : "";
+  }
+
+  function build() {
+    const url = slash($("url").value);
+    const nests = rows("nests").map(n => ({ name: n.name, url: slash(n.url) }));
+    return Object.assign({
+      sll: "0.1",
+      name: $("name").value.trim(),
+      url,
+      about: $("about").value.trim(),
+      lang: "ja",
+      updated: today(),
+      feeds: rows("feeds"),
+      links: [],
+      nests
+    }, extra, {
+      sll: "0.1", name: $("name").value.trim(), url, about: $("about").value.trim(),
+      updated: today(), feeds: rows("feeds"), nests
+    });
+  }
+
+  function render() {
+    const d = build();
+    $("out").textContent = JSON.stringify(d, null, 2);
+    $("checkUrl").textContent = (d.url || "（住所）") + "nest.json";
+    const raw = $("url").value.trim();
+    const un = $("urlNote");
+    if (raw && !/^https?:\/\//.test(raw)) { un.textContent = "住所は https:// から始まります。"; un.className = "note warn"; }
+    else if (raw && !raw.endsWith("/")) { un.textContent = "最後に / がないので、こちらで足しました：" + slash(raw); un.className = "note"; }
+    else { un.textContent = "ブラウザでその巣を開いたときの住所です。最後は必ず / で終わります（つけ忘れても、こちらで足します）。"; un.className = "note"; }
+    const n = [...$("about").value.trim()].length, an = $("aboutNote");
+    an.textContent = `${n}字。80字くらいまでがおすすめ。地図のカードにそのまま出ます。`;
+    an.className = n > 120 ? "note warn" : "note";
+    $("addCommits").hidden = !commitsFeed();
+  }
+
+  function missing() {
+    const d = build(), m = [];
+    if (!d.name) m.push("name（巣の名前）");
+    if (!d.url) m.push("url（巣の住所）");
+    if (!d.about) m.push("about（自己紹介）");
+    return m;
+  }
+  function say(t) { $("msg").textContent = t; }
+
+  ["name", "url", "about"].forEach(id => $(id).addEventListener("input", render));
+  $("addFeed").addEventListener("click", () => addFeed().querySelector("input").focus());
+  $("addNest").addEventListener("click", () => addNest().querySelector("input").focus());
+  $("addDyXis").addEventListener("click", () => {
+    if (rows("nests").some(n => slash(n.url) === DYXIS.url)) return say("DyXis はもう入っています。");
+    addNest([DYXIS.name, DYXIS.url]); say("DyXis を足しました。");
+  });
+  $("addCommits").addEventListener("click", () => {
+    const f = commitsFeed();
+    if (rows("feeds").some(x => x.url === f)) return say("その書き込みフィードはもう入っています。");
+    addFeed([($("name").value.trim() || "この巣") + " の書き込み（GitHub）", f]);
+    say("このリポジトリへの書き込みが、新着として流れるようになります。");
+  });
+
+  $("download").addEventListener("click", () => {
+    const m = missing();
+    if (m.length) return say("まだ書いていない欄があります：" + m.join("、"));
+    const blob = new Blob([$("out").textContent + "\n"], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "nest.json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    say("nest.json をダウンロードしました。");
+  });
+  $("copy").addEventListener("click", async () => {
+    const m = missing();
+    if (m.length) return say("まだ書いていない欄があります：" + m.join("、"));
+    try { await navigator.clipboard.writeText($("out").textContent + "\n"); say("コピーしました。"); }
+    catch { say("コピーできませんでした。下の中身を選んで、手でコピーしてください。"); }
+  });
+
+  $("loadBtn").addEventListener("click", async () => {
+    const u = slash($("loadUrl").value);
+    if (!u) return say("読み込む巣の住所を入れてください。");
+    $("msg").textContent = "読み込んでいます…";
+    try {
+      const r = await fetch(u + "nest.json", { cache: "no-store" });
+      if (!r.ok) throw new Error(r.status);
+      const d = await r.json();
+      const { sll, name, url, about, updated, feeds, nests, ...rest } = d;
+      extra = rest;
+      $("name").value = name || ""; $("url").value = url || u; $("about").value = about || "";
+      $("feeds").innerHTML = ""; $("nests").innerHTML = "";
+      (feeds || []).forEach(f => addFeed([f.title, f.url]));
+      (nests || []).forEach(n => addNest([n.name, n.url]));
+      render();
+      say("読み込みました。直したら、4 でダウンロードしてください。更新日は今日の日付になります。");
+      $("name").scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (e) {
+      say("読み込めませんでした（" + u + "nest.json）。住所が合っているか確かめてください。");
+    }
+  });
+
+  const pre = new URLSearchParams(location.search).get("load");
+  if (pre) { $("loadUrl").value = pre; $("loadBtn").click(); }
+  render();
+})();
+</script>
+</body>
+</html>
