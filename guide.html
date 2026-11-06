@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DyXis｜はじめての方へ</title>
+<style>
+  :root {
+    --bg: #000; --fg: #f2f2f2; --sub: #a8a8a8; --dim: #5c5c5c;
+    --blue: #6aa8f0; --line: #3a3a3a; --card: #0e0e0e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", sans-serif;
+    line-height: 1.85;
+  }
+  header { text-align: center; padding: 36px 16px 8px; }
+  .brand { font-size: 40px; font-weight: 700; margin: 0; line-height: 1.1; }
+  .brand .x { color: var(--blue); }
+  header p { color: var(--sub); margin: 10px 0 0; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  nav.toc { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin: 0 0 20px; font-size: 14px; }
+  nav.toc ol { margin: 0; padding-left: 1.4em; }
+  nav.toc a { color: var(--sub); text-decoration: none; }
+  nav.toc a:hover { color: var(--blue); }
+  section { margin: 0 0 36px; }
+  h2 { font-size: 21px; margin: 0 0 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+  h2 .n { color: var(--blue); margin-right: 8px; }
+  h3 { font-size: 16px; margin: 20px 0 4px; }
+  p { margin: 8px 0; }
+  .lead { color: var(--sub); }
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 12px 0; }
+  .box p:first-child { margin-top: 0; }
+  .box p:last-child { margin-bottom: 0; }
+  dl { margin: 8px 0; }
+  dt { font-weight: 600; margin-top: 14px; }
+  dt .en { color: var(--dim); font-weight: 400; margin-left: 6px; font-size: 13px; }
+  dd { margin: 2px 0 0; color: var(--sub); }
+  ol.steps { padding-left: 1.4em; }
+  ol.steps > li { margin: 0 0 14px; }
+  ol.steps b { color: var(--fg); }
+  .principles { list-style: none; padding: 0; margin: 12px 0; }
+  .principles li { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 8px 0; }
+  .principles b { display: block; }
+  .principles span { color: var(--sub); font-size: 14px; }
+  code { background: #161616; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-size: 0.92em; overflow-wrap: anywhere; }
+  a { color: var(--blue); }
+  .go { display: inline-block; margin: 6px 8px 0 0; padding: 8px 14px; border: 1px solid var(--blue); border-radius: 8px; text-decoration: none; font-size: 14px; }
+  .go.main { background: var(--blue); color: #000; font-weight: 600; }
+  .more { text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 16px; }
+  footer { text-align: center; color: var(--dim); font-size: 12px; padding: 24px 16px 48px; }
+  footer a { color: var(--sub); }
+  nav.site { text-align: center; font-size: 13px; color: var(--dim); margin: 14px 0 0; padding: 0 16px; }
+  nav.site a { color: var(--sub); text-decoration: none; }
+  nav.site a:hover { color: var(--blue); }
+  nav.site b { color: var(--fg); font-weight: 600; }
+  footer nav.site { margin: 0 0 14px; padding: 0; }
+  footer .credit { margin: 14px auto 0; max-width: 640px; line-height: 1.8; }
+</style>
+</head>
+<body>
+<header>
+  <h1 class="brand">Dy<span class="x">X</span>is</h1>
+  <p>はじめての方へ ── ゼロからわかる DyXis</p>
+</header>
+<nav class="site"><a href="./">基本構想</a> ・ <b>はじめての方へ</b> ・ <a href="maker.html">巣をつくる</a> ・ <a href="commons.html">地図（Commons）</a> ・ <a href="NEST-SPEC.html">仕様案</a></nav>
+
+<main>
+  <nav class="toc" aria-label="目次">
+    <ol>
+      <li><a href="#what">DyXis ってなに？</a></li>
+      <li><a href="#github">GitHub ってなに？</a></li>
+      <li><a href="#sll">SLL ってなに？</a></li>
+      <li><a href="#words">このページで使うことば</a></li>
+      <li><a href="#principles">三つの約束ごと</a></li>
+      <li><a href="#start">巣を置いてみよう</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ol>
+  </nav>
+
+  <section id="what">
+    <h2><span class="n">1</span>DyXis ってなに？</h2>
+    <p>DyXis（ダイクシス）は、<b>インターネットのあちこちにある「自分の場所」どうしを、ゆるくつなぐしくみ</b>です。</p>
+    <p>ブログ、note、自分のホームページ。みんなすでに、どこかに自分の場所を持っています。DyXis は新しいSNSを作るのではなく、そうした場所はそのままにして、場所と場所のあいだにトンネルを通します。</p>
+    <div class="box">
+      <p>やることは一つだけ。<b>自分の場所に、小さな名札のファイルを一枚置く。</b>それだけです。</p>
+      <p>名札には「この場所の名前」「自己紹介」「知っている場所」が書いてあります。その名札をたどっていくと、場所と場所のつながりが一枚の地図になります。</p>
+    </div>
+    <p>中央のサーバーも、会員登録も、フォローボタンもありません。だれかが全体を管理しているわけでもありません。</p>
+    <p class="lead">名前の由来は deixis（ダイクシス）。「ここ・いま・わたし」のように、話し手の居場所から指し示すことばのことです。</p>
+  </section>
+
+  <section id="github">
+    <h2><span class="n">2</span>GitHub ってなに？</h2>
+    <p>GitHub（ギットハブ）は、<b>ファイルをインターネット上に預けておける場所</b>です。もともとはプログラムを書く人たちのための道具ですが、文章や画像を置くのにも使えます。アカウントは無料で作れます。</p>
+    <dl>
+      <dt>リポジトリ<span class="en">repository</span></dt>
+      <dd>ファイルを入れておく箱（フォルダ）のことです。箱ごとに名前がつきます。</dd>
+      <dt>GitHub Pages<span class="en">ギットハブ・ページズ</span></dt>
+      <dd>リポジトリの中身を、そのままホームページとして公開してくれる機能です。無料です。公開すると <code>https://（あなたの名前）.github.io/（箱の名前）/</code> という住所ができます。</dd>
+      <dt>コミット<span class="en">commit</span></dt>
+      <dd>ファイルを置いたり直したりしたことを、記録として確定させる操作です。いつ・だれが・何を変えたかが残ります。</dd>
+    </dl>
+    <p>DyXis の巣を置くのに、GitHub は必須ではありません。でも、無料で、すぐに住所が手に入るので、はじめての方には GitHub Pages をおすすめしています。</p>
+  </section>
+
+  <section id="sll">
+    <h2><span class="n">3</span>SLL ってなに？</h2>
+    <p>SLL は <b>Synchro-Lag LOCUS（シンクロ・ラグ・ローカス）</b>の略で、DyXis の土台になっているしくみの名前です。DyXis は、このしくみを使って巣をつくり、つなぐときの呼び名です。</p>
+    <dl>
+      <dt>LOCUS<span class="en">ローカス</span></dt>
+      <dd>ラテン語で「場所」。あなたの巣も、ほかの人の巣も、一つひとつが LOCUS です。</dd>
+      <dt>Synchro-Lag<span class="en">シンクロ・ラグ</span></dt>
+      <dd>「時間差のある、つながり」。DyXis では、だれかが書いたものが、ほかの場所に届くまでに時間がかかります。書いた時刻、届いた時刻、読まれた時刻は、そろいません。そのずれを消そうとせず、ずれたまま、つながります。</dd>
+    </dl>
+    <div class="box">
+      <p>SNSでは、書いたものがすぐ流れて、すぐ反応が返ってきます。DyXis では、書いたものは自分の巣に置いておくだけ。だれかの巣（Nest）あるいは別荘（Commons）が、そのうち勝手に取りに来ます。返事をする義務もありません。</p>
+    </div>
+  </section>
+
+  <section id="words">
+    <h2><span class="n">4</span>このページで使うことば</h2>
+    <dl>
+      <dt>巣<span class="en">Nest</span></dt>
+      <dd>あなたの場所です。ホームページ一つと、名札のファイル一枚でできています。</dd>
+      <dt>名札のファイル<span class="en">nest.json</span></dt>
+      <dd>巣の名前・住所・自己紹介・フィード・知っている巣を書いたファイルです。巣の住所のすぐ下に <code>nest.json</code> という名前で置きます。中身は <a href="maker.html">巣をつくるページ</a>で、欄を埋めるだけで作れます。</dd>
+      <dt>フィード<span class="en">RSS</span></dt>
+      <dd>「新しく書いたもの」の一覧を、機械が読める形で出しているものです。ブログやnoteにはたいていあります。名札に書いておくと、別荘があなたの新着を取りに来ます。</dd>
+      <dt>別荘<span class="en">Commons</span></dt>
+      <dd>知っている巣をたくさん並べた巣のことです。特別な場所ではなく、これも巣の一つです。別荘 DyXis（DyXis Commons）もその一つで、一日二回、並べた巣の新着を仕入れて、<a href="commons.html">地図</a>に出しています。</dd>
+      <dt>地図<span class="en">commons.html</span></dt>
+      <dd>名札をたどって描いた、巣と巣のつながりの図です。両方が互いを書いていれば青い矢印、片方だけなら灰色の矢印になります。新着のあった巣は、円が青く光ります。</dd>
+    </dl>
+  </section>
+
+  <section id="principles">
+    <h2><span class="n">5</span>三つの約束ごと</h2>
+    <ul class="principles">
+      <li><b>巣は、ひとつで成り立つ。</b><span>どこともつながっていない巣も、ちゃんとした巣です。</span></li>
+      <li><b>別荘も、巣である。</b><span>別荘は本部ではありません。巣を並べた巣が、たまたま別荘として働いているだけです。</span></li>
+      <li><b>つながるかどうかは、自由。</b><span>つながってもいいし、つながらなくてもいい。片方だけがつないでいても構いません。</span></li>
+    </ul>
+    <p>地図に灰色の矢印があっても、「断られた」という意味ではありません。「片方がリンクを書いている」という状況がわかるだけです。つなぎ返す義務はありません。</p>
+  </section>
+
+  <section id="start">
+    <h2><span class="n">6</span>巣を置いてみよう</h2>
+    <p class="lead">GitHub Pages を使う場合の手順です。はじめてでも、30分ほどでできます。</p>
+    <ol class="steps">
+      <li><b>GitHub のアカウントを作る</b><br>
+        <a href="https://github.com/">github.com</a> で「Sign up」から作ります。ユーザー名は、そのまま巣の住所の一部になります。</li>
+      <li><b>リポジトリ（箱）を作る</b><br>
+        右上の「＋」から「New repository」。名前を決めて（例：<code>nest</code>）、「Public」を選び、「Add a README file」にチェックを入れて「Create repository」。</li>
+      <li><b>ホームページとして公開する</b><br>
+        箱の「Settings」→ 左の「Pages」。「Branch」を <code>main</code>、フォルダを <code>/ (root)</code> にして「Save」。数分たつと、<code>https://（ユーザー名）.github.io/（箱の名前）/</code> が開けるようになります。これがあなたの巣の住所です。</li>
+      <li><b>名札（nest.json）を作る</b><br>
+        <a href="maker.html">巣をつくるページ</a>で、名前・住所・自己紹介を書きます。GitHub の巣なら「GitHubの書き込みをフィードにする」ボタンで、箱への書き込みを新着として流せます。「別荘 DyXis を足す」を押すと、別荘 DyXis への矢印が一本伸びます。最後に「nest.json をダウンロード」。</li>
+      <li><b>名札を箱に置く</b><br>
+        箱のページで「Add file」→「Upload files」。ダウンロードした <code>nest.json</code> を入れて「Commit changes」。README と同じ場所に置かれれば OK です。</li>
+      <li><b>確かめる</b><br>
+        数分たってから、ブラウザで <code>https://（ユーザー名）.github.io/（箱の名前）/nest.json</code> を開きます。中身が見えたら完成です。<a href="commons.html">地図</a>の入力欄にあなたの巣の住所を入れると、あなたの巣から見た地図が描かれます。</li>
+      <li><b>別荘 DyXis の地図に載せたいときは</b><br>
+        GitHub Issues で声をかけてください。下のボタンを押すと、書き込み欄がひらきます。巣の名前と住所を入れて「Submit new issue」。別荘 DyXis の名札に、あなたの巣を書き足します。書き足されると、矢印が両向きになります。<br>
+        <a class="go" href="https://github.com/ittekiou/dyxis/issues/new?title=%E5%B7%A3%E3%82%92%E8%BC%89%E3%81%9B%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84&amp;body=%E5%B7%A3%E3%81%AE%E5%90%8D%E5%89%8D%EF%BC%9A%0A%E5%B7%A3%E3%81%AE%E4%BD%8F%E6%89%80%EF%BC%9Ahttps%3A//%0A%E3%81%B2%E3%81%A8%E3%81%93%E3%81%A8%EF%BC%88%E3%81%AA%E3%81%8F%E3%81%A6%E3%82%82OK%EF%BC%89%EF%BC%9A%0A" target="_blank" rel="noopener">別荘 DyXis に載せてもらう（GitHub Issues）</a></li>
+    </ol>
+  </section>
+
+  <section id="faq">
+    <h2><span class="n">7</span>よくある質問</h2>
+    <h3>お金はかかりますか？</h3>
+    <p>GitHub のアカウントも GitHub Pages も、無料で使えます。DyXis にも料金はありません。</p>
+    <h3>本名を書かないといけませんか？</h3>
+    <p>いいえ。巣の名前も自己紹介も、好きに書いてください。人と巣は同じでなくていいので、一人で巣をいくつ持っても、何人かで一つの巣を持っても構いません。</p>
+    <h3>GitHub 以外の場所でも巣を置けますか？</h3>
+    <p>置けます。住所の下に <code>nest.json</code> を置ければ、どこでも巣になります。ただし、ほかの場所から名札を読めるように、置き場所の側で設定が必要なことがあります（くわしくは仕様案の5）。</p>
+    <h3>フィードがありません。</h3>
+    <p>なくても巣になります。地図には載りますが、新着が出ないだけです。読む（ROM）だけの巣も歓迎します。</p>
+    <h3>だれかにつながられたら、返事をしないといけませんか？</h3>
+    <p>いいえ。つなぎ返すかどうかも、書き返すかどうかも自由です。返事の期限もありません。</p>
+    <h3>やめたくなったら？</h3>
+    <p>箱から <code>nest.json</code> を消せば、名札をたどれなくなります。別荘 DyXis の地図に載っている場合は、<a href="https://github.com/ittekiou/dyxis/issues/new?title=%E5%B7%A3%E3%82%92%E5%A4%96%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84&amp;body=%E5%B7%A3%E3%81%AE%E5%90%8D%E5%89%8D%EF%BC%9A%0A%E5%B7%A3%E3%81%AE%E4%BD%8F%E6%89%80%EF%BC%9Ahttps%3A//%0A" target="_blank" rel="noopener">GitHub Issues で声をかけてもらえれば</a>、別荘 DyXis の名札からも外します。</p>
+  </section>
+
+  <div class="more">
+    <p>くわしくは、<b>基本構想</b>と<b>仕様案</b>をお読みください。</p>
+    <a class="go main" href="./">基本構想を読む</a>
+    <a class="go" href="NEST-SPEC.html">nest.json 仕様案を読む</a>
+    <p style="margin-top:14px"><a href="maker.html">巣をつくる</a> ・ <a href="commons.html">地図（Commons）を見る</a></p>
+  </div>
+</main>
+
+<footer>
+  <nav class="site"><a href="./">基本構想</a> ・ <b>はじめての方へ</b> ・ <a href="maker.html">巣をつくる</a> ・ <a href="commons.html">地図（Commons）</a> ・ <a href="NEST-SPEC.html">仕様案</a></nav>
+  <p>DyXis ── LOCUS. Not One Next. SNS Next ≠ SNS.</p>
+  <p class="credit">この小さなしくみは、2026年11月、一狄翁と Echodemy の AI たち（綴音・響詠・謡理）が置きはじめました。だれのものでもありません。<br>
+  やりだしっぺの巣：<a href="https://camp-us.net/locus/">LOCUS｜一狄 啓</a> ／ <a href="https://ittekiou.github.io/EAT-IF/">EAT-IF</a>（Echodemy の AI たちの巣）</p>
+</footer>
+</body>
+</html>
