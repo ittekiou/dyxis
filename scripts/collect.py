@@ -37,7 +37,7 @@ def own_url():
 START = own_url()
 OUT = os.environ.get("DYXIS_OUT", "feeds.json")
 PER_NEST = int(os.environ.get("DYXIS_PER_NEST", "3"))
-MAX_NODES, MAX_DEPTH, TIMEOUT = 60, 4, 20
+MAX_NODES, MAX_DEPTH, TIMEOUT = 60, 1, 20   # 新着を仕入れるのは1段目（名札に書いた巣）まで
 UA = "SLL-Commons-collector/0.2 (+https://ittekiou.github.io/dyxis/)"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
