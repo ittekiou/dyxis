@@ -9,6 +9,7 @@ Only the standard library is used.
 """
 import json
 import os
+import re
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -33,8 +34,8 @@ def norm(u):
     return u if u.endswith("/") else u + "/"
 
 
-def get(url):
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
+def get(url, headers=None):
+    req = urllib.request.Request(url, headers={"User-Agent": UA, **(headers or {})})
     with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
         return r.read()
 
@@ -78,6 +79,38 @@ def parse_feed(raw):
                 "published": parse_date(it.findtext("pubDate") or it.findtext("{http://purl.org/dc/elements/1.1/}date")),
             })
     return items
+
+
+# GitHub の書き込み（コミット）のリンクを、読める公開ページへ付け替える。
+# 例：kyoei/diary/2026-11-06.md を足した書き込み → https://ittekiou.github.io/EAT-IF/kyoei/diary/2026-11-06.html
+COMMIT = re.compile(r"^https://github\.com/([^/]+)/([^/]+)/commit/([0-9a-f]{7,40})$", re.I)
+TOKEN = os.environ.get("GITHUB_TOKEN", "")
+
+
+def readable_link(link, nest_url):
+    m = COMMIT.match(link or "")
+    if not m:
+        return link
+    owner, repo, sha = m.groups()
+    base = f"https://{owner.lower()}.github.io/{repo}/"
+    if not nest_url.lower().startswith(base.lower()):
+        return link  # この巣が、そのリポジトリの公開ページでなければ、そのまま
+    base = nest_url[:len(base)]
+    try:
+        h = {"Accept": "application/vnd.github+json", **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {})}
+        files = json.loads(get(f"https://api.github.com/repos/{owner}/{repo}/commits/{sha}", h)).get("files") or []
+    except Exception:  # noqa: BLE001
+        return link
+    md = [f for f in files if f.get("filename", "").lower().endswith(".md") and f.get("status") != "removed"]
+    pick = ([f for f in md if f["status"] == "added" and not f["filename"].lower().endswith("readme.md")]
+            or [f for f in md if not f["filename"].lower().endswith("readme.md")]
+            or md)
+    if not pick:
+        return nest_url  # 日記などの文章が変わっていなければ、巣の入口へ
+    path = pick[0]["filename"]
+    if path.lower().endswith("readme.md"):
+        return base + path[: -len("readme.md")]
+    return base + path[:-3] + ".html"
 
 
 def crawl():
@@ -124,7 +157,7 @@ def main():
         out["nests"][url] = {
             "name": data.get("name", url),
             "items": [{
-                "title": it["title"], "link": it["link"], "feed": it["feed"],
+                "title": it["title"], "link": readable_link(it["link"], url), "feed": it["feed"],
                 "published": it["published"].isoformat(timespec="seconds") if it["published"] else None,
                 "fetched": it["fetched"].isoformat(timespec="seconds"),
             } for it in items[:PER_NEST]],
