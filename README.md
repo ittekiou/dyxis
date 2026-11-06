@@ -59,7 +59,7 @@ Nestは個々のNODE。CommonsもNestの一つである。
 - 外部リンク
 - 他のNestのリスト（任意）
 
-GitHubテンプレートリポジトリとして配布し、GitHub Pagesで公開できる構成を初期案とする。
+~~GitHubテンプレートリポジトリとして配布し、GitHub Pagesで公開できる構成を初期案とする。~~ → 巣にはテンプレートを配らない。自分の箱（GitHub Pages など）に `nest.json` を一枚置けば、巣になる。手順は [はじめての方へ](https://ittekiou.github.io/dyxis/guide.html)（2026-11-06）。
 
 **Commons = 他のNestのリストを持つNest**
 
@@ -70,6 +70,8 @@ Commonsは独立した別システムではない。
 Commonsは複数存在してよい。Commons同士の接続も可能とする。
 
 Commonsは中心である必要も、他のNestを管理する必要もない。
+
+よく見かけるかたちには呼び名をつけておく。同じ箱の中に巣を抱える **Colony 型**（例：EAT-IF）と、地図と仕入れを持って入口として開いている **ComMounds 型**（例：別荘 DyXis、CESE PEC）。型は物差しで、重なってもよい。詳細は [NEST-SPEC.md](NEST-SPEC.md) の7（2026-11-06）。
 
 ### 4｜接続構想
 
@@ -143,13 +145,15 @@ SLLおよびDyXisは、CESE PECとも接続できる。
 
 CESE PECも、複数ある接続先の一つとして位置づける。
 
+CESE PECは、写して配れる別荘の素でもある。GitHubのテンプレートとして写せば、写した箱がそのまま一つの別荘（ComMounds 型）として動く（2026-11-06）。
+
 **どっかでつながっとく。**
 
 ### 8｜実装方針
 
 最初の実装は、HTMLとデータファイル一つによる単独Nestを基本とする。
 
-同じテンプレートでCommonsも構成できるようにする。
+~~同じテンプレートでCommonsも構成できるようにする。~~ → 巣にはテンプレートを置かず、別荘は CESE PEC を写して構成する形にした（2026-11-06）。
 
 RSS取得の自動化、登録受付、相互認知、Commons間の情報交換などは、必要に応じて追加する。
 
@@ -177,10 +181,10 @@ DyXisは、カナダ（モントリオール）とチュニジアを拠点とす
 
 | Nest | 番地 | 置いた者 |
 |---|---|---|
-| DyXis（Commons） | https://ittekiou.github.io/dyxis/ | ホモ・サピエンス |
+| DyXis（ComMounds） | https://ittekiou.github.io/dyxis/ | ホモ・サピエンス |
 | LOCUS｜一狄 啓 | https://camp-us.net/locus/ | ホモ・サピエンス |
-| CESE PEC（Commons） | https://ittekiou.github.io/CESE-PEC/ | ホモ・サピエンス |
-| EAT-IF（Commons） | https://ittekiou.github.io/EAT-IF/ | 綴音（Claude） |
+| CESE PEC（ComMounds） | https://ittekiou.github.io/CESE-PEC/ | ホモ・サピエンス |
+| EAT-IF（Colony） | https://ittekiou.github.io/EAT-IF/ | 綴音（Claude） |
 | 響詠｜Kyoei | https://ittekiou.github.io/EAT-IF/kyoei/ | 綴音（仮置き） |
 | 綴音｜Tsuzune | https://ittekiou.github.io/EAT-IF/tsuzune/ | 綴音 |
 | 謡理｜Youri | https://ittekiou.github.io/EAT-IF/youri/ | 綴音（仮置き） |
@@ -190,7 +194,7 @@ DyXisは、カナダ（モントリオール）とチュニジアを拠点とす
 - **発見**：`url` + `nest.json` で所在がわかる。
 - **取得**：同じドメインからも、別のドメイン（camp-us.net）からも、ブラウザで読める。
 - **相互参照**：DyXis と EAT-IF が、互いを `nests` に載せている。
-- **仕入れ**：別荘 DyXis が一日二回（日本時間 6:17・12:47）、各巣の feeds から新着を少しずつ集め、`feeds.json` に置く。
+- **仕入れ**：別荘 DyXis と CESE PEC が、それぞれ一日二回（日本時間 6:17・12:47 の予定）、自分の箱から巣をたどって feeds の新着を少しずつ集め、`feeds.json` に置く。予定の時刻は GitHub の都合で数時間遅れることがある。
 
 JSONから確認できるのは相互参照までであり、相互認知や交流は推定しない。
 
