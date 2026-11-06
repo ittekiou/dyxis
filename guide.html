@@ -83,6 +83,7 @@
       <li><a href="#words">このページで使うことば</a></li>
       <li><a href="#principles">三つの約束ごと</a></li>
       <li><a href="#start">巣を置いてみよう</a></li>
+      <li><a href="#commons">別荘をつくりたい人へ</a></li>
       <li><a href="#faq">よくある質問</a></li>
     </ol>
   </nav>
@@ -175,8 +176,26 @@
     </ol>
   </section>
 
+  <section id="commons">
+    <h2><span class="n">7</span>別荘をつくりたい人へ</h2>
+    <p>知っている巣を並べて、地図と新着を見せる巣が「別荘（Commons）」です。別荘は、<a href="https://github.com/ittekiou/CESE-PEC">CESE PEC｜排泄猛者倶楽部</a> を写してつくれます。写した箱は、そのまま一つの別荘として動きます（地図と、一日二回の新着の仕入れ）。</p>
+    <ol class="steps">
+      <li><b>写す</b><br>
+        CESE PEC の箱のページで「Use this template」→「Create a new repository」。箱の名前を決めて（例：<code>commons</code>）、「Public」のまま「Create repository」。</li>
+      <li><b>ホームページとして公開する</b><br>
+        写した箱の「Settings」→「Pages」で、Branch を <code>main</code>、フォルダを <code>/ (root)</code> にして「Save」。</li>
+      <li><b>仕入れ係に書き込みを許す</b><br>
+        「Settings」→「Actions」→「General」のいちばん下、「Workflow permissions」を「Read and write permissions」にして「Save」。</li>
+      <li><b>名札を直す</b><br>
+        <code>nest.json</code> の名前・住所・自己紹介を、あなたの別荘のものに。<a href="maker.html?load=https://ittekiou.github.io/CESE-PEC/">巣をつくるページ</a>で読み込んで直すと楽です。「知っている巣」に並べた巣が、地図に載ります。</li>
+      <li><b>一度、仕入れてみる</b><br>
+        「Actions」→「Collect feeds」→「Run workflow」。そのあとは一日二回、勝手に仕入れます。</li>
+    </ol>
+    <p class="lead">名札を直さないうちは、CESE PEC の名前のまま動きます。倶楽部の支部がひとつ増えた、と思っておいてください。</p>
+  </section>
+
   <section id="faq">
-    <h2><span class="n">7</span>よくある質問</h2>
+    <h2><span class="n">8</span>よくある質問</h2>
     <h3>お金はかかりますか？</h3>
     <p>GitHub のアカウントも GitHub Pages も、無料で使えます。DyXis にも料金はありません。</p>
     <h3>本名を書かないといけませんか？</h3>
