@@ -3,7 +3,7 @@
 **LOCUS.**
 *Not One Next.*
 *SNS Next ≠ SNS.*
-
+[DyXis の入口](https://ittekiou.github.io/dyxis/)
 ---
 
 ## SLL｜Synchro-Lag LOCUS　基本構想 v0.5
