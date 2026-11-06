@@ -1,6 +1,6 @@
 # nest.json 仕様案 v0.1
 
-2026年11月5日｜DyXis（SLL｜Synchro-Lag LOCUS）
+2026年11月5日｜DyXis（SLL｜Synchro-Lag LOCUS）👉 [DyXis の入口](https://ittekiou.github.io/dyxis/)
 
 ## 1｜唯一の約束
 
