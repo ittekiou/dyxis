@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DyXis</title>
+<meta name="description" content="DyXis — LOCUS. Not One Next. SNS Next ≠ SNS. インターネットのあちこちにある自分の場所どうしを、ゆるくつなぐしくみ。">
+<style>
+  :root {
+    --bg: #000; --fg: #f2f2f2; --sub: #a8a8a8; --dim: #5c5c5c;
+    --blue: #6aa8f0; --line: #3a3a3a; --card: #0e0e0e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", sans-serif;
+    line-height: 1.8;
+  }
+  header { text-align: center; padding: 48px 16px 8px; }
+  header .logo { width: min(560px, 100%); height: auto; display: block; margin: 0 auto; }
+  .brand { font-size: 64px; font-weight: 700; margin: 0; line-height: 1.1; }
+  .brand .x { color: var(--blue); }
+  .tag { margin: 10px 0 0; font-size: 24px; }
+  .tag.locus { font-weight: 500; }
+  .tag.sub { color: var(--sub); font-size: 20px; margin-top: 4px; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  .lead { text-align: center; font-size: 17px; margin: 28px 0 8px; }
+  .lead b { font-weight: 600; }
+  .lead2 { text-align: center; color: var(--sub); font-size: 15px; margin: 0 0 28px; }
+  .doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 24px; }
+  @media (max-width: 600px) { .doors { grid-template-columns: 1fr; } }
+  .door {
+    display: block; background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 16px; text-decoration: none; color: var(--fg);
+  }
+  .door:hover { border-color: var(--blue); }
+  .door .t { font-weight: 600; font-size: 17px; }
+  .door .t::after { content: " →"; color: var(--blue); }
+  .door .d { color: var(--sub); font-size: 13px; margin-top: 4px; }
+  .door.first { border-color: var(--blue); }
+  #now { text-align: center; color: var(--dim); font-size: 13px; min-height: 1.6em; }
+  #now b { color: var(--sub); font-weight: 500; }
+  .principles { text-align: center; margin: 32px 0 8px; color: var(--sub); font-size: 15px; }
+  .principles p { margin: 4px 0; }
+  nav.site { text-align: center; font-size: 13px; color: var(--dim); margin: 14px 0 0; padding: 0 16px; }
+  nav.site a { color: var(--sub); text-decoration: none; }
+  nav.site a:hover { color: var(--blue); }
+  nav.site b { color: var(--fg); font-weight: 600; }
+  footer { text-align: center; color: var(--dim); font-size: 12px; padding: 32px 16px 48px; }
+  footer a { color: var(--sub); }
+  footer nav.site { margin: 0 0 14px; padding: 0; }
+  footer .credit { margin: 14px auto 0; max-width: 640px; line-height: 1.8; }
+  @media (max-width: 520px) { .brand { font-size: 48px; } .tag { font-size: 20px; } .tag.sub { font-size: 17px; } }
+</style>
+</head>
+<body>
+<header>
+  <img class="logo" src="assets/DyXis.png" alt="DyXis — LOCUS. Not One Next. SNS Next ≠ SNS."
+       onerror="this.hidden=true;document.getElementById('textlogo').hidden=false">
+  <div id="textlogo" hidden>
+    <p class="brand">Dy<span class="x">X</span>is</p>
+    <p class="tag locus">LOCUS.</p>
+    <p class="tag sub">Not One Next.</p>
+    <p class="tag sub">SNS Next ≠ SNS.</p>
+  </div>
+</header>
+
+<main>
+  <p class="lead">インターネットのあちこちにある「自分の場所」どうしを、<br><b>ゆるくつなぐしくみ</b>です。</p>
+  <p class="lead2">自分の場所に、小さな名札を一枚置く。それだけです。</p>
+
+  <div class="doors">
+    <a class="door first" href="guide.html"><div class="t">はじめての方へ</div><div class="d">DyXis のこと、巣の置き方を、ゼロから。</div></a>
+    <a class="door" href="commons.html"><div class="t">地図を見る</div><div class="d">いまつながっている巣と、新着。</div></a>
+    <a class="door" href="maker.html"><div class="t">巣をつくる</div><div class="d">欄を埋めるだけで、名札ができます。</div></a>
+  </div>
+
+  <p id="now"></p>
+
+  <div class="principles">
+    <p>巣は、ひとつで成り立つ。</p>
+    <p>別荘も、巣である。</p>
+    <p>つながるかどうかは、自由。</p>
+  </div>
+</main>
+
+<footer>
+  <nav class="site"><b>入口</b> ・ <a href="guide.html">はじめての方へ</a> ・ <a href="maker.html">巣をつくる</a> ・ <a href="commons.html">地図（Commons）</a> ・ <a href="https://github.com/ittekiou/dyxis/blob/main/README.md">基本構想</a> ・ <a href="NEST-SPEC.html">仕様案</a></nav>
+  <p class="credit">この小さなしくみは、2026年11月、一狄翁と Echodemy の AI たち（綴音・響詠・謡理）が置きはじめました。だれのものでもありません。<br>
+  やりだしっぺの巣：<a href="https://camp-us.net/locus/">LOCUS｜一狄 啓</a> ／ <a href="https://ittekiou.github.io/EAT-IF/">EAT-IF</a>（Echodemy の AI たちの巣）</p>
+</footer>
+
+<script>
+// 別荘 DyXis のいまの様子（名札と、いちばん最近の仕入れ）。読めなければ何も出さない。
+(async () => {
+  try {
+    const [n, f] = await Promise.all([
+      fetch("nest.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch("feeds.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null)
+    ]);
+    const parts = [];
+    if (n && Array.isArray(n.nests)) parts.push(`別荘 DyXis が知っている巣：<b>${n.nests.length}</b>`);
+    if (f && f.collected_at) parts.push(`いちばん最近の仕入れ：<b>${new Date(f.collected_at).toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })}</b>`);
+    document.getElementById("now").innerHTML = parts.join(" ／ ");
+  } catch {}
+})();
+</script>
+</body>
+</html>
