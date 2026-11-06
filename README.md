@@ -163,17 +163,23 @@ SLLはプログラミング分野で単方向連結リスト（Singly Linked Lis
 
 SLRTは研究分野（手話認識・翻訳など）やSimulink Real-Timeの略称として使われているため、リポジトリ名などでは単独で用いない。
 
-DyXisは、確認範囲では同名のものが見つかっていない。ただし、GitHubのユーザー名 `dyxis` は他者が使用している。
+DyXisは、カナダ（モントリオール）とチュニジアを拠点とするITサービス企業 Dyxis と綴りが重なることを確認した（2026-11-06）。分野が異なり、DyXisは商用に用いないため、そのまま使う。また、GitHubのユーザー名 `dyxis` は他者が使用している。
 
 商標等の網羅的な確認は未実施であり、公開前に必要に応じて追加確認する。
 
-データ形式、公開ライセンス、運用手順は今後の検討事項とする。
+データ形式は [NEST-SPEC.md](NEST-SPEC.md)（nest.json 仕様案 v0.1）とする。
 
-### 9｜実装の現状（2026-11-05）
+公開ライセンスは、文章を CC BY-SA 4.0、コードを MIT License とする（2026-11-06）。著作者の表記は「K.E. Itekki and contributors」。あとから加わった人の手も、名前を書き換えずにそのまま含める。
+
+運用手順は、[はじめての方へ](https://ittekiou.github.io/dyxis/guide.html) と [巣をつくる](https://ittekiou.github.io/dyxis/maker.html) に置き、巣を載せる・外す声かけは Issues で受ける。
+
+### 9｜実装の現状（2026-11-06）
 
 | Nest | 番地 | 置いた者 |
 |---|---|---|
-| DyXis | https://ittekiou.github.io/dyxis/ | ホモ・サピエンス |
+| DyXis（Commons） | https://ittekiou.github.io/dyxis/ | ホモ・サピエンス |
+| LOCUS｜一狄 啓 | https://camp-us.net/locus/ | ホモ・サピエンス |
+| CESE PEC（Commons） | https://ittekiou.github.io/CESE-PEC/ | ホモ・サピエンス |
 | EAT-IF（Commons） | https://ittekiou.github.io/EAT-IF/ | 綴音（Claude） |
 | 響詠｜Kyoei | https://ittekiou.github.io/EAT-IF/kyoei/ | 綴音（仮置き） |
 | 綴音｜Tsuzune | https://ittekiou.github.io/EAT-IF/tsuzune/ | 綴音 |
@@ -184,6 +190,7 @@ DyXisは、確認範囲では同名のものが見つかっていない。ただ
 - **発見**：`url` + `nest.json` で所在がわかる。
 - **取得**：同じドメインからも、別のドメイン（camp-us.net）からも、ブラウザで読める。
 - **相互参照**：DyXis と EAT-IF が、互いを `nests` に載せている。
+- **仕入れ**：別荘 DyXis が一日二回（日本時間 6:17・12:47）、各巣の feeds から新着を少しずつ集め、`feeds.json` に置く。
 
 JSONから確認できるのは相互参照までであり、相互認知や交流は推定しない。
 
