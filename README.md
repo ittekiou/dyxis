@@ -214,5 +214,13 @@ CommonsもNestの一つ。
 **DyXis**
 
 *LOCUS.*
+
 *Not One Next.*
+
 *SNS Next ≠ SNS.*
+
+---
+
+© 2026 K.E. Itekki and contributors
+
+Texts are published under CC BY-SA 4.0. Code is released under the MIT License.
