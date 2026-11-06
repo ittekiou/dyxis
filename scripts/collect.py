@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""DyXis Commons: collect the latest items from each Nest's feeds.
+"""SLL Commons: collect the latest items from each Nest's feeds.
 
 Crawls nest.json files starting from this Commons (same rules as commons.html),
 reads every feed a Nest lists, keeps the newest few items per Nest, and writes
@@ -17,11 +17,28 @@ from collections import deque
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 
-START = os.environ.get("DYXIS_START", "https://ittekiou.github.io/dyxis/")
+def own_url():
+    """この箱自身の公開住所。名札の url ではなく、箱から決める（写された箱でも、自分から仕入れが始まる）。"""
+    if os.environ.get("DYXIS_START"):
+        return os.environ["DYXIS_START"]
+    if os.path.exists("CNAME"):  # 独自ドメインの箱
+        dom = open("CNAME", encoding="utf-8").read().strip()
+        if dom:
+            return f"https://{dom}/"
+    repo = os.environ.get("GITHUB_REPOSITORY", "")
+    if "/" in repo:
+        owner, name = repo.split("/", 1)
+        if name.lower() == f"{owner.lower()}.github.io":
+            return f"https://{owner.lower()}.github.io/"
+        return f"https://{owner.lower()}.github.io/{name}/"
+    return "https://ittekiou.github.io/dyxis/"
+
+
+START = own_url()
 OUT = os.environ.get("DYXIS_OUT", "feeds.json")
 PER_NEST = int(os.environ.get("DYXIS_PER_NEST", "3"))
 MAX_NODES, MAX_DEPTH, TIMEOUT = 60, 4, 20
-UA = "DyXis-Commons-collector/0.1 (+https://ittekiou.github.io/dyxis/)"
+UA = "SLL-Commons-collector/0.2 (+https://ittekiou.github.io/dyxis/)"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
