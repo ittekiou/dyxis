@@ -3,6 +3,7 @@
 **LOCUS.**
 *Not One Next.*
 *SNS Next ≠ SNS.*
+
 [DyXis の入口](https://ittekiou.github.io/dyxis/)
 ---
 
