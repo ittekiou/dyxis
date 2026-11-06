@@ -1,0 +1,24 @@
+name: 巣を外してください
+description: 別荘 DyXis の地図から、あなたの巣（Nest）を外してほしいとき
+title: "巣を外してください"
+labels: ["外す"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        別荘 DyXis の名札（nest.json）から、あなたの巣を外します。理由は書かなくて構いません。
+
+        ここに書いたことは、だれでも読める場所に公開されます。
+  - type: input
+    id: nest_name
+    attributes:
+      label: 巣の名前
+    validations:
+      required: true
+  - type: input
+    id: nest_url
+    attributes:
+      label: 巣の住所
+      placeholder: https://example.github.io/nest/
+    validations:
+      required: true
