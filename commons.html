@@ -41,6 +41,15 @@
   .node circle { fill: var(--card); stroke: var(--fg); stroke-width: 1.5; cursor: pointer; }
   .node.start circle { stroke: var(--blue); stroke-width: 2.5; }
   .node.missing circle { stroke: var(--dim); stroke-dasharray: 4 3; }
+  /* 2段目の巣：小さく薄く。押すと、その巣から見た地図へ */
+  .node.far { opacity: .5; cursor: pointer; }
+  .node.far:hover { opacity: .9; }
+  .node.far text { font-size: 10px; fill: var(--sub); }
+  #far { margin: 18px 0 0; font-size: 13px; color: var(--sub); line-height: 2; }
+  #far:empty { display: none; }
+  #far a { color: var(--sub); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; margin: 0 4px 6px 0; display: inline-block; text-decoration: none; }
+  #far a:hover { color: var(--blue); border-color: var(--blue); }
+  .legend .far::before { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--fg); opacity: .5; }
   .node.fresh1 circle { fill: #1f4f86; }   /* 仕入れの前24時間以内に新着 */
   .node.fresh7 circle { fill: #15263b; }   /* 7日以内に新着 */
   /* 24時間以内に新着のある巣は、ゆっくり呼吸する */
@@ -123,6 +132,7 @@
     <span>一方の参照</span>
     <span class="m">相互参照</span>
     <span class="x">取得できなかった巣</span>
+    <span class="far">2段目の巣</span>
     <span class="fresh f1">24時間以内に新着</span>
     <span class="fresh f7">7日以内に新着</span>
   </div>
@@ -130,11 +140,13 @@
   <h2>NESTS</h2>
   <div id="collected"></div>
   <div class="cards" id="cards"></div>
+  <div id="far"></div>
 </main>
 
 <footer>
   <p>  JSONから確認できるのは相互参照まで。相互認知や交流は推定しない。<br>
   updated は自己申告の日付。表示の差は「記載された更新日から取得時点までの経過」。<br>
+  地図に大きく描くのは、起点と、起点が名札に書いた巣（1段目）。その巣たちが書いた巣（2段目）は小さく薄く描き、その先は数だけ数える。新着を仕入れるのは1段目まで。<br>
   新着は、別荘が一日二回、各巣の feeds から仕入れたもの。「公開」は記事の側の時刻、「仕入れ」は別荘が取りに行った時刻。<br>
   円の色は、仕入れた時点でいちばん新しい記事の公開がどれだけ前だったか。巣が動いたかどうかの目安で、誰かが読んだかどうかではない。</p>
   <nav class="site"><a href="./">入口</a> ・ <a href="guide.html">はじめての方へ</a> ・ <a href="maker.html">巣をつくる</a> ・ <b>地図（Commons）</b> ・ <a href="concept.html">基本構想</a> ・ <a href="NEST-SPEC.html">仕様案</a></nav>
@@ -149,7 +161,7 @@
   let here = HOME;
   try { if (/^https?:$/.test(location.protocol)) here = new URL("./", location.href).href; } catch {}
   const START = norm(params.get("start") || here);
-  const MAX_NODES = 60, MAX_DEPTH = 4;
+  const MAX_NODES = 60, MAX_DEPTH = 2;   // 0：起点　1：名札に書いた巣　2：その先（薄く）。3段目より先は数だけ
 
   function norm(u) {
     try { const x = new URL(u, location.href); x.hash = ""; x.search = ""; let s = x.href; return s.endsWith("/") ? s : s + "/"; }
@@ -159,6 +171,7 @@
 
   const nodes = new Map();   // url -> {url, name, data, ok, depth, fetchedAt}
   const edges = [];          // [from, to]
+  const beyondCand = new Set(), beyond = new Set();   // 3段目より先の巣（数だけ）
 
   async function crawl() {
     const queue = [[START, 0, null]];
@@ -178,29 +191,53 @@
           if (!n || !n.url) continue;
           const to = norm(n.url);
           edges.push([url, to]);
-          if (depth < MAX_DEPTH && !nodes.has(to)) queue.push([to, depth + 1, n.name]);
+          if (depth < MAX_DEPTH) { if (!nodes.has(to)) queue.push([to, depth + 1, n.name]); }
+          else beyondCand.add(to);
         }
       } catch (e) { node.error = String(e); }
       document.getElementById("status").textContent = `巣をたどっています…（${nodes.size}）`;
     }
-    // referenced but never visited
-    for (const [, to] of edges) if (!nodes.has(to)) nodes.set(to, { url: to, name: to, ok: false, unvisited: true });
+    // 1段目までに書かれていて、たどれなかった巣は、点線の円で描く。2段目が書いた先の巣は、数だけ数える。
+    for (const [from, to] of edges) {
+      const f = nodes.get(from);
+      if (!nodes.has(to) && f && f.depth < MAX_DEPTH) nodes.set(to, { url: to, name: to, ok: false, unvisited: true, depth: f.depth + 1 });
+    }
+    for (const u of beyondCand) if (!nodes.has(u)) beyond.add(u);
   }
 
+  const isFar = n => (n.depth || 0) >= 2;
   function layout() {
     const list = [...nodes.values()];
-    const cx = 400, cy = 280, R = 210;
-    const ring = [list.find(n => n.url === START), ...list.filter(n => n.url !== START)].filter(Boolean);
-    const pos = new Map();
+    const cx = 400, cy = 280, R = 190, R2 = 255;
+    const near = list.filter(n => !isFar(n));
+    const ring = [near.find(n => n.url === START), ...near.filter(n => n.url !== START)].filter(Boolean);
+    const pos = new Map(), ang = new Map();
     ring.forEach((n, i) => {
       const a = -Math.PI / 2 + (2 * Math.PI * i) / Math.max(ring.length, 1);
+      ang.set(n.url, a);
       pos.set(n.url, { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) });
     });
+    // 2段目：はじめて書いた1段目の巣の外側に、小さく並べる
+    const kids = new Map();
+    for (const [from, to] of edges) {
+      const t = nodes.get(to);
+      if (!t || !isFar(t) || !ang.has(from)) continue;
+      if ([...kids.values()].some(a => a.includes(to))) continue;
+      if (!kids.has(from)) kids.set(from, []);
+      kids.get(from).push(to);
+    }
+    const slot = (2 * Math.PI) / Math.max(ring.length, 1);
+    for (const [from, arr] of kids) {
+      arr.forEach((u, i) => {
+        const a = ang.get(from) + (arr.length === 1 ? 0 : (i / (arr.length - 1) - 0.5) * slot * 0.8);
+        pos.set(u, { x: cx + R2 * Math.cos(a), y: cy + R2 * Math.sin(a) });
+      });
+    }
     return pos;
   }
 
   function draw() {
-    const pos = layout(), r = 34;
+    const pos = layout(), rr = u => (nodes.get(u) && isFar(nodes.get(u))) ? 12 : 34;
     const key = (a, b) => a + "→" + b;
     const set = new Set(edges.map(([a, b]) => key(a, b)));
     const done = new Set();
@@ -211,7 +248,8 @@
       done.add(key(a, b)); if (mutual) done.add(key(b, a));
       const p = pos.get(a), q = pos.get(b); if (!p || !q) continue;
       const dx = q.x - p.x, dy = q.y - p.y, d = Math.hypot(dx, dy) || 1;
-      const x1 = p.x + dx / d * r, y1 = p.y + dy / d * r, x2 = q.x - dx / d * (r + 2), y2 = q.y - dy / d * (r + 2);
+      const ra = rr(a), rb = rr(b);
+      const x1 = p.x + dx / d * ra, y1 = p.y + dy / d * ra, x2 = q.x - dx / d * (rb + 2), y2 = q.y - dy / d * (rb + 2);
       eh += mutual
         ? `<line class="edge mutual" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" marker-start="url(#arrM)" marker-end="url(#arrM)"/>`
         : `<line class="edge" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" marker-end="url(#arr)"/>`;
@@ -221,19 +259,23 @@
     let nh = "";
     for (const n of nodes.values()) {
       const p = pos.get(n.url); if (!p) continue;
-      const cls = ["node", n.url === START ? "start" : "", n.ok ? "" : "missing", freshness(n.url)].join(" ");
+      const far = isFar(n);
+      const cls = ["node", n.url === START ? "start" : "", n.ok ? "" : "missing", far ? "far" : freshness(n.url)].join(" ");
       const label = String(n.name).split("｜")[0].slice(0, 10);
       nh += `<g class="${cls}" data-url="${esc(n.url)}"><title>${esc(n.name)}\n${esc(n.url)}</title>
-        <circle cx="${p.x}" cy="${p.y}" r="${r}"/><text x="${p.x}" y="${p.y + 4}">${esc(label)}</text></g>`;
+        <circle cx="${p.x}" cy="${p.y}" r="${far ? 12 : 34}"/><text x="${p.x}" y="${far ? p.y + 26 : p.y + 4}">${esc(label)}</text></g>`;
     }
     const g = document.getElementById("nodes");
     g.innerHTML = nh;
-    g.querySelectorAll(".node").forEach(el => el.addEventListener("click", () => location.href = el.dataset.url));
+    g.querySelectorAll(".node").forEach(el => el.addEventListener("click", () => {
+      location.href = el.classList.contains("far") ? viewFrom(el.dataset.url) : el.dataset.url;
+    }));
   }
 
   function cards() {
     const out = [];
     for (const n of nodes.values()) {
+      if (isFar(n)) continue;
       if (!n.ok) {
         out.push(`<div class="card missing"><a class="name" href="${esc(n.url)}">${esc(n.name)}</a><p>${n.unvisited ? "まだたどっていない巣" : "nest.json を取得できなかった"}</p><p class="lag">${esc(n.url)}</p></div>`);
         continue;
@@ -249,6 +291,11 @@
         <p>${esc(d.about)}</p><p class="lag">${lag}</p><p class="lag">指している巣：${outs}</p>${news(n.url)}</div>`);
     }
     document.getElementById("cards").innerHTML = out.join("");
+    const far = [...nodes.values()].filter(isFar);
+    let fh = "";
+    if (far.length) fh += `2段目の巣（押すと、その巣から見た地図へ）：<br>` + far.map(n => `<a href="${esc(viewFrom(n.url))}" title="${esc(n.url)}">${esc(String(n.name).split("｜")[0].slice(0, 16))}</a>`).join("");
+    if (beyond.size) fh += `<br>その先に、まだ ${beyond.size} の巣がある。`;
+    document.getElementById("far").innerHTML = fh;
   }
 
   // feeds.json: the Commons collects each Nest's newest items once a day (GitHub Actions)
@@ -260,6 +307,7 @@
     return h < 48 ? `${h}時間` : `${Math.round(h / 24)}日`;
   }
   function news(url) {
+    const nd = nodes.get(url); if (nd && isFar(nd)) return "";
     const f = FEEDS && FEEDS.nests && FEEDS.nests[url];
     if (!f || !(f.items || []).length) return "";
     const li = f.items.map(it => `<li><a href="${esc(it.link)}">${esc(it.title || "（無題）")}</a>
@@ -279,6 +327,7 @@
     try { const r = await fetch("feeds.json", { cache: "no-store" }); if (r.ok) FEEDS = await r.json(); } catch {}
   }
 
+  function viewFrom(u) { const x = new URL(location.href); x.search = ""; x.searchParams.set("start", norm(u)); return x.href; }
   // 出発点の切り替え
   const input = document.getElementById("startUrl");
   if (START !== norm(here)) { input.value = START; document.getElementById("backHome").hidden = false; }
@@ -295,8 +344,9 @@
       document.getElementById("collected").textContent = `新着の仕入れ：${fmt(FEEDS.collected_at)}（一日二回）`;
       document.querySelector(".legend").classList.add("has-feeds");
     }
-    const ok = [...nodes.values()].filter(n => n.ok).length;
-    document.getElementById("status").textContent = `${ok} の巣をたどった（起点：${START}）`;
+    const all = [...nodes.values()];
+    const n1 = all.filter(n => n.depth === 1).length, n2 = all.filter(isFar).length;
+    document.getElementById("status").textContent = `1段目 ${n1} ／ 2段目 ${n2} ／ その先 ${beyond.size}（起点：${START}）`;
   });
 })();
 </script>
