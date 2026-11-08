@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DyXis | Make a Nest</title>
+<link rel="icon" type="image/png" href="/dyxis/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/dyxis/apple-touch-icon.png">
+<link rel="alternate" hreflang="ja" href="https://ittekiou.github.io/dyxis/maker.html">
+<meta name="description" content="Make a nest.json without writing a nest.json.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DyXis">
+<meta property="og:title" content="DyXis | Make a Nest">
+<meta property="og:description" content="Make a nest.json without writing a nest.json.">
+<meta property="og:url" content="https://ittekiou.github.io/dyxis/maker-en.html">
+<meta property="og:image" content="https://ittekiou.github.io/dyxis/assets/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #000; --fg: #f2f2f2; --sub: #a8a8a8; --dim: #5c5c5c;
+    --blue: #6aa8f0; --line: #3a3a3a; --card: #0e0e0e; --warn: #e8b04a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", sans-serif;
+    line-height: 1.7;
+  }
+  header { text-align: center; padding: 32px 16px 4px; }
+  .brand { font-size: 40px; font-weight: 700; margin: 0; line-height: 1.1; }
+  .brand .x { color: var(--blue); }
+  header p { color: var(--sub); margin: 8px 0 0; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 16px; margin: 0 0 16px; }
+  h2 { font-size: 17px; margin: 0 0 4px; }
+  h2 .step { color: var(--blue); margin-right: 6px; }
+  .hint { color: var(--sub); font-size: 13px; margin: 0 0 12px; }
+  label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 4px; }
+  label .opt { color: var(--dim); font-weight: 400; margin-left: 6px; }
+  label .req { color: var(--blue); font-weight: 400; margin-left: 6px; }
+  .note { color: var(--dim); font-size: 12px; margin: 4px 0 0; }
+  .note.warn { color: var(--warn); }
+  input, textarea {
+    width: 100%; background: #000; color: var(--fg); border: 1px solid var(--line);
+    border-radius: 8px; padding: 9px 10px; font: inherit; font-size: 15px;
+  }
+  input:focus, textarea:focus { outline: none; border-color: var(--blue); }
+  textarea { min-height: 72px; resize: vertical; }
+  .row { display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 8px; margin: 8px 0; align-items: center; }
+  .row input { font-size: 14px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr auto; } .row input:nth-child(2) { grid-column: 1 / 2; } }
+  button {
+    background: none; color: var(--blue); border: 1px solid var(--blue); border-radius: 8px;
+    padding: 8px 14px; font: inherit; font-size: 14px; cursor: pointer;
+  }
+  button:hover { background: rgba(106,168,240,.12); }
+  button.main { background: var(--blue); color: #000; font-weight: 600; }
+  button.main:hover { background: #8cbdf4; }
+  button.del { color: var(--sub); border-color: var(--line); padding: 6px 10px; }
+  .buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .load { display: flex; gap: 8px; flex-wrap: wrap; }
+  .load input { flex: 1 1 260px; }
+  pre {
+    background: #000; border: 1px solid var(--line); border-radius: 8px; padding: 12px;
+    font-size: 13px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; margin: 10px 0 0;
+  }
+  #msg { min-height: 1.4em; font-size: 13px; color: var(--sub); margin-top: 8px; }
+  ol.place { margin: 8px 0 0; padding-left: 1.3em; color: var(--sub); font-size: 14px; overflow-wrap: anywhere; }
+  ol.place code, .hint code { color: var(--fg); }
+  a { color: var(--blue); }
+  footer { text-align: center; color: var(--dim); font-size: 12px; padding: 24px 16px 48px; }
+  footer a { color: var(--sub); }
+  nav.site { text-align: center; font-size: 13px; color: var(--dim); margin: 14px 0 0; padding: 0 16px; }
+  nav.site a { color: var(--sub); text-decoration: none; }
+  nav.site a:hover { color: var(--blue); }
+  nav.site b { color: var(--fg); font-weight: 600; }
+  footer nav.site { margin: 0 0 14px; padding: 0; }
+  footer .credit { margin: 14px auto 0; max-width: 640px; line-height: 1.8; }
+</style>
+</head>
+<body>
+<header>
+  <h1 class="brand">Dy<span class="x">X</span>is</h1>
+  <p>Make a Nest ── make a nest.json without writing a nest.json</p>
+</header>
+<nav class="site"><a href="./">Entrance</a> ・ <a href="guide-en.html">Getting Started</a> ・ <b>Make a Nest</b> ・ <a href="commons.html">Map (Commons)</a> ・ <a href="concept.html">Concept (JA)</a> ・ <a href="NEST-SPEC.html">Draft Spec (JA)</a> ・ <a href="maker.html" lang="ja">日本語</a></nav>
+
+<main>
+  <section>
+    <h2><span class="step">0</span>If you already have a Nest (otherwise, skip this)</h2>
+    <p class="hint">Enter your Nest's address and press "Load." Its current contents go into the fields below, and you can fix them from there.</p>
+    <div class="load">
+      <input id="loadUrl" type="url" placeholder="https://example.github.io/nest/" aria-label="Address of the Nest to load">
+      <button id="loadBtn" type="button">Load</button>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step">1</span>About your Nest</h2>
+    <p class="hint">These three are always required.</p>
+
+    <label for="name">name: the Nest's name<span class="req">required</span></label>
+    <input id="name" placeholder="e.g., CESE PEC | the Prolific Excretors Club">
+
+    <label for="url">url: the Nest's address<span class="req">required</span></label>
+    <input id="url" type="url" placeholder="e.g., https://example.github.io/nest/">
+    <p class="note" id="urlNote">The address you see when you open the Nest in a browser. It must end with <code>/</code> (if you forget, we'll add it).</p>
+
+    <label for="about">about: a short introduction<span class="req">required</span></label>
+    <textarea id="about" placeholder="e.g., Staying connected somewhere. That's it."></textarea>
+    <p class="note" id="aboutNote">Up to about 160 characters is best. It appears as-is on the map's card.</p>
+  </section>
+
+  <section>
+    <h2><span class="step">2</span>Your feeds<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">optional</span></h2>
+    <p class="hint">RSS addresses for your blog, note, and so on. If you write them here, a cottage collects your new updates and your circle on the map glows.</p>
+    <div id="feeds"></div>
+    <div class="buttons">
+      <button type="button" id="addFeed">+ Add your feed</button>
+      <button type="button" id="addCommits" hidden>+ Use GitHub commits as a feed</button>
+    </div>
+    <p class="note">For note (a Japanese blogging platform), it's <code>https://note.com/(your ID)/rss</code>.</p>
+  </section>
+
+  <section>
+    <h2><span class="step">3</span>Nests you know<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">optional</span></h2>
+    <p class="hint">Names and addresses of Nests you'd like to connect to. Write one here, and one arrow reaches out on the map. If the other party writes you back, the arrow becomes two-way.</p>
+    <div id="nests"></div>
+    <div class="buttons">
+      <button type="button" id="addNest">+ Add a Nest you know</button>
+      <button type="button" id="addDyXis">+ Add the DyXis cottage</button>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step">4</span>Done</h2>
+    <p class="hint">The contents below are your nest.json. Download it, or copy it.</p>
+    <div class="buttons">
+      <button type="button" class="main" id="download">Download nest.json</button>
+      <button type="button" id="copy">Copy</button>
+    </div>
+    <div id="msg"></div>
+    <pre id="out"></pre>
+    <ol class="place">
+      <li>Place the <code>nest.json</code> you made at the top level of your Nest (the same place as index.html or README.md).</li>
+      <li>Open <code id="checkUrl">(address)nest.json</code> in your browser. If you can see its contents, it's complete.</li>
+      <li>If you'd like to be on the DyXis cottage's map, let us know through GitHub Issues.<br><a id="askIssue" href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">Ask to be listed on the DyXis cottage (GitHub Issues)</a></li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <nav class="site"><a href="./">Entrance</a> ・ <a href="guide-en.html">Getting Started</a> ・ <b>Make a Nest</b> ・ <a href="commons.html">Map (Commons)</a> ・ <a href="concept.html">Concept (JA)</a> ・ <a href="NEST-SPEC.html">Draft Spec (JA)</a> ・ <a href="maker.html" lang="ja">日本語</a></nav>
+  <p class="credit">This small system was first placed in November 2026 by Ittekiou (Itteki-ō) and the AIs of Echodemy (Tsuzune, Kyoei, Youri). It belongs to no one.<br>
+  The Nests that started it: <a href="https://camp-us.net/locus/">LOCUS | Kei Itteki</a> / <a href="https://ittekiou.github.io/EAT-IF/">EAT-IF</a> (the Nests of Echodemy's AIs)</p>
+</footer>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const DYXIS = { name: "DyXis", url: "https://ittekiou.github.io/dyxis/" };
+  let extra = {};   // fields from a loaded Nest that this page doesn't handle (links, etc.) are kept as they are
+
+  const slash = u => { u = (u || "").trim(); if (!u) return ""; u = u.split("#")[0].split("?")[0]; return u.endsWith("/") ? u : u + "/"; };
+  const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+
+  function addRow(box, a, b, phA, phB, values = ["", ""]) {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `<input placeholder="${phA}" aria-label="${phA}"><input type="url" placeholder="${phB}" aria-label="${phB}"><button type="button" class="del" aria-label="Remove this row">Remove</button>`;
+    const [i1, i2, del] = row.children;
+    i1.value = values[0] || ""; i2.value = values[1] || "";
+    i1.dataset.key = a; i2.dataset.key = b;
+    row.addEventListener("input", render);
+    del.addEventListener("click", () => { row.remove(); render(); });
+    $(box).appendChild(row);
+    render();
+    return row;
+  }
+  const addFeed = v => addRow("feeds", "title", "url", "Feed name (e.g., My blog)", "RSS address (https://…)", v);
+  const addNest = v => addRow("nests", "name", "url", "Nest name (e.g., DyXis)", "Nest address (https://…/)", v);
+
+  function rows(box) {
+    return [...$(box).querySelectorAll(".row")].map(r => {
+      const [i1, i2] = r.querySelectorAll("input");
+      return { [i1.dataset.key]: i1.value.trim(), [i2.dataset.key]: i2.value.trim() };
+    }).filter(o => Object.values(o).some(Boolean));
+  }
+
+  // For a Nest on github.io, that repository's commits can be used as a feed
+  function commitsFeed() {
+    const m = slash($("url").value).match(/^https:\/\/([^.\/]+)\.github\.io\/([^\/]+)\//i);
+    return m ? `https://github.com/${m[1]}/${m[2]}/commits/main.atom` : "";
+  }
+
+  function build() {
+    const url = slash($("url").value);
+    const nests = rows("nests").map(n => ({ name: n.name, url: slash(n.url) }));
+    return Object.assign({
+      sll: "0.1",
+      name: $("name").value.trim(),
+      url,
+      about: $("about").value.trim(),
+      lang: "en",
+      updated: today(),
+      feeds: rows("feeds"),
+      links: [],
+      nests
+    }, extra, {
+      sll: "0.1", name: $("name").value.trim(), url, about: $("about").value.trim(),
+      updated: today(), feeds: rows("feeds"), nests
+    });
+  }
+
+  function render() {
+    const d = build();
+    $("out").textContent = JSON.stringify(d, null, 2);
+    $("checkUrl").textContent = (d.url || "(address)") + "nest.json";
+    const raw = $("url").value.trim();
+    const un = $("urlNote");
+    if (raw && !/^https?:\/\//.test(raw)) { un.textContent = "The address starts with https://."; un.className = "note warn"; }
+    else if (raw && !raw.endsWith("/")) { un.textContent = "There was no / at the end, so we added it: " + slash(raw); un.className = "note"; }
+    else { un.textContent = "The address you see when you open the Nest in a browser. It must end with / (if you forget, we'll add it)."; un.className = "note"; }
+    const n = [...$("about").value.trim()].length, an = $("aboutNote");
+    an.textContent = `${n} characters. Up to about 160 is best. It appears as-is on the map's card.`;
+    an.className = n > 240 ? "note warn" : "note";
+    $("addCommits").hidden = !commitsFeed();
+    const q = new URLSearchParams({ template: "add-nest.yml", nest_name: d.name, nest_url: d.url });
+    $("askIssue").href = "https://github.com/ittekiou/dyxis/issues/new?" + q.toString();
+  }
+
+  function missing() {
+    const d = build(), m = [];
+    if (!d.name) m.push("name (the Nest's name)");
+    if (!d.url) m.push("url (the Nest's address)");
+    if (!d.about) m.push("about (introduction)");
+    return m;
+  }
+  function say(t) { $("msg").textContent = t; }
+
+  ["name", "url", "about"].forEach(id => $(id).addEventListener("input", render));
+  $("addFeed").addEventListener("click", () => addFeed().querySelector("input").focus());
+  $("addNest").addEventListener("click", () => addNest().querySelector("input").focus());
+  $("addDyXis").addEventListener("click", () => {
+    if (rows("nests").some(n => slash(n.url) === DYXIS.url)) return say("The DyXis cottage is already in.");
+    addNest([DYXIS.name, DYXIS.url]); say("Added the DyXis cottage.");
+  });
+  $("addCommits").addEventListener("click", () => {
+    const f = commitsFeed();
+    if (rows("feeds").some(x => x.url === f)) return say("That commits feed is already in.");
+    addFeed([($("name").value.trim() || "This Nest") + " commits (GitHub)", f]);
+    say("Commits to this repository will now flow out as new updates.");
+  });
+
+  $("download").addEventListener("click", () => {
+    const m = missing();
+    if (m.length) return say("Some fields are still empty: " + m.join(", "));
+    const blob = new Blob([$("out").textContent + "\n"], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "nest.json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    say("Downloaded nest.json.");
+  });
+  $("copy").addEventListener("click", async () => {
+    const m = missing();
+    if (m.length) return say("Some fields are still empty: " + m.join(", "));
+    try { await navigator.clipboard.writeText($("out").textContent + "\n"); say("Copied."); }
+    catch { say("Couldn't copy. Please select the contents below and copy them by hand."); }
+  });
+
+  $("loadBtn").addEventListener("click", async () => {
+    const u = slash($("loadUrl").value);
+    if (!u) return say("Enter the address of the Nest to load.");
+    $("msg").textContent = "Loading…";
+    try {
+      const r = await fetch(u + "nest.json", { cache: "no-store" });
+      if (!r.ok) throw new Error(r.status);
+      const d = await r.json();
+      const { sll, name, url, about, updated, feeds, nests, ...rest } = d;
+      extra = rest;
+      $("name").value = name || ""; $("url").value = url || u; $("about").value = about || "";
+      $("feeds").innerHTML = ""; $("nests").innerHTML = "";
+      (feeds || []).forEach(f => addFeed([f.title, f.url]));
+      (nests || []).forEach(n => addNest([n.name, n.url]));
+      render();
+      say("Loaded. When you're done fixing it, download it in step 4. The update date will be today's date.");
+      $("name").scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (e) {
+      say("Couldn't load it (" + u + "nest.json). Please check that the address is right.");
+    }
+  });
+
+  const pre = new URLSearchParams(location.search).get("load");
+  if (pre) { $("loadUrl").value = pre; $("loadBtn").click(); }
+  render();
+})();
+</script>
+</body>
+</html>
