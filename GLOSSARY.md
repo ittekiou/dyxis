@@ -95,12 +95,16 @@
 | 可能性を置くところまで、実際にやってみた記録である。 | It records how far we actually went: as far as placing that possibility. |
 | いつも。ここから。 | Always. From here. |
 | deixis（直示） | deixis, words that point from where the speaker stands |
+| 箱はこんなもんでええ | These boxes'll do. |
+| トンネルを抜けるとそこは蟻塚だった。 | Out of the tunnel, into ant-mound country.（『雪国』のもじりの注は付けない） |
 
 ## 7｜章題
 
 | 日本語 | 英語 | 状態 |
 |---|---|---|
 | SNSは作らない。SNSの次は勝手に名乗った。 | We Won't Build an SNS. We Just Went Ahead and Called It SNS Next. | 確定 |
+| 11月6日｜箱はこんなもんでええ | November 6 \| These Boxes'll Do | 確定 |
+| トンネルを抜けると（Genesisの結び） | 現行 Through the Tunnel／案 Out of the Tunnel（締めの訳と揃える） | 未決 |
 | お道具箱に名札を貼るだけ | Just Put a Name Tag on Your School Supply Box | 確定 |
 | 名札を置いた、その先に | After Placing the Name Tag | 確定 |
 | やめるとき | When You Stop | 確定 |
@@ -116,6 +120,7 @@
 | SNS | SNS (social media) |
 | 別荘 | cottage (a Commons) |
 | 一狄翁 | Ittekiou (Itteki-ō) |
+| こえだめ | koedame (a manure pit; in Japanese it also sounds like "a pool of voices")。以降は koedame |
 
 ## 9｜引用の規則
 
@@ -129,9 +134,6 @@
 
 | 項目 | 候補 |
 |---|---|
-| こえだめ | *manure pit*、または初出だけ *koedame (a manure pit; in Japanese it also sounds like "a pool of voices")* |
-| 箱はこんなもんでええ | 現行 *We've got enough boxes.*／案 *These boxes'll do.* |
-| トンネルを抜けるとそこは蟻塚だった | 案 *Out of the tunnel, into ant-mound country.*（『雪国』のもじりの注を付けるかも未定） |
 | 仕入れ係 | 第三章で決める |
 | 英語版ガイドの番地 | 候補 `guide-en.html`、`maker-en.html`（dyxis の箱の中） |
 | 名札メーカーの欄名 | 知っている巣 → *Nests you know*。英語版の画面でも同じ語にする |
