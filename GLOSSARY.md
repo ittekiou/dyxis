@@ -22,11 +22,11 @@
 
 ## 2｜本の構成
 
-| 日本語 | 英語 |
-|---|---|
+| 日本語 | 英語 | 規則 |
+|---|---|---|
 | はじめに | Prologue / Introduction |
-| Genesis | Genesis |
-| Exodus | Exodus |
+| Genesis（誕生記） | Genesis | 日本語の補いは紹介文などで使う。本文では英字のまま |
+| Exodus（巣立ち編） | Exodus | 同上。「まだ巣立っていない」本文と矛盾させない（巣立てるように置く、の意） |
 | 第一章 | Chapter One |
 | あとがき | BEGIN AGAIN（見出しを「あとがき｜BEGIN AGAIN」とするなら *Afterword \| BEGIN AGAIN*。はじめにの英語見出しと形を揃える） |
 
