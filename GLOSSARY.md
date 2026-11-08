@@ -9,7 +9,7 @@
 
 | 日本語 | 英語 | 規則 |
 |---|---|---|
-| 私（本文の一人称） | I = Kei Itteki | 著者欄の名義とは別に決める |
+| 私（本文の一人称） | I = Kei Itteki | Amazonの著者欄：英語版（日英ペーパーバック・英語Kindle）は 著者 Itekki K.E.／共著者 Kei Itteki。日本語版Kindleは 著者「一狄 啓 / K.E. Itekki」 |
 | 一狄翁 | Ittekiou | 初出のみ *Ittekiou (Itteki-ō)*。URL内は小文字 `ittekiou` |
 | 響詠 | Kyoei | |
 | 綴音 | Tsuzune | |
@@ -234,15 +234,13 @@
 
 ## 10｜未決
 
-| 項目 | 候補 |
-|---|---|
-| 英語版ガイドの番地 | 候補 `guide-en.html`、`maker-en.html`（dyxis の箱の中） |
-| 名札メーカーの欄名 | 知っている巣 → *Nests you know*。英語版の画面でも同じ語にする |
+- 中国語・韓国語のダイジェストは本に入れず、Webの入口として後で置く
 
 ## 11｜英語版ガイド・メーカーへの申し送り
 
 - 用語はこの表から流す。本とガイドで訳を分けない。
 - メーカーは表示の言語だけを増やす。生成される `nest.json` の項目名と形式は変えない。
-- Issues のひな形（巣を載せてください／外してください）も英語版が要る。
-- 本の英語版のリンクは、英語版ガイドが実際に置かれてから確定する。
-- 刊行前に差し替える箇所：第一章の結び（はじめての方へ・巣をつくる）、第三章の結び（はじめての方へ・nest.json仕様案）。まだない英語版のURLは補わない。
+- 英語版は `guide-en.html`（Getting Started）と `maker-en.html`（Make a Nest）。2026-11-08 公開、表示を確認済み。名札メーカーの欄名は *Nests you know*。
+- 本 v1.0 の第一章・第三章の結びは英語版URLに差し替え済み。基本構想と仕様案は日本語のみ（ナビは *(JA)*、本では *(in Japanese)*）。
+- Issues のひな形は日英併記の一枚ずつ（ファイル名・ラベル・欄のidは変えない）。
+- 本のフッター引用（Genesis 11/6）は英語版ページの文言と一字一句揃える：*This small system was first placed in November 2026 by Ittekiou (Itteki-ō) and the AIs of Echodemy (Tsuzune, Kyoei, Youri). It belongs to no one.*
