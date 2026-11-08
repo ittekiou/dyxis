@@ -16,6 +16,9 @@
 | 謡理 | Youri | |
 | Echodemy | Echodemy | |
 | CESE PEC｜排泄猛者倶楽部 | CESE PEC, the Prolific Excretors Club | 初出で開く |
+| Trace玄関 | Tracentrance | ページの英名に従う |
+| 灯欄窓 | Transnomado | ページの英名に従う |
+| ニフティサーブ | NIFTY-Serve | |
 
 ## 2｜本の構成
 
@@ -25,7 +28,7 @@
 | Genesis | Genesis |
 | Exodus | Exodus |
 | 第一章 | Chapter One |
-| あとがき | BEGIN AGAIN |
+| あとがき | BEGIN AGAIN（見出しを「あとがき｜BEGIN AGAIN」とするなら *Afterword \| BEGIN AGAIN*。はじめにの英語見出しと形を揃える） |
 
 ## 3｜仕組みの語
 
@@ -226,12 +229,13 @@
 - 訳は原文より多くを言わない。日本語が主語を伏せていれば、英語も伏せる。
   ただし、伏せられた主語に特定の人（I や爺）を補わない、という意味。章の語り手としての we は使ってよい（第二章§1 *we placed*、§9 *we place*）。
   例：第二章§4の取得試験は *The test fetched …*（Genesisでは出来事の記録として *I opened …*）。同じ出来事でも、原文の語り方に従う。
+  あとがき：爺自身の行動（買った・始めた・辞めた・63歳になった）は I。主体を限定していない「数え直した」は受け身 *were counted*、「DyXisになった」は *It became DyXis.*、六つの「できた」は無主語の *took shape* で揃える。
+  あとがきの「蟻塚ができた」は単数 *An ant mound took shape.*（数の報告ではなく出来事の記録。第三章の結び *There need not be only one ant mound.* と対になる）。
 
 ## 10｜未決
 
 | 項目 | 候補 |
 |---|---|
-| 仕入れ係 | 第三章で決める |
 | 英語版ガイドの番地 | 候補 `guide-en.html`、`maker-en.html`（dyxis の箱の中） |
 | 名札メーカーの欄名 | 知っている巣 → *Nests you know*。英語版の画面でも同じ語にする |
 
