@@ -104,7 +104,7 @@
 |---|---|---|
 | SNSは作らない。SNSの次は勝手に名乗った。 | We Won't Build an SNS. We Just Went Ahead and Called It SNS Next. | 確定 |
 | 11月6日｜箱はこんなもんでええ | November 6 \| These Boxes'll Do | 確定 |
-| トンネルを抜けると（Genesisの結び） | 現行 Through the Tunnel／案 Out of the Tunnel（締めの訳と揃える） | 未決 |
+| トンネルを抜けると（Genesisの結び） | Out of the Tunnel | 確定 |
 | お道具箱に名札を貼るだけ | Just Put a Name Tag on Your School Supply Box | 確定 |
 | 名札を置いた、その先に | After Placing the Name Tag | 確定 |
 | やめるとき | When You Stop | 確定 |
