@@ -61,6 +61,7 @@
 | 取得する | fetch | retrieve / access は使わない |
 | 相互参照 | mutual reference | |
 | 相互認知 | mutual recognition | |
+| 仕様案 | draft specification | 一般の呼び方は *the DyXis draft specification*。実際の文書名を指すときはその名に従う（*the nest.json draft specification*） |
 | 名札や接続をたどる | follow links / follow references | 目的語を付けてSNSのfollowと区別する |
 | 手順・経緯を辿る | walk through | |
 | SNSのフォロー | follow | |
@@ -87,6 +88,9 @@
 | つながっていなくても、巣は成立する。 | A Nest can stand on its own, even without connections. |
 | 自分の場所に、小さな名札を置く。 | Place a small name tag in a place of your own. |
 | 相互参照は、相互認知ではない。 | **Mutual reference is not mutual recognition.**（太字） |
+| 相互参照と相互認知は別。 | **Mutual reference and mutual recognition are separate things.**（太字。上の文とは訳し分ける） |
+| 書かれているのは、名前と住所である。 | **What is written there: names and addresses.**（太字） |
+| 矢印が両向きになる | the arrow becomes two-way |
 | 名前と住所は正確に | Get the names and addresses right. |
 | たよりはおくれてとどくもの | Messages arrive late. |
 | フィードがなくても歓迎である | Nests without a feed are welcome too. |
@@ -108,7 +112,9 @@
 | お道具箱に名札を貼るだけ | Just Put a Name Tag on Your School Supply Box | 確定 |
 | 名札を置いた、その先に | After Placing the Name Tag | 確定 |
 | やめるとき | When You Stop | 確定 |
-| 名札は何を語り、何を語らないか | What a Name Tag Says, and What It Doesn't | 響詠案、未監査 |
+| 名札は何を語り、何を語らないか | What a Name Tag Says, and What It Doesn't | 確定 |
+| 名札を読んでみる | Reading a Name Tag | 確定 |
+| 相互参照は、相互認知ではない（第二章§2の題） | Mutual Reference Is Not Mutual Recognition | 確定 |
 
 ## 8｜注を付ける規則
 
