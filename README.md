@@ -10,9 +10,11 @@
 
 ---
 
-## SLL｜Synchro-Lag LOCUS　基本構想 v0.5
+## SLL｜Synchro-Lag LOCUS　基本構想 v0.6
 
 2026年11月5日（v0.4 から、ブランド名を DyXis に改め、実装の現状を追記）
+
+2026年11月11日 v0.6（用語を整理した：札・立札・貼札・転送札・ほかの巣・リンク・住所）
 
 ### 1｜基本理念
 
@@ -37,6 +39,7 @@ SNSの次の一つを名乗る。
 | **SLRT｜Synchro-Lag Rhizome Tunnels** | 接続構想 |
 | **Nest** | 基本単位 |
 | **Commons** | 他のNestのリストを持つNest |
+| **札** | Nestの案内（`nest.json`） |
 
 SLLは、分散したWeb上の場所を接続するための基本システム。
 
@@ -50,16 +53,20 @@ Nestは個々のNODE。CommonsもNestの一つである。
 
 ### 3｜基本構造
 
-**Nest = HTML ＋ データファイル一つ**
+~~**Nest = HTML ＋ データファイル一つ**~~ → **巣は場所。札は案内。JSON は書式。**（2026-11-11）
 
-データファイル（`nest.json`）の最小項目は次のとおり。詳細は [NEST-SPEC.md](NEST-SPEC.md)。
+札がなくても巣は巣である。札を立てると、地図に載る巣になる。
+
+札（`nest.json`）の最小項目は次のとおり。詳細は [NEST-SPEC.md](NEST-SPEC.md)。
 
 - 自己紹介
 - RSSフィード
-- 外部リンク
-- 他のNestのリスト（任意）
+- リンク（札を持たない、ほかの場所）
+- ほかの巣のリスト（任意）
 
-~~GitHubテンプレートリポジトリとして配布し、GitHub Pagesで公開できる構成を初期案とする。~~ → 巣にはテンプレートを配らない。自分の箱（GitHub Pages など）に `nest.json` を一枚置けば、巣になる。手順は [はじめての方へ](https://ittekiou.github.io/dyxis/guide.html)（2026-11-06）。
+**札は一つ。置き方はいくつでも。** 自分の巣に立てる札を立札、CHIC TEC の私書箱に貼る札を貼札、引っ越したあとに残す札を転送札と呼ぶ。書式はどれも同じ。地図が扱うのは札を持つ場所であって、必ずしも本人の本拠ではない（2026-11-11）。
+
+~~GitHubテンプレートリポジトリとして配布し、GitHub Pagesで公開できる構成を初期案とする。~~ → 巣にはテンプレートを配らない。自分の箱（GitHub Pages など）に札（`nest.json`）を一枚立てれば、地図に載る巣になる。手順は [はじめての方へ](https://ittekiou.github.io/dyxis/guide.html)（2026-11-06）。
 
 **Commons = 他のNestのリストを持つNest**
 
@@ -179,7 +186,7 @@ DyXisは、カナダ（モントリオール）とチュニジアを拠点とす
 
 ### 9｜実装の現状（2026-11-06）
 
-| Nest | 番地 | 置いた者 |
+| Nest | 住所 | 置いた者 |
 |---|---|---|
 | DyXis（ComMounds） | https://ittekiou.github.io/dyxis/ | ホモ・サピエンス |
 | LOCUS｜一狄 啓 | https://camp-us.net/locus/ | ホモ・サピエンス |
