@@ -63,6 +63,14 @@
   @media (prefers-reduced-motion: reduce) { .node.fresh1 circle { animation: none; } }
   .node text { fill: var(--fg); font-size: 13px; text-anchor: middle; pointer-events: none; }
   .node.missing text { fill: var(--dim); }
+  /* 行き先の印：↗ はその巣のページへ、🐜 はその巣から見た地図（蟻塚）へ */
+  .node text.go { font-size: 12px; fill: var(--sub); }
+  .node:hover text.go { fill: var(--blue); }
+  .legend .go::before { display: none; }
+  .legend .go b { color: var(--fg); font-weight: 600; margin-right: 4px; }
+  .card .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .card a.tomap { flex: none; color: var(--sub); font-size: 12px; text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; white-space: nowrap; }
+  .card a.tomap:hover { color: var(--blue); border-color: var(--blue); }
   .edge { stroke: var(--sub); stroke-width: 1.2; fill: none; }
   .edge.mutual { stroke: var(--blue); stroke-width: 1.8; }
   .legend { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; font-size: 13px; color: var(--sub); }
@@ -141,6 +149,8 @@
     <span class="far">2段目の巣</span>
     <span class="fresh f1">24時間以内に新着</span>
     <span class="fresh f7">7日以内に新着</span>
+    <span class="go"><b>↗</b>押すと、その巣のページへ</span>
+    <span class="go"><b>🐜</b>押すと、その巣から見た地図へ</span>
   </div>
 
   <h2>NESTS</h2>
@@ -278,7 +288,7 @@
         if (anchor === "middle") ty = p.y + (s < 0 ? -18 : 26);
       }
       nh += `<g class="${cls}" data-url="${esc(n.url)}"><title>${esc(n.name)}\n${esc(n.url)}</title>
-        <circle cx="${p.x}" cy="${p.y}" r="${far ? 12 : 34}"/><text x="${tx}" y="${ty}" style="text-anchor:${anchor}">${esc(label)}</text></g>`;
+        <circle cx="${p.x}" cy="${p.y}" r="${far ? 12 : 34}"/><text x="${tx}" y="${ty}" style="text-anchor:${anchor}">${far ? "🐜 " : ""}${esc(label)}</text>${far ? "" : `<text class="go" x="${p.x + 27}" y="${p.y - 22}">↗</text>`}</g>`;
     }
     const g = document.getElementById("nodes");
     g.innerHTML = nh;
@@ -315,13 +325,14 @@
         lag = `記載の更新日 ${esc(d.updated)} ／ 取得 ${n.fetchedAt.toLocaleString("ja-JP")}（経過 約${Math.max(days, 0)}日）`;
       }
       const outs = (d.nests || []).length;
-      out.push(`<div class="card"><a class="name" href="${esc(n.url)}">${esc(d.name)}</a>
+      const toMap = n.url === START ? "" : `<a class="tomap" href="${esc(viewFrom(n.url))}" title="この巣から見た地図へ">🐜 この巣から見る</a>`;
+      out.push(`<div class="card"><div class="head"><a class="name" href="${esc(n.url)}">${esc(d.name)} ↗</a>${toMap}</div>
         <p>${esc(d.about)}</p>${linksOf(d)}<p class="lag">${lag}</p><p class="lag">指している巣：${outs}</p>${news(n.url)}</div>`);
     }
     document.getElementById("cards").innerHTML = out.join("");
     const far = [...nodes.values()].filter(isFar);
     let fh = "";
-    if (far.length) fh += `2段目の巣（押すと、その巣から見た地図へ）：<br>` + far.map(n => `<a href="${esc(viewFrom(n.url))}" title="${esc(n.url)}">${esc(String(n.name).split("｜")[0].slice(0, 16))}</a>`).join("");
+    if (far.length) fh += `2段目の巣（押すと、その巣から見た地図へ）：<br>` + far.map(n => `<a href="${esc(viewFrom(n.url))}" title="${esc(n.url)}">🐜 ${esc(String(n.name).split("｜")[0].slice(0, 16))}</a>`).join("");
     if (beyond.size) fh += `<br>その先に、まだ ${beyond.size} の巣がある。`;
     document.getElementById("far").innerHTML = fh;
   }
