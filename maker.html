@@ -132,7 +132,16 @@
   </section>
 
   <section>
-    <h2><span class="step">4</span>できあがり</h2>
+    <h2><span class="step">4</span>ほかの場所<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">なくてもOK</span></h2>
+    <p class="hint">X、note のプロフィール、本の販売ページなど、この巣のほかにある、あなたの場所です。別荘の新着の欄や、巣の入口に並びます。</p>
+    <div id="links"></div>
+    <div class="buttons">
+      <button type="button" id="addLink">＋ ほかの場所を足す</button>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step">5</span>できあがり</h2>
     <p class="hint">下の中身が、あなたの nest.json です。ダウンロードするか、コピーして使ってください。</p>
     <div class="buttons">
       <button type="button" class="main" id="download">nest.json をダウンロード</button>
@@ -158,7 +167,7 @@
 (() => {
   const $ = id => document.getElementById(id);
   const DYXIS = { name: "DyXis", url: "https://ittekiou.github.io/dyxis/" };
-  let extra = {};   // 読み込んだ巣にあった、この画面で扱わない項目（links など）はそのまま残す
+  let extra = {};   // 読み込んだ巣にあった、この画面で扱わない項目はそのまま残す
 
   const slash = u => { u = (u || "").trim(); if (!u) return ""; u = u.split("#")[0].split("?")[0]; return u.endsWith("/") ? u : u + "/"; };
   const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
@@ -178,6 +187,7 @@
   }
   const addFeed = v => addRow("feeds", "title", "url", "フィードの名前（例：わたしのnote）", "RSSの住所（https://…）", v);
   const addNest = v => addRow("nests", "name", "url", "巣の名前（例：DyXis）", "巣の住所（https://…/）", v);
+  const addLink = v => addRow("links", "title", "url", "場所の名前（例：X｜@DyXis_）", "住所（https://…）", v);
 
   function rows(box) {
     return [...$(box).querySelectorAll(".row")].map(r => {
@@ -207,7 +217,7 @@
       nests
     }, extra, {
       sll: "0.1", name: $("name").value.trim(), url, about: $("about").value.trim(),
-      updated: today(), feeds: rows("feeds"), nests
+      updated: today(), feeds: rows("feeds"), links: rows("links"), nests
     });
   }
 
@@ -240,6 +250,7 @@
   ["name", "url", "about"].forEach(id => $(id).addEventListener("input", render));
   $("addFeed").addEventListener("click", () => addFeed().querySelector("input").focus());
   $("addNest").addEventListener("click", () => addNest().querySelector("input").focus());
+  $("addLink").addEventListener("click", () => addLink().querySelector("input").focus());
   $("addDyXis").addEventListener("click", () => {
     if (rows("nests").some(n => slash(n.url) === DYXIS.url)) return say("別荘 DyXis はもう入っています。");
     addNest([DYXIS.name, DYXIS.url]); say("別荘 DyXis を足しました。");
@@ -276,14 +287,15 @@
       const r = await fetch(u + "nest.json", { cache: "no-store" });
       if (!r.ok) throw new Error(r.status);
       const d = await r.json();
-      const { sll, name, url, about, updated, feeds, nests, ...rest } = d;
+      const { sll, name, url, about, updated, feeds, links, nests, ...rest } = d;
       extra = rest;
       $("name").value = name || ""; $("url").value = url || u; $("about").value = about || "";
-      $("feeds").innerHTML = ""; $("nests").innerHTML = "";
+      $("feeds").innerHTML = ""; $("links").innerHTML = ""; $("nests").innerHTML = "";
       (feeds || []).forEach(f => addFeed([f.title, f.url]));
+      (links || []).forEach(l => addLink([l.title, l.url]));
       (nests || []).forEach(n => addNest([n.name, n.url]));
       render();
-      say("読み込みました。直したら、4 でダウンロードしてください。更新日は今日の日付になります。");
+      say("読み込みました。直したら、5 でダウンロードしてください。更新日は今日の日付になります。");
       $("name").scrollIntoView({ behavior: "smooth", block: "center" });
     } catch (e) {
       say("読み込めませんでした（" + u + "nest.json）。住所が合っているか確かめてください。");

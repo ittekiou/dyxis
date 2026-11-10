@@ -81,6 +81,10 @@
   .card p { margin: 6px 0 0; font-size: 13px; color: var(--sub); overflow-wrap: anywhere; }
   .card .lag { color: var(--dim); font-size: 12px; }
   .card.missing { border-style: dashed; }
+  /* ほかの場所（名札の links）：部屋の中の小さな案内 */
+  .card .links { margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .card .links a { color: var(--sub); font-size: 12px; text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; }
+  .card .links a:hover { color: var(--blue); border-color: var(--blue); }
   .news { list-style: none; margin: 10px 0 0; padding: 10px 0 0; border-top: 1px solid var(--line); }
   .news li { margin: 0 0 8px; font-size: 13px; line-height: 1.5; }
   .news a { color: var(--fg); text-decoration: none; }
@@ -148,6 +152,7 @@
 <footer>
   <p>  JSONから確認できるのは相互参照まで。相互認知や交流は推定しない。<br>
   updated は自己申告の日付。表示の差は「記載された更新日から取得時点までの経過」。<br>
+  巣のカードに並ぶ小さな札は、その巣が名札（links）に書いた「ほかの場所」。<br>
   地図に大きく描くのは、起点と、起点が名札に書いた巣（1段目）。その巣たちが書いた巣（2段目）は小さく薄く描き、その先は数だけ数える。新着を仕入れるのは1段目まで。<br>
   新着は、別荘が一日二回、各巣の feeds から仕入れたもの。「公開」は記事の側の時刻、「仕入れ」は別荘が取りに行った時刻。<br>
   円の色は、仕入れた時点でいちばん新しい記事の公開がどれだけ前だったか。巣が動いたかどうかの目安で、誰かが読んだかどうかではない。</p>
@@ -274,6 +279,12 @@
     }));
   }
 
+  // 名札の links（ほかの場所）を、小さな札として並べる。http(s) の住所だけ
+  function linksOf(d) {
+    const ls = (Array.isArray(d.links) ? d.links : []).filter(l => l && /^https?:\/\//i.test(l.url || ""));
+    if (!ls.length) return "";
+    return `<p class="links">${ls.map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.title || l.url)}</a>`).join("")}</p>`;
+  }
   function cards() {
     const out = [];
     for (const n of nodes.values()) {
@@ -290,7 +301,7 @@
       }
       const outs = (d.nests || []).length;
       out.push(`<div class="card"><a class="name" href="${esc(n.url)}">${esc(d.name)}</a>
-        <p>${esc(d.about)}</p><p class="lag">${lag}</p><p class="lag">指している巣：${outs}</p>${news(n.url)}</div>`);
+        <p>${esc(d.about)}</p>${linksOf(d)}<p class="lag">${lag}</p><p class="lag">指している巣：${outs}</p>${news(n.url)}</div>`);
     }
     document.getElementById("cards").innerHTML = out.join("");
     const far = [...nodes.values()].filter(isFar);

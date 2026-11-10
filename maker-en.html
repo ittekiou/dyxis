@@ -133,7 +133,16 @@
   </section>
 
   <section>
-    <h2><span class="step">4</span>Done</h2>
+    <h2><span class="step">4</span>Your other places<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">optional</span></h2>
+    <p class="hint">Your places outside this Nest: X, a profile page, a book's store page, and so on. They appear in a cottage's news cards and at a Nest's entrance.</p>
+    <div id="links"></div>
+    <div class="buttons">
+      <button type="button" id="addLink">+ Add another place</button>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step">5</span>Done</h2>
     <p class="hint">The contents below are your nest.json. Download it, or copy it.</p>
     <div class="buttons">
       <button type="button" class="main" id="download">Download nest.json</button>
@@ -159,7 +168,7 @@
 (() => {
   const $ = id => document.getElementById(id);
   const DYXIS = { name: "DyXis", url: "https://ittekiou.github.io/dyxis/" };
-  let extra = {};   // fields from a loaded Nest that this page doesn't handle (links, etc.) are kept as they are
+  let extra = {};   // fields from a loaded Nest that this page doesn't handle are kept as they are
 
   const slash = u => { u = (u || "").trim(); if (!u) return ""; u = u.split("#")[0].split("?")[0]; return u.endsWith("/") ? u : u + "/"; };
   const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
@@ -179,6 +188,7 @@
   }
   const addFeed = v => addRow("feeds", "title", "url", "Feed name (e.g., My blog)", "RSS address (https://…)", v);
   const addNest = v => addRow("nests", "name", "url", "Nest name (e.g., DyXis)", "Nest address (https://…/)", v);
+  const addLink = v => addRow("links", "title", "url", "Place name (e.g., X | @DyXis_)", "Address (https://…)", v);
 
   function rows(box) {
     return [...$(box).querySelectorAll(".row")].map(r => {
@@ -208,7 +218,7 @@
       nests
     }, extra, {
       sll: "0.1", name: $("name").value.trim(), url, about: $("about").value.trim(),
-      updated: today(), feeds: rows("feeds"), nests
+      updated: today(), feeds: rows("feeds"), links: rows("links"), nests
     });
   }
 
@@ -241,6 +251,7 @@
   ["name", "url", "about"].forEach(id => $(id).addEventListener("input", render));
   $("addFeed").addEventListener("click", () => addFeed().querySelector("input").focus());
   $("addNest").addEventListener("click", () => addNest().querySelector("input").focus());
+  $("addLink").addEventListener("click", () => addLink().querySelector("input").focus());
   $("addDyXis").addEventListener("click", () => {
     if (rows("nests").some(n => slash(n.url) === DYXIS.url)) return say("The DyXis cottage is already in.");
     addNest([DYXIS.name, DYXIS.url]); say("Added the DyXis cottage.");
@@ -277,14 +288,15 @@
       const r = await fetch(u + "nest.json", { cache: "no-store" });
       if (!r.ok) throw new Error(r.status);
       const d = await r.json();
-      const { sll, name, url, about, updated, feeds, nests, ...rest } = d;
+      const { sll, name, url, about, updated, feeds, links, nests, ...rest } = d;
       extra = rest;
       $("name").value = name || ""; $("url").value = url || u; $("about").value = about || "";
-      $("feeds").innerHTML = ""; $("nests").innerHTML = "";
+      $("feeds").innerHTML = ""; $("links").innerHTML = ""; $("nests").innerHTML = "";
       (feeds || []).forEach(f => addFeed([f.title, f.url]));
+      (links || []).forEach(l => addLink([l.title, l.url]));
       (nests || []).forEach(n => addNest([n.name, n.url]));
       render();
-      say("Loaded. When you're done fixing it, download it in step 4. The update date will be today's date.");
+      say("Loaded. When you're done fixing it, download it in step 5. The update date will be today's date.");
       $("name").scrollIntoView({ behavior: "smooth", block: "center" });
     } catch (e) {
       say("Couldn't load it (" + u + "nest.json). Please check that the address is right.");
