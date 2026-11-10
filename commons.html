@@ -215,7 +215,7 @@
   const isFar = n => (n.depth || 0) >= 2;
   function layout() {
     const list = [...nodes.values()];
-    const cx = 400, cy = 280, R = 190, R2 = 255;
+    const cx = 400, cy = 280, R = 190, R2 = 300;
     const near = list.filter(n => !isFar(n));
     const ring = [near.find(n => n.url === START), ...near.filter(n => n.url !== START)].filter(Boolean);
     const pos = new Map(), ang = new Map();
@@ -237,7 +237,7 @@
     for (const [from, arr] of kids) {
       arr.forEach((u, i) => {
         const a = ang.get(from) + (arr.length === 1 ? 0 : (i / (arr.length - 1) - 0.5) * slot * 0.8);
-        pos.set(u, { x: cx + R2 * Math.cos(a), y: cy + R2 * Math.sin(a) });
+        pos.set(u, { x: cx + R2 * Math.cos(a), y: cy + R2 * Math.sin(a), a });
       });
     }
     return pos;
@@ -269,11 +269,26 @@
       const far = isFar(n);
       const cls = ["node", n.url === START ? "start" : "", n.ok ? "" : "missing", far ? "far" : freshness(n.url)].join(" ");
       const label = String(n.name).split("｜")[0].slice(0, 10);
+      // 2段目の名前は、円の外側（地図の中心から離れる向き）に置いて、線と重ならないようにする
+      let tx = p.x, ty = p.y + 4, anchor = "middle";
+      if (far) {
+        const a = p.a ?? Math.atan2(p.y - 280, p.x - 400), c = Math.cos(a), s = Math.sin(a);
+        tx = p.x + c * 18; ty = p.y + s * 18 + 4;
+        anchor = c > 0.35 ? "start" : c < -0.35 ? "end" : "middle";
+        if (anchor === "middle") ty = p.y + (s < 0 ? -18 : 26);
+      }
       nh += `<g class="${cls}" data-url="${esc(n.url)}"><title>${esc(n.name)}\n${esc(n.url)}</title>
-        <circle cx="${p.x}" cy="${p.y}" r="${far ? 12 : 34}"/><text x="${p.x}" y="${far ? p.y + 26 : p.y + 4}">${esc(label)}</text></g>`;
+        <circle cx="${p.x}" cy="${p.y}" r="${far ? 12 : 34}"/><text x="${tx}" y="${ty}" style="text-anchor:${anchor}">${esc(label)}</text></g>`;
     }
     const g = document.getElementById("nodes");
     g.innerHTML = nh;
+    // 描いたものが全部おさまるように、地図の枠を合わせる
+    try {
+      const b = document.getElementById("map").getBBox(), m = 16;
+      const x0 = Math.min(0, b.x - m), y0 = Math.min(0, b.y - m);
+      const x1 = Math.max(800, b.x + b.width + m), y1 = Math.max(560, b.y + b.height + m);
+      document.getElementById("map").setAttribute("viewBox", `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
+    } catch {}
     g.querySelectorAll(".node").forEach(el => el.addEventListener("click", () => {
       location.href = el.classList.contains("far") ? viewFrom(el.dataset.url) : el.dataset.url;
     }));
