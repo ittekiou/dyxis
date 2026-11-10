@@ -94,7 +94,7 @@
   .card p { margin: 6px 0 0; font-size: 13px; color: var(--sub); overflow-wrap: anywhere; }
   .card .lag { color: var(--dim); font-size: 12px; }
   .card.missing { border-style: dashed; }
-  /* ほかの場所（名札の links）：部屋の中の小さな案内 */
+  /* リンク（札の links）：部屋の中の小さな案内 */
   .card .links { margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
   .card .links a { color: var(--sub); font-size: 12px; text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; }
   .card .links a:hover { color: var(--blue); border-color: var(--blue); }
@@ -167,8 +167,8 @@
 <footer>
   <p>  JSONから確認できるのは相互参照まで。相互認知や交流は推定しない。<br>
   updated は自己申告の日付。表示の差は「記載された更新日から取得時点までの経過」。<br>
-  巣のカードに並ぶ小さな札は、その巣が名札（links）に書いた「ほかの場所」。<br>
-  地図に大きく描くのは、起点と、起点が名札に書いた巣（1段目）。その巣たちが書いた巣（2段目）は小さく薄く描き、その先は数だけ数える。新着を仕入れるのは1段目まで。<br>
+  巣のカードに並ぶ小さな札は、その巣が札に書いた「リンク」（札を持たない、ほかの場所）。<br>
+  地図に大きく描くのは、起点と、起点が札に書いた巣（1段目）。その巣たちが書いた巣（2段目）は小さな 🐜 の丸で描き、その先は数だけ数える。新着を仕入れるのは1段目まで。<br>
   新着は、別荘が一日二回、各巣の feeds から仕入れたもの。「公開」は記事の側の時刻、「仕入れ」は別荘が取りに行った時刻。<br>
   円の色は、仕入れた時点でいちばん新しい記事の公開がどれだけ前だったか。巣が動いたかどうかの目安で、誰かが読んだかどうかではない。</p>
   <nav class="site"><a href="./">入口</a> ・ <a href="guide.html">はじめての方へ</a> ・ <a href="maker.html">巣をつくる</a> ・ <b>地図（Commons）</b> ・ <a href="concept.html">基本構想</a> ・ <a href="NEST-SPEC.html">仕様案</a></nav>
@@ -183,7 +183,7 @@
   let here = HOME;
   try { if (/^https?:$/.test(location.protocol)) here = new URL("./", location.href).href; } catch {}
   const START = norm(params.get("start") || here);
-  const MAX_NODES = 60, MAX_DEPTH = 2;   // 0：起点　1：名札に書いた巣　2：その先（薄く）。3段目より先は数だけ
+  const MAX_NODES = 60, MAX_DEPTH = 2;   // 0：起点　1：札に書いた巣　2：その先（🐜 の小さな丸）。3段目より先は数だけ
 
   function norm(u) {
     try { const x = new URL(u, location.href); x.hash = ""; x.search = ""; let s = x.href; return s.endsWith("/") ? s : s + "/"; }
@@ -310,7 +310,7 @@
     }));
   }
 
-  // 名札の links（ほかの場所）を、小さな札として並べる。http(s) の住所だけ
+  // 札の links（リンク）を、小さな札として並べる。http(s) の住所だけ
   function linksOf(d) {
     const ls = (Array.isArray(d.links) ? d.links : []).filter(l => l && /^https?:\/\//i.test(l.url || ""));
     if (!ls.length) return "";
