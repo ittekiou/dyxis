@@ -86,6 +86,7 @@
       <li><a href="#principles">三つの約束ごと</a></li>
       <li><a href="#start">巣を置いてみよう</a></li>
       <li><a href="#commons">別荘をつくりたい人へ</a></li>
+      <li><a href="#care">巣のお手入れ</a></li>
       <li><a href="#faq">よくある質問</a></li>
     </ol>
   </nav>
@@ -200,8 +201,31 @@
     <p class="lead">名札を直さないうちは、CESE PEC の名前のまま動きます。倶楽部の支部がひとつ増えた、と思っておいてください。</p>
   </section>
 
+  <section id="care">
+    <h2><span class="n">8</span>巣のお手入れ</h2>
+    <p>自己紹介を書き換えたい、フィードやほかの場所を足したい、つながる巣が増えた。名札は、いつでも直せます。JSON を手で書かなくても、<a href="maker.html">巣をつくるページ</a>で直せます。</p>
+    <ol class="steps">
+      <li><b>自分の巣を読み込む</b><br>
+        <a href="maker.html">巣をつくるページ</a>のいちばん上、「0 すでに巣がある人は」に、自分の巣の住所を入れて「読み込む」。いまの名札の中身が、下の欄に全部入ります。</li>
+      <li><b>欄の上で直す</b><br>
+        自己紹介を書き換える、フィードを足す、ほかの場所（X や note のプロフィールなど）を足す、知っている巣を足す・消す。コンマやかっこは、ページが正しく書いてくれます。</li>
+      <li><b>ダウンロードする</b><br>
+        「nest.json をダウンロード」。更新日は今日の日付が自動で入ります。ファイルの名前が <code>nest (1).json</code> のようになっていたら、<code>nest.json</code> に戻してください。</li>
+      <li><b>箱の名札と置き換える</b><br>
+        自分の箱のページで「Add file」→「Upload files」。ダウンロードした <code>nest.json</code> を入れて「Commit changes」。同じ名前なので、前の名札と置き換わります。前の版は履歴に残るので、失敗しても戻せます。</li>
+      <li><b>確かめる</b><br>
+        数分たってから <code>（あなたの巣の住所）nest.json</code> を開いて、直した中身が見えれば完了です。地図は開くたびに名札を読み直すので、すぐ反映されます。新着の欄だけは、別荘の次の仕入れ（一日二回）を待ちます。</li>
+    </ol>
+    <h3>地図が出なくなったら</h3>
+    <p>たいていは、名札の書き方のどこかが崩れています（いちばん多いのは、コンマのつけ忘れ・つけすぎ）。手で直した名札は、一度<a href="maker.html">巣をつくるページ</a>で読み込んでみてください。読み込めなければ、どこかが崩れています。読み込めたら、そのままダウンロードして置き換えれば、きれいな形に直ります。</p>
+    <h3>引っ越すとき</h3>
+    <p>新しい住所に名札を置いたら、古い住所の名札を「引っ越しました」の札に替えておくと親切です。自己紹介に「引っ越しました」と書き、知っている巣には新しい住所だけを書きます。地図では、古い巣から新しい巣へ矢印が一本伸びます。別荘 DyXis に載っている場合は、<a href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">GitHub Issues</a> で新しい住所を知らせてください。</p>
+    <h3>私書箱を借りている人は</h3>
+    <p><a href="https://ittekiou.github.io/CHIC-TEC/">CHIC TEC</a> の私書箱の名札は、世話役が書き換えます。直したいところを、<a href="https://github.com/ittekiou/CHIC-TEC/issues/new" target="_blank" rel="noopener">CHIC TEC の Issues</a> で知らせてください。</p>
+  </section>
+
   <section id="faq">
-    <h2><span class="n">8</span>よくある質問</h2>
+    <h2><span class="n">9</span>よくある質問</h2>
     <h3>お金はかかりますか？</h3>
     <p>GitHub のアカウントも GitHub Pages も、無料で使えます。DyXis にも料金はありません。</p>
     <h3>本名を書かないといけませんか？</h3>
