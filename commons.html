@@ -66,13 +66,13 @@
   .node text { fill: var(--fg); font-size: 13px; text-anchor: middle; pointer-events: none; }
   .node.missing text { fill: var(--dim); }
   /* 行き先の印：↗ はその巣のページへ、🐜 はその巣から見た地図（蟻塚）へ */
-  .node circle.badge, .node.fresh1 circle.badge, .node.start circle.badge { fill: var(--blue); stroke: var(--bg); stroke-width: 2; stroke-dasharray: none; animation: none; }
-  .node:hover circle.badge { fill: #9cc6f7; }
-  .node text.go { font-size: 12px; font-weight: 700; fill: #000; text-anchor: middle; }
+  .node circle.badge, .node.fresh1 circle.badge, .node.start circle.badge { fill: #1c3350; stroke: var(--blue); stroke-width: 1.5; stroke-dasharray: 3 3; animation: none; }
+  .node .tomap:hover circle.badge { fill: #2e5a8c; stroke-dasharray: none; }
+  .node text.ant { font-size: 12px; stroke: none; text-anchor: middle; }
   .legend .go::before { display: none; }
   .legend .go b { display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 12px; margin-right: 6px; vertical-align: middle; }
-  .legend .go b.pg { background: var(--blue); color: #000; font-weight: 700; }
-  .legend .go b.ant { border: 1.5px dashed var(--blue); line-height: 17px; }
+  .legend .go b.pg { width: 14px; height: 14px; border: 1.5px solid var(--fg); background: #1f4f86; }
+  .legend .go b.ant { border: 1.5px dashed var(--blue); background: #1c3350; line-height: 17px; }
   .card .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .card a.tomap { flex: none; color: var(--sub); font-size: 12px; text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; white-space: nowrap; }
   .card a.tomap:hover { color: var(--blue); border-color: var(--blue); }
@@ -154,8 +154,8 @@
     <span class="far">2段目の巣</span>
     <span class="fresh f1">24時間以内に新着</span>
     <span class="fresh f7">7日以内に新着</span>
-    <span class="go"><b class="pg">↗</b>押すと、その巣のページへ</span>
-    <span class="go"><b class="ant">🐜</b>押すと、その巣から見た地図へ</span>
+    <span class="go"><b class="pg"></b>大きい丸を押すと、その巣のページへ</span>
+    <span class="go"><b class="ant">🐜</b>この丸を押すと、その巣から見た地図へ</span>
   </div>
 
   <h2>NESTS</h2>
@@ -293,7 +293,7 @@
         if (anchor === "middle") ty = p.y + (s < 0 ? -20 : 28);
       }
       nh += `<g class="${cls}" data-url="${esc(n.url)}"><title>${esc(n.name)}\n${esc(n.url)}</title>
-        <circle cx="${p.x}" cy="${p.y}" r="${far ? 13 : 34}"/><text x="${tx}" y="${ty}" style="text-anchor:${anchor}">${esc(label)}</text>${far ? `<text class="ant" x="${p.x}" y="${p.y + 5}">🐜</text>` : `<circle class="badge" cx="${p.x + 25}" cy="${p.y - 25}" r="10"/><text class="go" x="${p.x + 25}" y="${p.y - 21}">↗</text>`}</g>`;
+        <circle cx="${p.x}" cy="${p.y}" r="${far ? 13 : 34}"/><text x="${tx}" y="${ty}" style="text-anchor:${anchor}">${esc(label)}</text>${far ? `<text class="ant" x="${p.x}" y="${p.y + 5}">🐜</text>` : (n.url === START ? "" : `<g class="tomap"><title>この巣から見た地図へ</title><circle class="badge" cx="${p.x + 25}" cy="${p.y - 25}" r="11"/><text class="ant" x="${p.x + 25}" y="${p.y - 21}">🐜</text></g>`)}</g>`;
     }
     const g = document.getElementById("nodes");
     g.innerHTML = nh;
@@ -304,8 +304,9 @@
       const x1 = Math.max(800, b.x + b.width + m), y1 = Math.max(560, b.y + b.height + m);
       document.getElementById("map").setAttribute("viewBox", `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
     } catch {}
-    g.querySelectorAll(".node").forEach(el => el.addEventListener("click", () => {
-      location.href = el.classList.contains("far") ? viewFrom(el.dataset.url) : el.dataset.url;
+    g.querySelectorAll(".node").forEach(el => el.addEventListener("click", ev => {
+      const toMap = el.classList.contains("far") || ev.target.closest(".tomap");
+      location.href = toMap ? viewFrom(el.dataset.url) : pageOf(el.dataset.url);
     }));
   }
 
@@ -331,7 +332,7 @@
       }
       const outs = (d.nests || []).length;
       const toMap = n.url === START ? "" : `<a class="tomap" href="${esc(viewFrom(n.url))}" title="この巣から見た地図へ">🐜 この巣から見る</a>`;
-      out.push(`<div class="card"><div class="head"><a class="name" href="${esc(n.url)}">${esc(d.name)} ↗</a>${toMap}</div>
+      out.push(`<div class="card"><div class="head"><a class="name" href="${esc(pageOf(n.url))}">${esc(d.name)} ↗</a>${toMap}</div>
         <p>${esc(d.about)}</p>${linksOf(d)}<p class="lag">${lag}</p><p class="lag">指している巣：${outs}</p>${news(n.url)}</div>`);
     }
     document.getElementById("cards").innerHTML = out.join("");
@@ -371,6 +372,9 @@
     try { const r = await fetch("feeds.json", { cache: "no-store" }); if (r.ok) FEEDS = await r.json(); } catch {}
   }
 
+  // 地図そのものが別のページにある巣は、ページへ行くかわりにその地図へ（DyXis の入口ではなく Commons へ）
+  const MAP_PAGE = { "https://ittekiou.github.io/dyxis/": "https://ittekiou.github.io/dyxis/commons.html" };
+  function pageOf(u) { return MAP_PAGE[u] || u; }
   function viewFrom(u) { const x = new URL(location.href); x.search = ""; x.searchParams.set("start", norm(u)); return x.href; }
   // 出発点の切り替え
   const input = document.getElementById("startUrl");
