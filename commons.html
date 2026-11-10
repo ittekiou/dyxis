@@ -44,14 +44,16 @@
   .node.start circle { stroke: var(--blue); stroke-width: 2.5; }
   .node.missing circle { stroke: var(--dim); stroke-dasharray: 4 3; }
   /* 2段目の巣：小さく薄く。押すと、その巣から見た地図へ */
-  .node.far { opacity: .5; cursor: pointer; }
-  .node.far:hover { opacity: .9; }
-  .node.far text { font-size: 10px; fill: var(--sub); paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+  .node.far { cursor: pointer; }
+  .node.far circle { fill: #1c3350; stroke: var(--blue); stroke-width: 1.5; stroke-dasharray: 3 3; }
+  .node.far:hover circle { fill: #2e5a8c; stroke-dasharray: none; }
+  .node.far text { font-size: 11px; fill: #cfcfcf; paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+  .node.far text.ant { font-size: 13px; stroke: none; text-anchor: middle; }
   #far { margin: 18px 0 0; font-size: 13px; color: var(--sub); line-height: 2; }
   #far:empty { display: none; }
   #far a { color: var(--sub); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; margin: 0 4px 6px 0; display: inline-block; text-decoration: none; }
   #far a:hover { color: var(--blue); border-color: var(--blue); }
-  .legend .far::before { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--fg); opacity: .5; }
+  .legend .far::before { width: 10px; height: 10px; border-radius: 50%; border: 1.5px dashed var(--blue); }
   .node.fresh1 circle { fill: #1f4f86; }   /* 仕入れの前24時間以内に新着 */
   .node.fresh7 circle { fill: #15263b; }   /* 7日以内に新着 */
   /* 24時間以内に新着のある巣は、ゆっくり呼吸する */
@@ -64,10 +66,13 @@
   .node text { fill: var(--fg); font-size: 13px; text-anchor: middle; pointer-events: none; }
   .node.missing text { fill: var(--dim); }
   /* 行き先の印：↗ はその巣のページへ、🐜 はその巣から見た地図（蟻塚）へ */
-  .node text.go { font-size: 12px; fill: var(--sub); }
-  .node:hover text.go { fill: var(--blue); }
+  .node circle.badge, .node.fresh1 circle.badge, .node.start circle.badge { fill: var(--blue); stroke: var(--bg); stroke-width: 2; stroke-dasharray: none; animation: none; }
+  .node:hover circle.badge { fill: #9cc6f7; }
+  .node text.go { font-size: 12px; font-weight: 700; fill: #000; text-anchor: middle; }
   .legend .go::before { display: none; }
-  .legend .go b { color: var(--fg); font-weight: 600; margin-right: 4px; }
+  .legend .go b { display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 12px; margin-right: 6px; vertical-align: middle; }
+  .legend .go b.pg { background: var(--blue); color: #000; font-weight: 700; }
+  .legend .go b.ant { border: 1.5px dashed var(--blue); line-height: 17px; }
   .card .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .card a.tomap { flex: none; color: var(--sub); font-size: 12px; text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 1px 9px; white-space: nowrap; }
   .card a.tomap:hover { color: var(--blue); border-color: var(--blue); }
@@ -149,8 +154,8 @@
     <span class="far">2段目の巣</span>
     <span class="fresh f1">24時間以内に新着</span>
     <span class="fresh f7">7日以内に新着</span>
-    <span class="go"><b>↗</b>押すと、その巣のページへ</span>
-    <span class="go"><b>🐜</b>押すと、その巣から見た地図へ</span>
+    <span class="go"><b class="pg">↗</b>押すと、その巣のページへ</span>
+    <span class="go"><b class="ant">🐜</b>押すと、その巣から見た地図へ</span>
   </div>
 
   <h2>NESTS</h2>
@@ -283,12 +288,12 @@
       let tx = p.x, ty = p.y + 4, anchor = "middle";
       if (far) {
         const a = p.a ?? Math.atan2(p.y - 280, p.x - 400), c = Math.cos(a), s = Math.sin(a);
-        tx = p.x + c * 18; ty = p.y + s * 18 + 4;
+        tx = p.x + c * 20; ty = p.y + s * 20 + 4;
         anchor = c > 0.35 ? "start" : c < -0.35 ? "end" : "middle";
-        if (anchor === "middle") ty = p.y + (s < 0 ? -18 : 26);
+        if (anchor === "middle") ty = p.y + (s < 0 ? -20 : 28);
       }
       nh += `<g class="${cls}" data-url="${esc(n.url)}"><title>${esc(n.name)}\n${esc(n.url)}</title>
-        <circle cx="${p.x}" cy="${p.y}" r="${far ? 12 : 34}"/><text x="${tx}" y="${ty}" style="text-anchor:${anchor}">${far ? "🐜 " : ""}${esc(label)}</text>${far ? "" : `<text class="go" x="${p.x + 27}" y="${p.y - 22}">↗</text>`}</g>`;
+        <circle cx="${p.x}" cy="${p.y}" r="${far ? 13 : 34}"/><text x="${tx}" y="${ty}" style="text-anchor:${anchor}">${esc(label)}</text>${far ? `<text class="ant" x="${p.x}" y="${p.y + 5}">🐜</text>` : `<circle class="badge" cx="${p.x + 25}" cy="${p.y - 25}" r="10"/><text class="go" x="${p.x + 25}" y="${p.y - 21}">↗</text>`}</g>`;
     }
     const g = document.getElementById("nodes");
     g.innerHTML = nh;
