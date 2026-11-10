@@ -81,13 +81,13 @@
 <nav class="site lang" aria-label="Language"><b>日本語</b> ・ <a href="guide-en.html" lang="en">English</a> ・ <a href="digest-zh-hans.html" lang="zh-Hans">简体中文</a> ・ <a href="digest-zh-hant.html" lang="zh-Hant">繁體中文</a> ・ <a href="digest-ko.html" lang="ko">한국어</a></nav>
 
 <main>
-  <p class="lead">インターネットのあちこちにある<br><b>「自分の場所」どうしを<br><b>ゆるくつなぐしくみ</b>です。</p>
-  <p class="lead2">自分の場所に、小さな名札を一枚置く。それだけです。</p>
+  <p class="lead">インターネットのあちこちにある<br>「自分の場所」どうしを<br><b>ゆるくつなぐしくみ</b>です。</p>
+  <p class="lead2">自分の場所に、小さな札を一枚立てる。それだけです。</p>
 
   <div class="doors">
     <a class="door first" href="guide.html"><div class="t">はじめての方へ</div><div class="d">DyXis のこと、巣の置き方を、ゼロから。</div></a>
     <a class="door" href="commons.html"><div class="t">地図を見る</div><div class="d">いまつながっている巣と、新着。</div></a>
-    <a class="door" href="maker.html"><div class="t">巣をつくる</div><div class="d">欄を埋めるだけで、名札ができます。</div></a>
+    <a class="door" href="maker.html"><div class="t">巣をつくる</div><div class="d">欄を埋めるだけで、札ができます。</div></a>
   </div>
 
   <p id="now"></p>
@@ -107,7 +107,7 @@
 </footer>
 
 <script>
-// 別荘 DyXis のいまの様子（名札と、いちばん最近の仕入れ）。読めなければ何も出さない。
+// 別荘 DyXis のいまの様子（札と、いちばん最近の仕入れ）。読めなければ何も出さない。
 (async () => {
   try {
     const [n, f] = await Promise.all([
@@ -115,13 +115,13 @@
       fetch("feeds.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null)
     ]);
     const parts = [];
-    if (n && Array.isArray(n.nests)) parts.push(`別荘 DyXis が知っている巣：<b>${n.nests.length}</b>`);
+    if (n && Array.isArray(n.nests)) parts.push(`別荘 DyXis の札にある巣：<b>${n.nests.length}</b>`);
     if (f && f.collected_at) parts.push(`いちばん最近の仕入れ：<b>${new Date(f.collected_at).toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })}</b>`);
     document.getElementById("now").innerHTML = parts.join(" ／ ");
-    // ほかの場所：名札の links をそのまま並べる（http(s) の住所だけ）
+    // リンク：札の links をそのまま並べる（http(s) の住所だけ）
     const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     const ls = (n && Array.isArray(n.links) ? n.links : []).filter(l => l && /^https?:\/\//i.test(l.url || ""));
-    if (ls.length) document.getElementById("elsewhere").innerHTML = "ほかの場所：" + ls.map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.title || l.url)}</a>`).join("");
+    if (ls.length) document.getElementById("elsewhere").innerHTML = "リンク：" + ls.map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.title || l.url)}</a>`).join("");
   } catch {}
 })();
 </script>
