@@ -6,13 +6,13 @@ body:
   - type: markdown
     attributes:
       value: |
-        別荘 DyXis の名札（nest.json）から、あなたの巣を外します。理由は書かなくて構いません。
+        別荘 DyXis の札（nest.json）から、あなたの巣を外します。理由は書かなくて構いません。
 
         ここに書いたことは、だれでも読める場所に公開されます。
 
         ---
 
-        We'll remove your Nest from the DyXis cottage's name tag (nest.json). You don't need to give a reason.
+        We'll remove your Nest from the DyXis cottage's sign (nest.json). You don't need to give a reason.
 
         Anything you write here is published where anyone can read it.
   - type: input
