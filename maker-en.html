@@ -81,14 +81,14 @@
 <body>
 <header>
   <h1 class="brand">Dy<span class="x">X</span>is</h1>
-  <p>Make a Nest ── make a nest.json without writing a nest.json</p>
+  <p>Make a Nest ── make a sign (nest.json), and your place becomes a Nest on the map</p>
 </header>
 <nav class="site"><a href="./">Entrance</a> ・ <a href="guide-en.html">Getting Started</a> ・ <b>Make a Nest</b> ・ <a href="commons.html">Map (Commons)</a> ・ <a href="concept.html">Concept (JA)</a> ・ <a href="NEST-SPEC.html">Draft Spec (JA)</a> ・ <a href="maker.html" lang="ja">日本語</a> ・ <a href="digest-zh-hans.html" lang="zh-Hans">简体中文</a> ・ <a href="digest-zh-hant.html" lang="zh-Hant">繁體中文</a> ・ <a href="digest-ko.html" lang="ko">한국어</a></nav>
 
 <main>
   <section>
-    <h2><span class="step">0</span>If you already have a Nest (otherwise, skip this)</h2>
-    <p class="hint">Enter your Nest's address and press "Load." Its current contents go into the fields below, and you can fix them from there.</p>
+    <h2><span class="step">0</span>If you already have a sign (otherwise, skip this)</h2>
+    <p class="hint">Enter your Nest's address and press "Load." Its current sign goes into the fields below, and you can fix them from there.</p>
     <div class="load">
       <input id="loadUrl" type="url" placeholder="https://example.github.io/nest/" aria-label="Address of the Nest to load">
       <button id="loadBtn" type="button">Load</button>
@@ -123,27 +123,27 @@
   </section>
 
   <section>
-    <h2><span class="step">3</span>Nests you know<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">optional</span></h2>
-    <p class="hint">Names and addresses of Nests you'd like to connect to. Write one here, and one arrow reaches out on the map. If the other party writes you back, the arrow becomes two-way.</p>
+    <h2><span class="step">3</span>Other Nests<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">optional</span></h2>
+    <p class="hint">Names and addresses of Nests you'd like to connect to (Nests that have a sign). Write one here, and one arrow reaches out on the map. If the other party writes you back, the arrow becomes two-way.</p>
     <div id="nests"></div>
     <div class="buttons">
-      <button type="button" id="addNest">+ Add a Nest you know</button>
+      <button type="button" id="addNest">+ Add another Nest</button>
       <button type="button" id="addDyXis">+ Add the DyXis cottage</button>
     </div>
   </section>
 
   <section>
-    <h2><span class="step">4</span>Your other places<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">optional</span></h2>
-    <p class="hint">Your places outside this Nest: X, a profile page, a book's store page, and so on. They appear in a cottage's news cards and at a Nest's entrance.</p>
+    <h2><span class="step">4</span>Links<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">optional</span></h2>
+    <p class="hint">Your other places that have no sign: X, a profile page, a book's store page, and so on. They don't appear on the map; they're listed in a cottage's news cards and at a Nest's entrance.</p>
     <div id="links"></div>
     <div class="buttons">
-      <button type="button" id="addLink">+ Add another place</button>
+      <button type="button" id="addLink">+ Add a link</button>
     </div>
   </section>
 
   <section>
     <h2><span class="step">5</span>Done</h2>
-    <p class="hint">The contents below are your nest.json. Download it, or copy it.</p>
+    <p class="hint">The contents below are your sign (nest.json). Download it, or copy it.</p>
     <div class="buttons">
       <button type="button" class="main" id="download">Download nest.json</button>
       <button type="button" id="copy">Copy</button>
@@ -151,7 +151,7 @@
     <div id="msg"></div>
     <pre id="out"></pre>
     <ol class="place">
-      <li>Place the <code>nest.json</code> you made at the top level of your Nest (the same place as index.html or README.md).</li>
+      <li>Place the <code>nest.json</code> you made at the top level of your Nest (the same place as index.html or README.md). That puts up your signpost.</li>
       <li>Open <code id="checkUrl">(address)nest.json</code> in your browser. If you can see its contents, it's complete.</li>
       <li>If you'd like to be on the DyXis cottage's map, let us know through GitHub Issues.<br><a id="askIssue" href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">Ask to be listed on the DyXis cottage (GitHub Issues)</a></li>
     </ol>
@@ -188,7 +188,7 @@
   }
   const addFeed = v => addRow("feeds", "title", "url", "Feed name (e.g., My blog)", "RSS address (https://…)", v);
   const addNest = v => addRow("nests", "name", "url", "Nest name (e.g., DyXis)", "Nest address (https://…/)", v);
-  const addLink = v => addRow("links", "title", "url", "Place name (e.g., X | @DyXis_)", "Address (https://…)", v);
+  const addLink = v => addRow("links", "title", "url", "Link name (e.g., X | @DyXis_)", "Address (https://…)", v);
 
   function rows(box) {
     return [...$(box).querySelectorAll(".row")].map(r => {
@@ -296,7 +296,7 @@
       (links || []).forEach(l => addLink([l.title, l.url]));
       (nests || []).forEach(n => addNest([n.name, n.url]));
       render();
-      say("Loaded. When you're done fixing it, download it in step 5. The update date will be today's date.");
+      say("Loaded your sign. When you're done fixing it, download it in step 5. The update date will be today's date.");
       $("name").scrollIntoView({ behavior: "smooth", block: "center" });
     } catch (e) {
       say("Couldn't load it (" + u + "nest.json). Please check that the address is right.");

@@ -6,11 +6,11 @@
 <title>DyXis｜はじめての方へ</title>
 <link rel="icon" type="image/png" href="/dyxis/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/dyxis/apple-touch-icon.png">
-<meta name="description" content="ゼロからわかる DyXis。お道具箱に名札を貼るだけ。">
+<meta name="description" content="ゼロからわかる DyXis。自分の場所に、札を一枚立てるだけ。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DyXis">
 <meta property="og:title" content="DyXis｜はじめての方へ">
-<meta property="og:description" content="ゼロからわかる DyXis。お道具箱に名札を貼るだけ。">
+<meta property="og:description" content="ゼロからわかる DyXis。自分の場所に、札を一枚立てるだけ。">
 <meta property="og:url" content="https://ittekiou.github.io/dyxis/guide.html">
 <meta property="og:image" content="https://ittekiou.github.io/dyxis/assets/ogp.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -96,8 +96,8 @@
     <p>DyXis（ダイクシス）は、<b>インターネットのあちこちにある「自分の場所」どうしを、ゆるくつなぐしくみ</b>です。</p>
     <p>ブログ、note、自分のホームページ。みんなすでに、どこかに自分の場所を持っています。DyXis は新しいSNSを作るのではなく、そうした場所はそのままにして、場所と場所のあいだにトンネルを通します。</p>
     <div class="box">
-      <p>やることは一つだけ。<b>自分の場所に、小さな名札のファイルを一枚置く。</b>それだけです。</p>
-      <p>名札には「この場所の名前」「自己紹介」「知っている場所」が書いてあります。その名札をたどっていくと、場所と場所のつながりが一枚の地図になります。</p>
+      <p>やることは一つだけ。<b>自分の場所に、小さな札を一枚立てる。</b>それだけです。</p>
+      <p>札には「この場所の名前」「自己紹介」「ほかの巣」が書いてあります。その札をたどっていくと、場所と場所のつながりが一枚の地図になります。</p>
     </div>
     <p>中央のサーバーも、会員登録も、フォローボタンもありません。だれかが全体を管理しているわけでもありません。</p>
     <p class="lead">名前の由来は deixis（ダイクシス）。「ここ・いま・わたし」のように、話し手の居場所から指し示すことばのことです。</p>
@@ -135,19 +135,25 @@
     <h2><span class="n">4</span>このページで使うことば</h2>
     <dl>
       <dt>巣<span class="en">Nest</span></dt>
-      <dd>あなたの場所です。ホームページ一つと、名札のファイル一枚でできています。</dd>
-      <dt>名札のファイル<span class="en">nest.json</span></dt>
-      <dd>巣の名前・住所・自己紹介・フィード・知っている巣を書いたファイルです。巣の住所のすぐ下に <code>nest.json</code> という名前で置きます。中身は <a href="maker.html">巣をつくるページ</a>で、欄を埋めるだけで作れます。</dd>
+      <dd>あなたの場所です。ブログでも、ホームページでも。札がなくても巣は巣ですが、札を立てると、地図に載る巣になります。</dd>
+      <dt>住所<span class="en">address</span></dt>
+      <dd>巣をブラウザで開いたときの住所です。最後は必ず <code>/</code> で終わります。札は、住所のうしろに <code>nest.json</code> を付けた場所に置きます。例：住所が <code>https://example.github.io/mynest/</code> なら、札は <code>https://example.github.io/mynest/nest.json</code>。ここがずれると宛先不明になって、地図に載りません。</dd>
+      <dt>札<span class="en">nest.json</span></dt>
+      <dd>巣の名前・住所・自己紹介・フィード・ほかの巣・リンクを書いた、小さなファイルです。自分の巣に立てる札を<b>立札</b>、<a href="https://ittekiou.github.io/CHIC-TEC/">CHIC TEC</a> の私書箱に貼る札を<b>貼札</b>、引っ越したあとに残す札を<b>転送札</b>と呼びます。どれも中身は同じ <code>nest.json</code> です。<a href="maker.html">巣をつくるページ</a>で、欄を埋めるだけで作れます。</dd>
+      <dt>ほかの巣<span class="en">nests</span></dt>
+      <dd>札に書いておく、つながりたい巣です。相手も札を持っているので、地図に線が引かれます。</dd>
+      <dt>リンク<span class="en">links</span></dt>
+      <dd>X や note のプロフィール、本のページなど、札を持たない、あなたのほかの場所です。地図には出さず、新着の欄や巣の入口に並びます。</dd>
       <dt>フィード<span class="en">RSS</span></dt>
-      <dd>「新しく書いたもの」の一覧を、機械が読める形で出しているものです。ブログやnoteにはたいていあります。名札に書いておくと、別荘があなたの新着を取りに来ます。</dd>
+      <dd>「新しく書いたもの」の一覧を、機械が読める形で出しているものです。ブログやnoteにはたいていあります。札に書いておくと、別荘があなたの新着を取りに来ます。</dd>
       <dt>Commons<span class="en">コモンズ</span></dt>
-      <dd>名札に、知っている巣を書いた巣のことです。特別な場所ではなく、これも巣の一つです。よく見かける形が二つあります（呼び方は自由です）。</dd>
+      <dd>札に、ほかの巣を書いた巣のことです。特別な場所ではなく、これも巣の一つです。よく見かける形が二つあります（呼び方は自由です）。</dd>
       <dt>Colony 型<span class="en">シェアハウス</span></dt>
       <dd>一つの箱の中に、いくつもの巣を抱えた Commons。例：AI たちの巣が並ぶ <a href="https://ittekiou.github.io/EAT-IF/">EAT-IF</a>。</dd>
       <dt>ComMounds 型<span class="en">別荘</span></dt>
       <dd>地図と仕入れを持って、入口として開いている Commons。このページで「別荘」と呼んでいるのは、この形です。別荘 DyXis（DyXis Commons）もその一つで、一日二回、並べた巣の新着を仕入れて、<a href="commons.html">地図</a>に出しています。二つの型は重なってもかまいません。</dd>
       <dt>地図<span class="en">commons.html</span></dt>
-      <dd>名札をたどって描いた、巣と巣のつながりの図です。両方が互いを書いていれば青い矢印、片方だけなら灰色の矢印になります。新着のあった巣は、円が青く光ります。</dd>
+      <dd>札をたどって描いた、巣と巣のつながりの図です。両方が互いを書いていれば青い矢印、片方だけなら灰色の矢印になります。新着のあった巣は、円が青く光ります。大きい丸を押すとその巣のページへ、🐜 の丸を押すとその巣から見た地図へ移ります（蟻塚めぐり）。</dd>
     </dl>
   </section>
 
@@ -171,21 +177,21 @@
         右上の「＋」から「New repository」。名前を決めて（例：<code>nest</code>）、「Public」を選び、「Add a README file」にチェックを入れて「Create repository」。</li>
       <li><b>ホームページとして公開する</b><br>
         箱の「Settings」→ 左の「Pages」。「Branch」を <code>main</code>、フォルダを <code>/ (root)</code> にして「Save」。数分たつと、<code>https://（ユーザー名）.github.io/（箱の名前）/</code> が開けるようになります。これがあなたの巣の住所です。</li>
-      <li><b>名札（nest.json）を作る</b><br>
+      <li><b>札（nest.json）を作る</b><br>
         <a href="maker.html">巣をつくるページ</a>で、名前・住所・自己紹介を書きます。GitHub の巣なら「GitHubの書き込みをフィードにする」ボタンで、箱への書き込みを新着として流せます。「別荘 DyXis を足す」を押すと、別荘 DyXis への矢印が一本伸びます。最後に「nest.json をダウンロード」。</li>
-      <li><b>名札を箱に置く</b><br>
+      <li><b>札を箱に立てる</b><br>
         箱のページで「Add file」→「Upload files」。ダウンロードした <code>nest.json</code> を入れて「Commit changes」。README と同じ場所に置かれれば OK です。</li>
       <li><b>確かめる</b><br>
         数分たってから、ブラウザで <code>https://（ユーザー名）.github.io/（箱の名前）/nest.json</code> を開きます。中身が見えたら完成です。<a href="commons.html">地図</a>の入力欄にあなたの巣の住所を入れると、あなたの巣から見た地図が描かれます。</li>
       <li><b>別荘 DyXis の地図に載せたいときは</b><br>
-        GitHub Issues で声をかけてください。下のボタンを押すと、書き込み欄がひらきます。巣の名前と住所を入れて「Create」（または「Submit new issue」）。別荘 DyXis の名札に、あなたの巣を書き足します。書き足されると、矢印が両向きになります。<br>
+        GitHub Issues で声をかけてください。下のボタンを押すと、書き込み欄がひらきます。巣の名前と住所を入れて「Create」（または「Submit new issue」）。別荘 DyXis の札に、あなたの巣を書き足します。書き足されると、矢印が両向きになります。<br>
         <a class="go" href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">別荘 DyXis に載せてもらう（GitHub Issues）</a></li>
     </ol>
   </section>
 
   <section id="commons">
     <h2><span class="n">7</span>別荘をつくりたい人へ</h2>
-    <p>知っている巣を並べて、地図と新着を見せる巣が「別荘（Commons）」です。別荘は、<a href="https://github.com/ittekiou/CESE-PEC">CESE PEC｜排泄猛者倶楽部</a> を写してつくれます。写した箱は、そのまま一つの別荘として動きます（地図と、一日二回の新着の仕入れ）。</p>
+    <p>ほかの巣を並べて、地図と新着を見せる巣が「別荘（Commons）」です。別荘は、<a href="https://github.com/ittekiou/CESE-PEC">CESE PEC｜排泄猛者倶楽部</a> を写してつくれます。写した箱は、そのまま一つの別荘として動きます（地図と、一日二回の新着の仕入れ）。</p>
     <ol class="steps">
       <li><b>写す</b><br>
         CESE PEC の箱のページで「Use this template」→「Create a new repository」。箱の名前を決めて（例：<code>commons</code>）、「Public」のまま「Create repository」。</li>
@@ -193,35 +199,35 @@
         写した箱の「Settings」→「Pages」で、Branch を <code>main</code>、フォルダを <code>/ (root)</code> にして「Save」。</li>
       <li><b>仕入れ係に書き込みを許す</b><br>
         「Settings」→「Actions」→「General」のいちばん下、「Workflow permissions」を「Read and write permissions」にして「Save」。</li>
-      <li><b>名札を直す</b><br>
-        <code>nest.json</code> の名前・住所・自己紹介を、あなたの別荘のものに。<a href="maker.html?load=https://ittekiou.github.io/CESE-PEC/">巣をつくるページ</a>で読み込んで直すと楽です。「知っている巣」に並べた巣が、地図に載ります。</li>
+      <li><b>札を直す</b><br>
+        <code>nest.json</code> の名前・住所・自己紹介を、あなたの別荘のものに。<a href="maker.html?load=https://ittekiou.github.io/CESE-PEC/">巣をつくるページ</a>で読み込んで直すと楽です。「ほかの巣」に並べた巣が、地図に載ります。</li>
       <li><b>一度、仕入れてみる</b><br>
         「Actions」→「Collect feeds」→「Run workflow」。そのあとは一日二回、勝手に仕入れます。</li>
     </ol>
-    <p class="lead">名札を直さないうちは、CESE PEC の名前のまま動きます。倶楽部の支部がひとつ増えた、と思っておいてください。</p>
+    <p class="lead">札を直さないうちは、CESE PEC の名前のまま動きます。倶楽部の支部がひとつ増えた、と思っておいてください。</p>
   </section>
 
   <section id="care">
     <h2><span class="n">8</span>巣のお手入れ</h2>
-    <p>自己紹介を書き換えたい、フィードやほかの場所を足したい、つながる巣が増えた。名札は、いつでも直せます。JSON を手で書かなくても、<a href="maker.html">巣をつくるページ</a>で直せます。</p>
+    <p>自己紹介を書き換えたい、フィードやリンクを足したい、つながる巣が増えた。札は、いつでも直せます。JSON を手で書かなくても、<a href="maker.html">巣をつくるページ</a>で直せます。</p>
     <ol class="steps">
       <li><b>自分の巣を読み込む</b><br>
-        <a href="maker.html">巣をつくるページ</a>のいちばん上、「0 すでに巣がある人は」に、自分の巣の住所を入れて「読み込む」。いまの名札の中身が、下の欄に全部入ります。</li>
+        <a href="maker.html">巣をつくるページ</a>のいちばん上、「0 すでに札がある人は」に、自分の巣の住所を入れて「読み込む」。いまの札の中身が、下の欄に全部入ります。</li>
       <li><b>欄の上で直す</b><br>
-        自己紹介を書き換える、フィードを足す、ほかの場所（X や note のプロフィールなど）を足す、知っている巣を足す・消す。コンマやかっこは、ページが正しく書いてくれます。</li>
+        自己紹介を書き換える、フィードを足す、リンク（X や note のプロフィールなど）を足す、ほかの巣を足す・消す。コンマやかっこは、ページが正しく書いてくれます。</li>
       <li><b>ダウンロードする</b><br>
         「nest.json をダウンロード」。更新日は今日の日付が自動で入ります。ファイルの名前が <code>nest (1).json</code> のようになっていたら、<code>nest.json</code> に戻してください。</li>
-      <li><b>箱の名札と置き換える</b><br>
-        自分の箱のページで「Add file」→「Upload files」。ダウンロードした <code>nest.json</code> を入れて「Commit changes」。同じ名前なので、前の名札と置き換わります。前の版は履歴に残るので、失敗しても戻せます。</li>
+      <li><b>箱の札と置き換える</b><br>
+        自分の箱のページで「Add file」→「Upload files」。ダウンロードした <code>nest.json</code> を入れて「Commit changes」。同じ名前なので、前の札と置き換わります。前の版は履歴に残るので、失敗しても戻せます。</li>
       <li><b>確かめる</b><br>
-        数分たってから <code>（あなたの巣の住所）nest.json</code> を開いて、直した中身が見えれば完了です。地図は開くたびに名札を読み直すので、すぐ反映されます。新着の欄だけは、別荘の次の仕入れ（一日二回）を待ちます。</li>
+        数分たってから <code>（あなたの巣の住所）nest.json</code> を開いて、直した中身が見えれば完了です。地図は開くたびに札を読み直すので、すぐ反映されます。新着の欄だけは、別荘の次の仕入れ（一日二回）を待ちます。</li>
     </ol>
     <h3>地図が出なくなったら</h3>
-    <p>たいていは、名札の書き方のどこかが崩れています（いちばん多いのは、コンマのつけ忘れ・つけすぎ）。手で直した名札は、一度<a href="maker.html">巣をつくるページ</a>で読み込んでみてください。読み込めなければ、どこかが崩れています。読み込めたら、そのままダウンロードして置き換えれば、きれいな形に直ります。</p>
+    <p>まず、札が住所のうしろの <code>nest.json</code> にあるか確かめてください。場所がずれていると宛先不明になって、地図に載りません。場所が合っているなら、たいていは札の書き方のどこかが崩れています（いちばん多いのは、コンマのつけ忘れ・つけすぎ）。手で直した札は、一度<a href="maker.html">巣をつくるページ</a>で読み込んでみてください。読み込めなければ、どこかが崩れています。読み込めたら、そのままダウンロードして置き換えれば、きれいな形に直ります。</p>
     <h3>引っ越すとき</h3>
-    <p>新しい住所に名札を置いたら、古い住所の名札を「引っ越しました」の札に替えておくと親切です。自己紹介に「引っ越しました」と書き、知っている巣には新しい住所だけを書きます。地図では、古い巣から新しい巣へ矢印が一本伸びます。別荘 DyXis に載っている場合は、<a href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">GitHub Issues</a> で新しい住所を知らせてください。</p>
+    <p>新しい住所に立札を立てたら、古い住所の札を<b>転送札</b>に替えておくと親切です。自己紹介に「引っ越しました」と書き、ほかの巣には新しい住所だけを書きます。地図では、古い巣から新しい巣へ矢印が一本伸びます。別荘 DyXis に載っている場合は、<a href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">GitHub Issues</a> で新しい住所を知らせてください。</p>
     <h3>私書箱を借りている人は</h3>
-    <p><a href="https://ittekiou.github.io/CHIC-TEC/">CHIC TEC</a> の私書箱の名札は、世話役が書き換えます。直したいところを、<a href="https://github.com/ittekiou/CHIC-TEC/issues/new" target="_blank" rel="noopener">CHIC TEC の Issues</a> で知らせてください。</p>
+    <p><a href="https://ittekiou.github.io/CHIC-TEC/">CHIC TEC</a> の私書箱の貼札は、世話役が書き換えます。直したいところを、<a href="https://github.com/ittekiou/CHIC-TEC/issues/new" target="_blank" rel="noopener">CHIC TEC の Issues</a> で知らせてください。</p>
   </section>
 
   <section id="faq">
@@ -231,7 +237,7 @@
     <h3>本名を書かないといけませんか？</h3>
     <p>いいえ。巣の名前も自己紹介も、好きに書いてください。人と巣は同じでなくていいので、一人で巣をいくつ持っても、何人かで一つの巣を持っても構いません。</p>
     <h3>GitHub 以外の場所でも巣を置けますか？</h3>
-    <p>置けます。住所の下に <code>nest.json</code> を置ければ、どこでも巣になります。ただし、ほかの場所から名札を読めるように、置き場所の側で設定が必要なことがあります（くわしくは仕様案の5）。</p>
+    <p>置けます。住所のうしろに <code>nest.json</code> を置ければ、どこでも地図に載る巣になります。ただし、ほかの場所から札を読めるように、置き場所の側で設定が必要なことがあります（くわしくは仕様案の5）。</p>
     <h3>フィードがありません。</h3>
     <p>なくても巣になります。地図には載りますが、新着が出ないだけです。読む（ROM）だけの巣も歓迎します。</p>
     <h3>だれかにつながられたら、返事をしないといけませんか？</h3>
@@ -239,9 +245,9 @@
     <h3>自分ではうまくできません。</h3>
     <p>AI に手伝ってもらうのも手です。AI に「DyXis に巣を置きたい。<code>https://ittekiou.github.io/dyxis/ai.html</code> を読んで手伝って」と頼んでみてください。<a href="ai.html">AI が読みやすいように書いた案内</a>です。どこに置くか、つなぐかどうかを決めるのは、あなたです。</p>
     <h3>ブログや note はあるけど、GitHub は使いたくありません。</h3>
-    <p><a href="https://ittekiou.github.io/CHIC-TEC/">CHIC TEC の私書箱</a>を借りる手があります。本拠地（ブログや note）はそのままで、DyXis の網に加わるための仮の番地を、期間限定でお貸しします。名札は世話役が置くので、GitHub に触らなくてかまいません。</p>
+    <p><a href="https://ittekiou.github.io/CHIC-TEC/">CHIC TEC の私書箱</a>を借りる手があります。本拠地（ブログや note）はそのままで、DyXis の網に加わるための仮の住所を、期間限定でお貸しします。札（貼札）は世話役が貼るので、GitHub に触らなくてかまいません。</p>
     <h3>やめたくなったら？</h3>
-    <p>箱から <code>nest.json</code> を消せば、名札をたどれなくなります。別荘 DyXis の地図に載っている場合は、<a href="https://github.com/ittekiou/dyxis/issues/new?template=remove-nest.yml" target="_blank" rel="noopener">GitHub Issues で声をかけてもらえれば</a>、別荘 DyXis の名札からも外します。</p>
+    <p>箱から <code>nest.json</code> を消せば、札をたどれなくなります。別荘 DyXis の地図に載っている場合は、<a href="https://github.com/ittekiou/dyxis/issues/new?template=remove-nest.yml" target="_blank" rel="noopener">GitHub Issues で声をかけてもらえれば</a>、別荘 DyXis の札からも外します。</p>
   </section>
 
   <div class="more">

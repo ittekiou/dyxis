@@ -80,14 +80,14 @@
 <body>
 <header>
   <h1 class="brand">Dy<span class="x">X</span>is</h1>
-  <p>巣をつくる ── nest.json を書かずに、nest.json をつくる</p>
+  <p>巣をつくる ── 札（nest.json）をつくると、あなたの場所が地図に載る巣になります</p>
 </header>
 <nav class="site"><a href="./">入口</a> ・ <a href="guide.html">はじめての方へ</a> ・ <b>巣をつくる</b> ・ <a href="commons.html">地図（Commons）</a> ・ <a href="concept.html">基本構想</a> ・ <a href="NEST-SPEC.html">仕様案</a> ・ <a href="maker-en.html" lang="en">English</a> ・ <a href="digest-zh-hans.html" lang="zh-Hans">简体中文</a> ・ <a href="digest-zh-hant.html" lang="zh-Hant">繁體中文</a> ・ <a href="digest-ko.html" lang="ko">한국어</a></nav>
 
 <main>
   <section>
-    <h2><span class="step">0</span>すでに巣がある人は（なければ飛ばしてOK）</h2>
-    <p class="hint">巣の住所を入れて「読み込む」を押すと、今の中身が下の欄に入ります。そこから直せます。</p>
+    <h2><span class="step">0</span>すでに札がある人は（なければ飛ばしてOK）</h2>
+    <p class="hint">巣の住所を入れて「読み込む」を押すと、今の札の中身が下の欄に入ります。そこから直せます。</p>
     <div class="load">
       <input id="loadUrl" type="url" placeholder="https://example.github.io/nest/" aria-label="読み込む巣の住所">
       <button id="loadBtn" type="button">読み込む</button>
@@ -122,27 +122,27 @@
   </section>
 
   <section>
-    <h2><span class="step">3</span>知っている巣<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">なくてもOK</span></h2>
-    <p class="hint">つながりたい巣の名前と住所です。ここに書くと、地図に矢印が一本伸びます。相手が書き返してくれたら、矢印は両向きになります。</p>
+    <h2><span class="step">3</span>ほかの巣<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">なくてもOK</span></h2>
+    <p class="hint">つながりたい巣（札を持っている巣）の名前と住所です。ここに書くと、地図に矢印が一本伸びます。相手が書き返してくれたら、矢印は両向きになります。</p>
     <div id="nests"></div>
     <div class="buttons">
-      <button type="button" id="addNest">＋ 知っている巣を足す</button>
+      <button type="button" id="addNest">＋ ほかの巣を足す</button>
       <button type="button" id="addDyXis">＋ 別荘 DyXis を足す</button>
     </div>
   </section>
 
   <section>
-    <h2><span class="step">4</span>ほかの場所<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">なくてもOK</span></h2>
-    <p class="hint">X、note のプロフィール、本の販売ページなど、この巣のほかにある、あなたの場所です。別荘の新着の欄や、巣の入口に並びます。</p>
+    <h2><span class="step">4</span>リンク<span style="color:var(--dim);font-weight:400;font-size:13px;margin-left:6px">なくてもOK</span></h2>
+    <p class="hint">X、note のプロフィール、本の販売ページなど、札を持たない、あなたのほかの場所です。地図には出さず、別荘の新着の欄や、巣の入口に並びます。</p>
     <div id="links"></div>
     <div class="buttons">
-      <button type="button" id="addLink">＋ ほかの場所を足す</button>
+      <button type="button" id="addLink">＋ リンクを足す</button>
     </div>
   </section>
 
   <section>
     <h2><span class="step">5</span>できあがり</h2>
-    <p class="hint">下の中身が、あなたの nest.json です。ダウンロードするか、コピーして使ってください。</p>
+    <p class="hint">下の中身が、あなたの札（nest.json）です。ダウンロードするか、コピーして使ってください。</p>
     <div class="buttons">
       <button type="button" class="main" id="download">nest.json をダウンロード</button>
       <button type="button" id="copy">コピー</button>
@@ -150,7 +150,7 @@
     <div id="msg"></div>
     <pre id="out"></pre>
     <ol class="place">
-      <li>できた <code>nest.json</code> を、巣のいちばん上の階層（index.html や README.md と同じ場所）に置きます。</li>
+      <li>できた <code>nest.json</code> を、巣のいちばん上の階層（index.html や README.md と同じ場所）に置きます。これで立札が立ちます。</li>
       <li>ブラウザで <code id="checkUrl">（住所）nest.json</code> を開いて、中身が見えれば完成です。</li>
       <li>別荘 DyXis の地図に載せてほしいときは、GitHub Issues で声をかけてください。<br><a id="askIssue" href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">別荘 DyXis に載せてもらう（GitHub Issues）</a></li>
     </ol>
@@ -187,7 +187,7 @@
   }
   const addFeed = v => addRow("feeds", "title", "url", "フィードの名前（例：わたしのnote）", "RSSの住所（https://…）", v);
   const addNest = v => addRow("nests", "name", "url", "巣の名前（例：DyXis）", "巣の住所（https://…/）", v);
-  const addLink = v => addRow("links", "title", "url", "場所の名前（例：X｜@DyXis_）", "住所（https://…）", v);
+  const addLink = v => addRow("links", "title", "url", "リンクの名前（例：X｜@DyXis_）", "住所（https://…）", v);
 
   function rows(box) {
     return [...$(box).querySelectorAll(".row")].map(r => {
@@ -295,7 +295,7 @@
       (links || []).forEach(l => addLink([l.title, l.url]));
       (nests || []).forEach(n => addNest([n.name, n.url]));
       render();
-      say("読み込みました。直したら、5 でダウンロードしてください。更新日は今日の日付になります。");
+      say("札を読み込みました。直したら、5 でダウンロードしてください。更新日は今日の日付になります。");
       $("name").scrollIntoView({ behavior: "smooth", block: "center" });
     } catch (e) {
       say("読み込めませんでした（" + u + "nest.json）。住所が合っているか確かめてください。");

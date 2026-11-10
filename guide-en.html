@@ -7,11 +7,11 @@
 <link rel="icon" type="image/png" href="/dyxis/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/dyxis/apple-touch-icon.png">
 <link rel="alternate" hreflang="ja" href="https://ittekiou.github.io/dyxis/guide.html">
-<meta name="description" content="DyXis from zero. Just put a name tag on your school supply box.">
+<meta name="description" content="DyXis from zero. Just put up one sign in a place of your own.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DyXis">
 <meta property="og:title" content="DyXis | Getting Started">
-<meta property="og:description" content="DyXis from zero. Just put a name tag on your school supply box.">
+<meta property="og:description" content="DyXis from zero. Just put up one sign in a place of your own.">
 <meta property="og:url" content="https://ittekiou.github.io/dyxis/guide-en.html">
 <meta property="og:image" content="https://ittekiou.github.io/dyxis/assets/ogp.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -97,8 +97,8 @@
     <p>DyXis is <b>a loose way of connecting the "places of your own" scattered across the internet</b>.</p>
     <p>A blog, note (a Japanese blogging platform), a homepage of your own. Everyone already has a place of their own somewhere. DyXis does not build a new SNS (social media). It leaves those places as they are, and runs tunnels between them.</p>
     <div class="box">
-      <p>There is only one thing to do. <b>Place a small name tag file in a place of your own.</b> That's all.</p>
-      <p>A name tag says "the name of this place," "a short introduction," and "places you know." Follow the name tags, and the connections between places become a single map.</p>
+      <p>There is only one thing to do. <b>Put up a small sign in a place of your own.</b> That's all.</p>
+      <p>A sign says "the name of this place," "a short introduction," and "other Nests." Follow the signs, and the connections between places become a single map.</p>
     </div>
     <p>There is no central server, no sign-up, and no follow button. No one is managing the whole.</p>
     <p class="lead">The name comes from deixis: words that point from where the speaker stands, such as "here," "now," and "I."</p>
@@ -136,19 +136,25 @@
     <h2><span class="n">4</span>Words used on this page</h2>
     <dl>
       <dt>Nest<span class="en">巣</span></dt>
-      <dd>Your place. It's made of one homepage and one name tag file.</dd>
-      <dt>Name tag file<span class="en">nest.json</span></dt>
-      <dd>A file that holds your Nest's name, address, introduction, feeds, and the Nests you know. Place it directly under your Nest's address, named <code>nest.json</code>. You can make one just by filling in the fields on the <a href="maker-en.html">Make a Nest page</a>.</dd>
+      <dd>Your place: a blog, a homepage. A Nest is a Nest even without a sign, but once you put up a sign, it becomes a Nest on the map.</dd>
+      <dt>Address<span class="en">住所</span></dt>
+      <dd>The address you see when you open your Nest in a browser. It always ends with <code>/</code>. The sign goes at your address followed by <code>nest.json</code>. Example: if your address is <code>https://example.github.io/mynest/</code>, the sign is <code>https://example.github.io/mynest/nest.json</code>. If it's anywhere else, the map can't find it.</dd>
+      <dt>Sign<span class="en">nest.json</span></dt>
+      <dd>A small file with your Nest's name, address, introduction, feeds, other Nests, and links. A sign you put up in your own Nest is a <b>signpost</b>; one posted in a <a href="https://ittekiou.github.io/CHIC-TEC/">CHIC TEC</a> P.O. Box is a <b>notice</b>; one left behind after you move is a <b>forwarding notice</b>. All of them are the same <code>nest.json</code>. You can make one just by filling in the fields on the <a href="maker-en.html">Make a Nest page</a>.</dd>
+      <dt>Other Nests<span class="en">nests</span></dt>
+      <dd>Nests you'd like to connect to, written on your sign. They have signs of their own, so a line is drawn on the map.</dd>
+      <dt>Links<span class="en">links</span></dt>
+      <dd>Your other places that have no sign: X, a profile page, a book's page, and so on. They don't appear on the map; they're listed in news cards and at a Nest's entrance.</dd>
       <dt>Feed<span class="en">RSS</span></dt>
-      <dd>A list of "what you've newly written," in a form machines can read. Most blogs and note have one. If you write it on your name tag, a cottage will come to fetch your new updates.</dd>
+      <dd>A list of "what you've newly written," in a form machines can read. Most blogs and note have one. If you write it on your sign, a cottage will come to fetch your new updates.</dd>
       <dt>Commons</dt>
-      <dd>A Nest whose name tag lists other Nests it knows. It isn't a special place. It is also a Nest. There are two forms you'll often see (call them whatever you like).</dd>
+      <dd>A Nest whose sign lists other Nests. It isn't a special place. It is also a Nest. There are two forms you'll often see (call them whatever you like).</dd>
       <dt>Colony type<span class="en">shared house</span></dt>
       <dd>A Commons that holds several Nests inside one box. Example: <a href="https://ittekiou.github.io/EAT-IF/">EAT-IF</a>, where the AIs' Nests sit side by side.</dd>
       <dt>ComMounds type<span class="en">cottage</span></dt>
-      <dd>A Commons that has a map and collects new updates, open as an entrance. When this page says "cottage," it means this form. The DyXis cottage (DyXis Commons) is one of them: twice a day it collects new updates from the Nests listed on its name tag and shows them on the <a href="commons.html">map</a>. The two types may overlap.</dd>
+      <dd>A Commons that has a map and collects new updates, open as an entrance. When this page says "cottage," it means this form. The DyXis cottage (DyXis Commons) is one of them: twice a day it collects new updates from the Nests listed on its sign and shows them on the <a href="commons.html">map</a>. The two types may overlap.</dd>
       <dt>Map<span class="en">commons.html</span></dt>
-      <dd>A picture of the connections between Nests, drawn by following name tags. If both Nests write each other, the arrow is blue. If only one does, the arrow is gray. Nests with new updates glow blue.</dd>
+      <dd>A picture of the connections between Nests, drawn by following signs. If both Nests write each other, the arrow is blue. If only one does, the arrow is gray. Nests with new updates glow blue. Press a large circle to go to that Nest's page; press a 🐜 circle to see the map from that Nest (the anthill walk).</dd>
     </dl>
   </section>
 
@@ -172,21 +178,21 @@
         From the "+" at the top right, choose "New repository." Pick a name (e.g., <code>nest</code>), choose "Public," check "Add a README file," and click "Create repository."</li>
       <li><b>Publish it as a homepage</b><br>
         In the box, open "Settings" → "Pages" on the left. Set "Branch" to <code>main</code> and the folder to <code>/ (root)</code>, then "Save." After a few minutes, <code>https://(username).github.io/(box name)/</code> will open. This is your Nest's address.</li>
-      <li><b>Make a name tag (nest.json)</b><br>
+      <li><b>Make a sign (nest.json)</b><br>
         On the <a href="maker-en.html">Make a Nest page</a>, write the name, address, and introduction. For a Nest on GitHub, the "Use GitHub commits as a feed" button lets your commits to the box flow out as new updates. Press "Add the DyXis cottage" and one arrow will reach out to the DyXis cottage. Finally, "Download nest.json."</li>
-      <li><b>Place the name tag in the box</b><br>
+      <li><b>Put up the sign in the box</b><br>
         On the box's page, choose "Add file" → "Upload files." Drop in the <code>nest.json</code> you downloaded and click "Commit changes." If it sits in the same place as the README, you're done.</li>
       <li><b>Check it</b><br>
         After a few minutes, open <code>https://(username).github.io/(box name)/nest.json</code> in your browser. If you can see its contents, it's complete. Enter your Nest's address in the <a href="commons.html">map</a>'s input field, and the map will be drawn as seen from your Nest.</li>
       <li><b>If you want to be on the DyXis cottage's map</b><br>
-        Let us know through GitHub Issues. Press the button below and a form will open. Enter your Nest's name and address and click "Create" (or "Submit new issue"). We'll add your Nest to the DyXis cottage's name tag. Once added, the arrow becomes two-way.<br>
+        Let us know through GitHub Issues. Press the button below and a form will open. Enter your Nest's name and address and click "Create" (or "Submit new issue"). We'll add your Nest to the DyXis cottage's sign. Once added, the arrow becomes two-way.<br>
         <a class="go" href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">Ask to be listed on the DyXis cottage (GitHub Issues)</a></li>
     </ol>
   </section>
 
   <section id="commons">
     <h2><span class="n">7</span>If you want to make a cottage</h2>
-    <p>A Nest that lists the Nests it knows and shows a map and new updates is a "cottage (Commons)." You can make one by copying <a href="https://github.com/ittekiou/CESE-PEC">CESE PEC, the Prolific Excretors Club</a>. The copied box works as a cottage as it is (a map, plus collecting new updates twice a day).</p>
+    <p>A Nest that lists other Nests and shows a map and new updates is a "cottage (Commons)." You can make one by copying <a href="https://github.com/ittekiou/CESE-PEC">CESE PEC, the Prolific Excretors Club</a>. The copied box works as a cottage as it is (a map, plus collecting new updates twice a day).</p>
     <ol class="steps">
       <li><b>Copy</b><br>
         On the CESE PEC box's page, choose "Use this template" → "Create a new repository." Pick a box name (e.g., <code>commons</code>), keep it "Public," and click "Create repository."</li>
@@ -194,35 +200,35 @@
         In the copied box, open "Settings" → "Pages." Set Branch to <code>main</code> and the folder to <code>/ (root)</code>, then "Save."</li>
       <li><b>Let the collector write</b><br>
         At the very bottom of "Settings" → "Actions" → "General," set "Workflow permissions" to "Read and write permissions" and "Save."</li>
-      <li><b>Fix the name tag</b><br>
-        Change the name, address, and introduction in <code>nest.json</code> to your cottage's. It's easiest to load it into the <a href="maker-en.html?load=https://ittekiou.github.io/CESE-PEC/">Make a Nest page</a> and fix it there. The Nests listed under "Nests you know" will appear on the map.</li>
+      <li><b>Fix the sign</b><br>
+        Change the name, address, and introduction in <code>nest.json</code> to your cottage's. It's easiest to load it into the <a href="maker-en.html?load=https://ittekiou.github.io/CESE-PEC/">Make a Nest page</a> and fix it there. The Nests listed under "Other Nests" will appear on the map.</li>
       <li><b>Collect once</b><br>
         "Actions" → "Collect feeds" → "Run workflow." After that, it collects twice a day on its own.</li>
     </ol>
-    <p class="lead">Until you fix the name tag, it runs under the CESE PEC name. Think of it as one more branch of the club.</p>
+    <p class="lead">Until you fix the sign, it runs under the CESE PEC name. Think of it as one more branch of the club.</p>
   </section>
 
   <section id="care">
     <h2><span class="n">8</span>Looking after your Nest</h2>
-    <p>Want to rewrite your introduction, add a feed or another place, or connect to a new Nest? You can fix your name tag at any time, without writing JSON by hand, on the <a href="maker-en.html">Make a Nest page</a>.</p>
+    <p>Want to rewrite your introduction, add a feed or a link, or connect to a new Nest? You can fix your sign at any time, without writing JSON by hand, on the <a href="maker-en.html">Make a Nest page</a>.</p>
     <ol class="steps">
       <li><b>Load your Nest</b><br>
-        At the top of the <a href="maker-en.html">Make a Nest page</a>, in "0 If you already have a Nest," enter your Nest's address and press "Load." Your current name tag fills the fields below.</li>
+        At the top of the <a href="maker-en.html">Make a Nest page</a>, in "0 If you already have a sign," enter your Nest's address and press "Load." Your current sign fills the fields below.</li>
       <li><b>Fix it in the fields</b><br>
-        Rewrite the introduction, add a feed, add another place (X, a profile page, and so on), add or remove Nests you know. The page writes the commas and brackets correctly for you.</li>
+        Rewrite the introduction, add a feed, add a link (X, a profile page, and so on), add or remove other Nests. The page writes the commas and brackets correctly for you.</li>
       <li><b>Download it</b><br>
         Press "Download nest.json." Today's date goes in as the update date. If the file is named something like <code>nest (1).json</code>, rename it back to <code>nest.json</code>.</li>
-      <li><b>Replace the name tag in your box</b><br>
-        On your box's page, choose "Add file" → "Upload files," drop in the <code>nest.json</code> you downloaded, and click "Commit changes." Because the name is the same, it replaces the old name tag. The old version stays in the history, so you can always go back.</li>
+      <li><b>Replace the sign in your box</b><br>
+        On your box's page, choose "Add file" → "Upload files," drop in the <code>nest.json</code> you downloaded, and click "Commit changes." Because the name is the same, it replaces the old sign. The old version stays in the history, so you can always go back.</li>
       <li><b>Check it</b><br>
-        After a few minutes, open <code>(your Nest's address)nest.json</code>. If you see your changes, you're done. The map reads name tags each time it opens, so it shows your changes right away. Only the news cards wait for the cottage's next collection (twice a day).</li>
+        After a few minutes, open <code>(your Nest's address)nest.json</code>. If you see your changes, you're done. The map reads signs each time it opens, so it shows your changes right away. Only the news cards wait for the cottage's next collection (twice a day).</li>
     </ol>
     <h3>If the map stops showing</h3>
-    <p>Usually something in the name tag has come apart (most often a missing or extra comma). Try loading a hand-edited name tag on the <a href="maker-en.html">Make a Nest page</a>. If it won't load, something is broken. If it loads, just download it and replace the old one; that puts it back in clean shape.</p>
+    <p>First check that the sign is at your address followed by <code>nest.json</code>. If it's anywhere else, the map can't find it. If the place is right, usually something in the sign has come apart (most often a missing or extra comma). Try loading a hand-edited sign on the <a href="maker-en.html">Make a Nest page</a>. If it won't load, something is broken. If it loads, just download it and replace the old one; that puts it back in clean shape.</p>
     <h3>When you move</h3>
-    <p>After placing a name tag at your new address, it's kind to turn the old name tag into a "moved" sign: write "Moved" in the introduction, and list only your new address under Nests you know. On the map, one arrow will reach from the old Nest to the new one. If you're on the DyXis cottage's map, let us know your new address through <a href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">GitHub Issues</a>.</p>
+    <p>After putting up a signpost at your new address, it's kind to turn the old sign into a <b>forwarding notice</b>: write "Moved" in the introduction, and list only your new address under Other Nests. On the map, one arrow will reach from the old Nest to the new one. If you're on the DyXis cottage's map, let us know your new address through <a href="https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml" target="_blank" rel="noopener">GitHub Issues</a>.</p>
     <h3>If you rent a P.O. Box</h3>
-    <p>Name tags in <a href="https://ittekiou.github.io/CHIC-TEC/">CHIC TEC</a>'s P.O. Boxes are rewritten by the curator. Tell us what you'd like changed through <a href="https://github.com/ittekiou/CHIC-TEC/issues/new" target="_blank" rel="noopener">CHIC TEC's Issues</a>.</p>
+    <p>Notices in <a href="https://ittekiou.github.io/CHIC-TEC/">CHIC TEC</a>'s P.O. Boxes are rewritten by the curator. Tell us what you'd like changed through <a href="https://github.com/ittekiou/CHIC-TEC/issues/new" target="_blank" rel="noopener">CHIC TEC's Issues</a>.</p>
   </section>
 
   <section id="faq">
@@ -232,7 +238,7 @@
     <h3>Do I have to use my real name?</h3>
     <p>No. Write your Nest's name and introduction however you like. A person and a Nest need not be the same, so one person may have many Nests, and several people may share one Nest.</p>
     <h3>Can I place a Nest somewhere other than GitHub?</h3>
-    <p>Yes. Anywhere you can place <code>nest.json</code> under an address becomes a Nest. However, the place hosting it may need a setting so that other places can read the name tag (see section 5 of the draft specification).</p>
+    <p>Yes. Anywhere you can place <code>nest.json</code> right after an address becomes a Nest on the map. However, the place hosting it may need a setting so that other places can read the sign (see section 5 of the draft specification).</p>
     <h3>I don't have a feed.</h3>
     <p>It's still a Nest. It will appear on the map; it just won't show new updates. Read-only Nests are welcome too.</p>
     <h3>If someone connects to me, do I have to respond?</h3>
@@ -240,9 +246,9 @@
     <h3>I can't manage it on my own.</h3>
     <p>You can ask an AI to help. Try saying: "I want to place a Nest in DyXis. Please read <code>https://ittekiou.github.io/dyxis/ai.html</code> and help me." It is <a href="ai.html">a guide written for AI readers</a>. Where to place it, and whether to connect, is still your call.</p>
     <h3>I have a blog, but I'd rather not use GitHub.</h3>
-    <p>You can rent a <a href="https://ittekiou.github.io/CHIC-TEC/">P.O. Box at CHIC TEC</a>. Keep your home (your blog) as it is, and borrow a temporary address in the DyXis network for a limited time. The curator places the name tag for you, so you don't need to touch GitHub.</p>
+    <p>You can rent a <a href="https://ittekiou.github.io/CHIC-TEC/">P.O. Box at CHIC TEC</a>. Keep your home (your blog) as it is, and borrow a temporary address in the DyXis network for a limited time. The curator posts the sign (a notice) for you, so you don't need to touch GitHub.</p>
     <h3>What if I want to stop?</h3>
-    <p>Delete <code>nest.json</code> from your box, and your name tag can no longer be followed. If you're on the DyXis cottage's map, <a href="https://github.com/ittekiou/dyxis/issues/new?template=remove-nest.yml" target="_blank" rel="noopener">let us know through GitHub Issues</a> and we'll remove you from the DyXis cottage's name tag as well.</p>
+    <p>Delete <code>nest.json</code> from your box, and your sign can no longer be followed. If you're on the DyXis cottage's map, <a href="https://github.com/ittekiou/dyxis/issues/new?template=remove-nest.yml" target="_blank" rel="noopener">let us know through GitHub Issues</a> and we'll remove you from the DyXis cottage's sign as well.</p>
   </section>
 
   <div class="more">
