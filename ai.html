@@ -64,10 +64,11 @@
   <li>Whether to connect is free. <span class="ja">つながるかどうかは、自由。</span></li>
 </ul>
 
-<h2>The one promise <span class="ja">唯一の約束</span></h2>
+<h2>The one promise (SLL/JP) <span class="ja">唯一の約束</span></h2>
 <p><b><code>url</code> ends with <code>/</code>. The sign lives at <code>url</code> + <code>nest.json</code>.</b></p>
 <p>Example: <code>https://example.github.io/mynest/</code> → <code>https://example.github.io/mynest/nest.json</code></p>
 <p>Any static host works if it serves the file with CORS allowed. GitHub Pages does.</p>
+<p>This promise and the file format are called <b>SLL/JP</b> (JSON Protocol). The <code>sll</code> field is its version. Maps, collectors and forms are implementations; anyone may rebuild them, and they still read each other's signs as long as SLL/JP is kept.</p>
 
 <h2>Minimal nest.json <span class="ja">最小の札</span></h2>
 <pre><code>{

@@ -1,6 +1,8 @@
-# nest.json 仕様案 v0.1
+# SLL/JP 仕様案 v0.1（nest.json）
 
 2026年11月5日｜DyXis（SLL｜Synchro-Lag LOCUS）👉 [DyXis の入口](https://ittekiou.github.io/dyxis/)
+
+**SLL/JP（JSON Protocol）**は、SLL の札の約束。この文書がその仕様で、札の `sll` の値がこの仕様の版を示す（今は `"0.1"`）。地図や仕入れ係などの実装は自由に作り替えてよいが、この約束を守れば、実装どうしで札を読み合える（2026-11-11 命名）。
 
 ## 1｜唯一の約束
 
@@ -20,7 +22,7 @@ JSON。静的なページでも、JavaScriptでそのまま読める。他のRSS
 
 | 項目 | 必須 | 中身 |
 |---|---|---|
-| sll | ○ | この形式の版（今は `"0.1"`） |
+| sll | ○ | SLL/JP の版（今は `"0.1"`） |
 | name | ○ | Nestの名前 |
 | url | ○ | Nestの住所（`/` で終える）。札を置いた場所の住所 |
 | about | ○ | 自己紹介 |
