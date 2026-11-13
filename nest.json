@@ -5,8 +5,22 @@
   "about": "LOCUS. Not One Next. SNS Next ≠ SNS.",
   "lang": "ja",
   "updated": "2026-11-13",
-  "feeds": [{"title": "DyXis 🪺（Substack）","url": "https://dyxis.substack.com/feed"}],
+   "feeds": [
+    {
+      "title": "DyXis｜Bluesky",
+      "url": "https://bsky.app/profile/dyxis.substack.com/rss"
+    },
+    {
+      "title": "DyXis｜Are.na",
+      "url": "https://www.are.na/kei-itteki/dyxis/feed/rss"
+    },
+    { "title": "DyXis 🪺（Substack）","url": "https://dyxis.substack.com/feed" }
+  ],
   "links": [
+    {
+      "title": "DyXis 🪺｜Substack",
+      "url": "https://dyxis.substack.com/"
+    },
     { "title": "X｜@DyXis_", "url": "https://x.com/DyXis_" },
     {
       "title": "camp-us.net/DyXis",
