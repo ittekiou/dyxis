@@ -38,7 +38,7 @@ START = own_url()
 OUT = os.environ.get("DYXIS_OUT", "feeds.json")
 PER_NEST = int(os.environ.get("DYXIS_PER_NEST", "3"))
 MAX_NODES, MAX_DEPTH, TIMEOUT = 60, 1, 20   # 新着を仕入れるのは1段目（名札に書いた巣）まで
-UA = "SLL-Commons-collector/0.2 (+https://ittekiou.github.io/dyxis/)"
+UA = "SLL-Commons-collector/0.3 (+https://ittekiou.github.io/dyxis/)"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -73,6 +73,23 @@ def parse_date(s):
     return d
 
 
+TITLE_LEN = 30  # 題のない便り（Bluesky など）は、本文の頭をこの字数だけ題にする
+
+
+def title_or_text(title, *texts):
+    """題があれば題。なければ本文（タグとURLを外して）の頭を題にする。"""
+    title = (title or "").strip()
+    if title:
+        return title
+    for t in texts:
+        t = re.sub(r"<[^>]+>", " ", t or "")
+        t = re.sub(r"https?://\S+", " ", t)  # 本文のURLは題に入れない
+        t = re.sub(r"\s+", " ", t).strip()
+        if t:
+            return t if len(t) <= TITLE_LEN else t[:TITLE_LEN] + "…"
+    return ""
+
+
 def parse_feed(raw):
     root = ET.fromstring(raw)
     items = []
@@ -84,14 +101,14 @@ def parse_feed(raw):
                     link = l.get("href", "")
                     break
             items.append({
-                "title": (e.findtext(ATOM + "title") or "").strip(),
+                "title": title_or_text(e.findtext(ATOM + "title"), e.findtext(ATOM + "summary"), e.findtext(ATOM + "content")),
                 "link": link,
                 "published": parse_date(e.findtext(ATOM + "published") or e.findtext(ATOM + "updated")),
             })
     else:
         for it in root.iter("item"):
             items.append({
-                "title": (it.findtext("title") or "").strip(),
+                "title": title_or_text(it.findtext("title"), it.findtext("description")),
                 "link": (it.findtext("link") or "").strip(),
                 "published": parse_date(it.findtext("pubDate") or it.findtext("{http://purl.org/dc/elements/1.1/}date")),
             })
