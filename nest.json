@@ -17,6 +17,10 @@
   ],
   "links": [
     {
+    "title": "載せてもらう / Add my nest",
+    "url": "https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml"
+    },
+    {
       "title": "DyXis 🪺｜Substack",
       "url": "https://dyxis.substack.com/"
     },
@@ -24,10 +28,6 @@
     {
       "title": "camp-us.net/DyXis",
       "url": "https://camp-us.net/DyXis.html"
-    },
-    {
-    "title": "載せてもらう / Add my nest",
-    "url": "https://github.com/ittekiou/dyxis/issues/new?template=add-nest.yml"
     }
   ],
   "nests": [
