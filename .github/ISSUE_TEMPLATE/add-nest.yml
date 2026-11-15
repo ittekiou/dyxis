@@ -1,19 +1,19 @@
 name: 巣を載せてください / Add my Nest
 description: 別荘 DyXis の地図に、あなたの巣（Nest）を載せてほしいとき / To have your Nest listed on the DyXis cottage's map
 title: "巣を載せてください / Add my Nest"
-labels: ["載せる"]
+labels: ["載せる / List my nest"]
 body:
   - type: markdown
     attributes:
       value: |
-        別荘 DyXis の札（nest.json）に、あなたの巣を書き足します。書き足されると、地図の矢印が両向きになります。
+        別荘 DyXis の札（nest.json）に、あなたの巣を書き足します。書き足されると、地図に DyXis からあなたの巣への矢印が引かれます。あなたの巣の札にも DyXis が書いてあれば、矢印は両向きになります（書き返すかどうかは自由です）。
 
         - 巣の住所のうしろに札（`nest.json`）が置いてあるか、先に確かめてください（`https://…/nest.json` を開いて中身が見えれば OK）。
         - ここに書いたことは、だれでも読める場所に公開されます。巣の名前と住所のほかに、個人的なことは書かないでください。
 
         ---
 
-        We'll add your Nest to the DyXis cottage's sign (nest.json). Once added, the arrow on the map becomes two-way.
+        We'll add your Nest to the DyXis cottage's sign (nest.json). Once added, the map draws an arrow from DyXis to your Nest. If your own sign also lists DyXis, the arrow becomes two-way (listing back is up to you).
 
         - First, check that your sign (`nest.json`) is placed right after your Nest's address (if you open `https://…/nest.json` and can see its contents, you're set).
         - Anything you write here is published where anyone can read it. Please write nothing personal beyond your Nest's name and address.

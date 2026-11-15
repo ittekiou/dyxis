@@ -1,7 +1,7 @@
 name: 巣を外してください / Remove my Nest
 description: 別荘 DyXis の地図から、あなたの巣（Nest）を外してほしいとき / To have your Nest removed from the DyXis cottage's map
 title: "巣を外してください / Remove my Nest"
-labels: ["外す"]
+labels: ["外す / Unlist my nest"]
 body:
   - type: markdown
     attributes:
