@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """SLL Commons: collect the latest items from each Nest's feeds.
 
-Crawls nest.json files starting from this Commons (same rules as commons.html),
-reads every feed a Nest lists, keeps the newest few items per Nest, and writes
-feeds.json next to commons.html.
+Crawls nest.json files starting from this Commons (same rules as the map page,
+index.html or commons.html), reads every feed a Nest lists, keeps the newest few
+items per Nest, and writes feeds.json next to the map page.
+The collector's own "Collect feeds" commits are not counted as news.
 
 Only the standard library is used.
 """
@@ -38,7 +39,7 @@ START = own_url()
 OUT = os.environ.get("DYXIS_OUT", "feeds.json")
 PER_NEST = int(os.environ.get("DYXIS_PER_NEST", "3"))
 MAX_NODES, MAX_DEPTH, TIMEOUT = 60, 1, 20   # 新着を仕入れるのは1段目（名札に書いた巣）まで
-UA = "SLL-Commons-collector/0.3 (+https://ittekiou.github.io/dyxis/)"
+UA = "SLL-Commons-collector/0.4 (+https://ittekiou.github.io/dyxis/)"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -104,6 +105,7 @@ def parse_feed(raw):
                 "title": title_or_text(e.findtext(ATOM + "title"), e.findtext(ATOM + "summary"), e.findtext(ATOM + "content")),
                 "link": link,
                 "published": parse_date(e.findtext(ATOM + "published") or e.findtext(ATOM + "updated")),
+                "author": (e.findtext(f"{ATOM}author/{ATOM}name") or "").strip(),
             })
     else:
         for it in root.iter("item"):
@@ -147,6 +149,15 @@ def readable_link(link, nest_url):
     return base + path[:-3] + ".html"
 
 
+# 仕入れ係が自分で出した「Collect feeds」のコミットは、新着として数えない。
+# 題名だけでは決めない：GitHub の書き込みで、題が "Collect feeds"、書き手が github-actions のもの、の三つがそろったときだけ。
+# 条件がそろわなければ読み飛ばさない（迷ったら残す）。
+def is_collector_commit(it):
+    return (bool(COMMIT.match(it.get("link") or ""))
+            and it.get("title") == "Collect feeds"
+            and (it.get("author") or "").lower().startswith("github-actions"))
+
+
 def crawl():
     nests, queue = {}, deque([(norm(START), 0)])
     while queue and len(nests) < MAX_NODES:
@@ -169,6 +180,7 @@ def crawl():
 def main():
     started = now()
     out = {"sll": "0.1", "commons": norm(START), "collected_at": started.isoformat(timespec="seconds"), "nests": {}}
+    skipped = 0
     for url, info in crawl().items():
         data = info.get("data")
         if not data or not data.get("feeds"):
@@ -181,6 +193,9 @@ def main():
             try:
                 fetched = now()
                 for it in parse_feed(get(furl)):
+                    if is_collector_commit(it):
+                        skipped += 1
+                        continue
                     it["feed"] = f.get("title") or furl
                     it["fetched"] = fetched
                     items.append(it)
@@ -200,7 +215,7 @@ def main():
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump(out, fh, ensure_ascii=False, indent=2)
         fh.write("\n")
-    print(f"{len(out['nests'])} nests with feeds -> {OUT}")
+    print(f"{len(out['nests'])} nests with feeds -> {OUT} (skipped {skipped} collector commits)")
 
 
 if __name__ == "__main__":
