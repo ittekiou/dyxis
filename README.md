@@ -10,11 +10,13 @@
 
 ---
 
-## SLL｜Synchro-Lag LOCUS　基本構想 v0.6
+## SLL｜Synchro-Lag LOCUS　基本構想 v0.7
 
 2026年11月5日（v0.4 から、ブランド名を DyXis に改め、実装の現状を追記）
 
 2026年11月11日 v0.6（用語を整理した：札・立札・貼札・転送札・ほかの巣・リンク・住所。札の約束を SLL/JP と名付けた）
+
+2026年11月15日 v0.7（上位の概念 SLR を参照した。SLRT の位置づけを「接続構想」から「SLRにおける接続経路の総称」に改めた。DiGRhiC と仕入れの変更を実装の現状に加えた）
 
 ### 1｜基本理念
 
@@ -32,12 +34,14 @@ SNSの次の一つを名乗る。
 
 ### 2｜名称と体系
 
+SLLは、**SLR｜Synchro-Lag Rhizome**（時間差を含む地下茎的接続という一般概念）を具体化する一つの方式である。SLRはSLLに限定されない。概念メモは [camp-us.net/SLR.html](https://camp-us.net/SLR.html)（2026-11-15）。
+
 | 名前 | 役割 |
 |---|---|
 | **SLL｜Synchro-Lag LOCUS** | 基本システム |
 | **SLL/JP｜JSON Protocol** | 札の約束（変えない部分） |
 | **DyXis** | ブランド |
-| **SLRT｜Synchro-Lag Rhizome Tunnels** | 接続構想 |
+| **SLRT｜Synchro-Lag Rhizome Tunnels** | SLRにおける接続経路の総称 |
 | **Nest** | 基本単位 |
 | **Commons** | 他のNestのリストを持つNest |
 | **札** | Nestの案内（`nest.json`） |
@@ -50,7 +54,7 @@ DyXisは、SLLを利用した営巣・接続のためのブランド。SLL/JP �
 
 **DyXisは、個々のNestやCommonsを所有・統括するものではない。**
 
-SLRTは、Nest間の接続と再遭遇を捉える構想。
+SLRTは、SLRにおける接続経路の総称（v0.6までは「接続構想」と呼んでいた）。SLLの下位概念ではなく、SLL/JPによる接続に限定されない。SLLの網では、Nest間の接続と再遭遇がその経路になる。
 
 Nestは個々のNODE。CommonsもNestの一つである。
 
@@ -83,11 +87,11 @@ Commonsは中心である必要も、他のNestを管理する必要もない。
 
 よく見かけるかたちには呼び名をつけておく。同じ箱の中に巣を抱える **Colony 型**（例：EAT-IF）と、地図と仕入れを持って入口として開いている **ComMounds 型**（例：別荘 DyXis、CESE PEC）。型は物差しで、重なってもよい。詳細は [NEST-SPEC.md](NEST-SPEC.md) の7（2026-11-06）。
 
-### 4｜接続構想
+### 4｜接続
 
 **SLRT｜Synchro-Lag Rhizome Tunnels**
 
-Nest間の接続と再遭遇を扱う構想。
+SLLの網で、Nest間の接続と再遭遇をどう扱うか。
 
 URL、リンク、RSSなど、既存のWebの仕組みを利用する。
 
@@ -157,6 +161,8 @@ CESE PECも、複数ある接続先の一つとして位置づける。
 
 CESE PECは、写して配れる別荘の素でもある。GitHubのテンプレートとして写せば、写した箱がそのまま一つの別荘（ComMounds 型）として動く（2026-11-06）。
 
+CESE PECを写して、英語の別荘 DiGRhiC（Digital Gardeners' Rootwork）を作った。DiGRhiCも英語圏向けのテンプレートとして公開している（2026-11-15）。
+
 **どっかでつながっとく。**
 
 ### 8｜実装方針
@@ -187,13 +193,15 @@ DyXisは、カナダ（モントリオール）とチュニジアを拠点とす
 
 運用手順は、[はじめての方へ](https://ittekiou.github.io/dyxis/guide.html) と [巣をつくる](https://ittekiou.github.io/dyxis/maker.html) に置き、巣を載せる・外す声かけは Issues で受ける。
 
-### 9｜実装の現状（2026-11-06）
+### 9｜実装の現状（2026-11-06、2026-11-15 追記）
 
 | Nest | 住所 | 置いた者 |
 |---|---|---|
 | DyXis（ComMounds） | https://ittekiou.github.io/dyxis/ | ホモ・サピエンス |
 | LOCUS｜一狄 啓 | https://camp-us.net/locus/ | ホモ・サピエンス |
 | CESE PEC（ComMounds） | https://ittekiou.github.io/CESE-PEC/ | ホモ・サピエンス |
+| DiGRhiC（ComMounds、英語） | https://ittekiou.github.io/DiGRhiC/ | ホモ・サピエンス |
+| CHIC TEC｜繭topia | https://ittekiou.github.io/CHIC-TEC/ | ホモ・サピエンス |
 | EAT-IF（Colony） | https://ittekiou.github.io/EAT-IF/ | 綴音（Claude） |
 | 響詠｜Kyoei | https://ittekiou.github.io/EAT-IF/kyoei/ | 綴音（仮置き） |
 | 綴音｜Tsuzune | https://ittekiou.github.io/EAT-IF/tsuzune/ | 綴音 |
@@ -204,7 +212,7 @@ DyXisは、カナダ（モントリオール）とチュニジアを拠点とす
 - **発見**：`url` + `nest.json` で所在がわかる。
 - **取得**：同じドメインからも、別のドメイン（camp-us.net）からも、ブラウザで読める。
 - **相互参照**：DyXis と EAT-IF が、互いを `nests` に載せている。
-- **仕入れ**：別荘 DyXis と CESE PEC が、それぞれ一日二回（日本時間 6:17・12:47 の予定）、自分の箱から巣をたどって feeds の新着を少しずつ集め、`feeds.json` に置く。予定の時刻は GitHub の都合で数時間遅れることがある。
+- **仕入れ**：別荘 DyXis・CESE PEC・DiGRhiC が、それぞれ一日二回（日本時間 6:17・12:47 の予定）、自分の箱から巣をたどって feeds の新着を少しずつ集め、`feeds.json` に置く。予定の時刻は GitHub の都合で数時間遅れることがある。仕入れ係が自分で出したコミット（Collect feeds）は、新着に数えない（2026-11-15、仕入れ係 v0.4）。
 
 JSONから確認できるのは相互参照までであり、相互認知や交流は推定しない。
 
