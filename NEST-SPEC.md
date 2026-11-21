@@ -1,3 +1,7 @@
+---
+image: https://ittekiou.github.io/dyxis/ogp/dyxis.png
+description: SLL/JP（JSON Protocol）── nest.json の札の約束。DyXis の仕様案 v0.1。
+---
 # SLL/JP 仕様案 v0.1（nest.json）
 
 2026年11月5日｜DyXis（SLL｜Synchro-Lag LOCUS）👉 [DyXis の入口](https://ittekiou.github.io/dyxis/)
