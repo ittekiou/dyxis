@@ -1,0 +1,7 @@
+title: DyXis
+description: "DyXis — LOCUS. Not One Next. SNS Next ≠ SNS."
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: https://ittekiou.github.io/dyxis/ogp/dyxis.png
